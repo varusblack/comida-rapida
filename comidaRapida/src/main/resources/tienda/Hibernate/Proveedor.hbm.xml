@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="comidaRapida.src.main.java.tienda.entities.Proveedor" table="proveedor">
+		<id name="id" column="id_proveedor">
+			<generator class="identity"/>
+		</id>
+		<property name="nombre" type="string" column="nombre"/>
+		<property name="web" type="string" column="web"/>
+		<property name="email" type="string" column="email"/>
+		<property name="telefono" type="string" column="telefono"/>
+		<property name="direccion" type="direccion" column="direccion"/>
+	</class>
+    
+</hibernate-mapping>
