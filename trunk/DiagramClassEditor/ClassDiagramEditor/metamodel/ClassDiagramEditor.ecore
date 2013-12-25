@@ -45,7 +45,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Atributo" eSuperTypes="#//ObjetoNombrado">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="#//TiposBasicos"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="EDataType0"/>
   <eClassifiers xsi:type="ecore:EEnum" name="TiposBasicos">
     <eLiterals name="binary"/>
     <eLiterals name="boolean" value="1"/>
