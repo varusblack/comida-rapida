@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="classdiagrameditor" nsURI="http://classdiagrameditor/1.0" nsPrefix="classdiagrameditor">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="ObjetoNombrado" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramEditor" eSuperTypes="#//ObjetoNombrado">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="clasesDistintoNombre"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="clasesDistintoNombre" value="self.clases->isUnique(nombre)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="clases" upperBound="-1"
         eType="#//Clase" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relaciones" upperBound="-1"
+        eType="#//Relacion" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Clase" eSuperTypes="#//ObjetoNombrado">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="metodosDistintoNombre atributosDistintoNombre"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="metodosDistintoNombre" value="self.metodos->isUnique(nombre)"/>
+      <details key="atributosDistintoNombre" value="self.atributos->isUnique(nombre)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="atributos" upperBound="-1"
         eType="#//Atributo" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metodos" upperBound="-1"
@@ -17,10 +37,10 @@
         eOpposite="#//Clase/hija"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hija" eType="#//Clase"
         eOpposite="#//Clase/padre"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relaciona" eType="#//Relacion"
-        containment="true" eOpposite="#//Relacion/origen"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionada" eType="#//Relacion"
-        containment="true" eOpposite="#//Relacion/destino"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relaciona" upperBound="-1"
+        eType="#//Relacion" eOpposite="#//Relacion/origen"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionada" upperBound="-1"
+        eType="#//Relacion" eOpposite="#//Relacion/destino"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Atributo" eSuperTypes="#//ObjetoNombrado">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="#//TiposBasicos"/>
@@ -41,10 +61,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Metodo" eSuperTypes="#//ObjetoNombrado"/>
   <eClassifiers xsi:type="ecore:EClass" name="Relacion" eSuperTypes="#//ObjetoNombrado">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="origen" eType="#//Clase"
-        eOpposite="#//Clase/relaciona"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destino" eType="#//Clase"
-        eOpposite="#//Clase/es_relacionada"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/relaciona"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/es_relacionada"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Agregacion" eSuperTypes="#//Relacion"/>
   <eClassifiers xsi:type="ecore:EClass" name="Composicion" eSuperTypes="#//Relacion"/>

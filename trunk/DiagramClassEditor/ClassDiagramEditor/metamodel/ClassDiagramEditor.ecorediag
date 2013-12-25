@@ -366,4 +366,17 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="__rLCEG2rEeOHY98PAjjecg" id="(0.5857142857142857,0.23529411764705882)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="__rLCEW2rEeOHY98PAjjecg" id="(0.5658914728682171,0.21568627450980393)"/>
   </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_YTi0EG2uEeOHY98PAjjecg" type="3002" source="_uxAj0G2nEeObR40ncuQdbQ" target="_aauKsG2oEeObR40ncuQdbQ">
+    <children xmi:type="notation:Node" xmi:id="_YTjbIG2uEeOHY98PAjjecg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_YTjbIW2uEeOHY98PAjjecg" x="-34" y="-32"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_YTjbIm2uEeOHY98PAjjecg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_YTjbI22uEeOHY98PAjjecg" x="-14" y="-12"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_YTi0EW2uEeOHY98PAjjecg" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_YTi0Em2uEeOHY98PAjjecg" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="ClassDiagramEditor.ecore#//DiagramEditor/relaciones"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_YTi0E22uEeOHY98PAjjecg" points="[-19, 21, 94, -101]$[-111, 120, 2, -2]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_YTkCMG2uEeOHY98PAjjecg" id="(0.6470588235294118,0.06976744186046512)"/>
+  </edges>
 </notation:Diagram>
