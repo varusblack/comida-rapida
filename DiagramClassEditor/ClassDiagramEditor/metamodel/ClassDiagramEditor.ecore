@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="classdiagrameditor" nsURI="http://classdiagrameditor/1.0" nsPrefix="classdiagrameditor">
+  <eClassifiers xsi:type="ecore:EClass" name="ObjetoNombrado" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DiagramEditor" eSuperTypes="#//ObjetoNombrado">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="clases" upperBound="-1"
+        eType="#//Clase" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Clase" eSuperTypes="#//ObjetoNombrado">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="atributos" upperBound="-1"
+        eType="#//Atributo" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metodos" upperBound="-1"
+        eType="#//Metodo" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="padre" eType="#//Clase"
+        eOpposite="#//Clase/hija"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hija" eType="#//Clase"
+        eOpposite="#//Clase/padre"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relaciona" eType="#//Relacion"
+        containment="true" eOpposite="#//Relacion/origen"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionada" eType="#//Relacion"
+        containment="true" eOpposite="#//Relacion/destino"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Atributo" eSuperTypes="#//ObjetoNombrado">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="#//TiposBasicos"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="EDataType0"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="TiposBasicos">
+    <eLiterals name="binary"/>
+    <eLiterals name="boolean" value="1"/>
+    <eLiterals name="date" value="2"/>
+    <eLiterals name="datetime" value="3"/>
+    <eLiterals name="decimal" value="4"/>
+    <eLiterals name="float" value="5"/>
+    <eLiterals name="integer" value="6"/>
+    <eLiterals name="string" value="7"/>
+    <eLiterals name="text" value="8"/>
+    <eLiterals name="time" value="9"/>
+    <eLiterals name="timestamp" value="10"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Metodo" eSuperTypes="#//ObjetoNombrado"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Relacion" eSuperTypes="#//ObjetoNombrado">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen" eType="#//Clase"
+        eOpposite="#//Clase/relaciona"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino" eType="#//Clase"
+        eOpposite="#//Clase/es_relacionada"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Agregacion" eSuperTypes="#//Relacion"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Composicion" eSuperTypes="#//Relacion"/>
+</ecore:EPackage>
