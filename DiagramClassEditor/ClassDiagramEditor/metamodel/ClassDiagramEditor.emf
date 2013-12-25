@@ -57,21 +57,21 @@ enum TiposBasicos {
 class Metodo extends ObjetoNombrado {
 }
 
-@gmf.link(target.decoration="arrow", target="es_relacionada", source.decoration="none", source="relaciona", 
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", 
 style="solid", label="nombre", border.color="0,0,0", tool.description="Relación", tool.name="Relación")
 class Relacion extends ObjetoNombrado {
   ref Clase[1]#relaciona origen;
   ref Clase[1]#es_relacionada destino;
 }
 
-@gmf.link(target.decoration="arrow", target="es_agregada", source.decoration="filledrhomb", source="agrega", style="solid", 
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="filledrhomb", source="origen", style="solid", 
 label="nombre", border.color="0,0,0", tool.description="Agregación", tool.name="Agregación")
 class Agregacion extends Relacion {
   ref Clase[1]#agrega origen_a;
   ref Clase[1]#es_agregada destino_a;
 }
 
-@gmf.link(target.decoration="arrow", target="es_compuesta", source.decoration="filledrhomb", source="compone", style="solid", 
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="filledrhomb", source="origen", style="solid", 
 label="nombre", border.color="0,0,0", tool.description="Composición", tool.name="Composición")
 class Composicion extends Relacion {
   ref Clase[1]#compone origen_c;
