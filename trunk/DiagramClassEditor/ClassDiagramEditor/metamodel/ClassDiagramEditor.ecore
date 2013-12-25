@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="classdiagrameditor" nsURI="http://classdiagrameditor/1.0" nsPrefix="classdiagrameditor">
+  <eAnnotations source="gmf">
+    <details key="foo" value="foo"/>
+  </eAnnotations>
   <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
     <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
     <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
     <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="ObjetoNombrado" abstract="true">
+    <eAnnotations source="gmf.node">
+      <details key="label" value="nombre"/>
+      <details key="label.icon" value="false"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramEditor" eSuperTypes="#//ObjetoNombrado">
@@ -15,6 +22,9 @@
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
       <details key="clasesDistintoNombre" value="self.clases->isUnique(nombre)"/>
+    </eAnnotations>
+    <eAnnotations source="gmf.diagram">
+      <details key="foo" value="foo"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="clases" upperBound="-1"
         eType="#//Clase" containment="true"/>
@@ -29,6 +39,10 @@
       <details key="metodosDistintoNombre" value="self.metodos->isUnique(nombre)"/>
       <details key="atributosDistintoNombre" value="self.atributos->isUnique(nombre)"/>
     </eAnnotations>
+    <eAnnotations source="gmf.node">
+      <details key="tool.description" value="Clase"/>
+      <details key="tool.name" value="Clase"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="atributos" upperBound="-1"
         eType="#//Atributo" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metodos" upperBound="-1"
@@ -36,13 +50,32 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="padre" eType="#//Clase"
         eOpposite="#//Clase/hija"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hija" eType="#//Clase"
-        eOpposite="#//Clase/padre"/>
+        eOpposite="#//Clase/padre">
+      <eAnnotations source="gmf.link">
+        <details key="target.decoration" value="arrow"/>
+        <details key="style" value="solid"/>
+        <details key="tool.description" value="Hija"/>
+        <details key="tool.name" value="Hija"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relaciona" upperBound="-1"
         eType="#//Relacion" eOpposite="#//Relacion/origen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionada" upperBound="-1"
         eType="#//Relacion" eOpposite="#//Relacion/destino"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agrega" upperBound="-1"
+        eType="#//Agregacion" eOpposite="#//Agregacion/origen_a"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_agregada" upperBound="-1"
+        eType="#//Agregacion" eOpposite="#//Agregacion/destino_a"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compone" upperBound="-1"
+        eType="#//Composicion" eOpposite="#//Composicion/origen_c"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_compuesta" upperBound="-1"
+        eType="#//Composicion" eOpposite="#//Composicion/destino_c"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Atributo" eSuperTypes="#//ObjetoNombrado">
+    <eAnnotations source="gmf.node">
+      <details key="tool.description" value="Atributo"/>
+      <details key="tool.name" value="Atributo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="#//TiposBasicos"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TiposBasicos">
@@ -58,13 +91,57 @@
     <eLiterals name="time" value="9"/>
     <eLiterals name="timestamp" value="10"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Metodo" eSuperTypes="#//ObjetoNombrado"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Metodo" eSuperTypes="#//ObjetoNombrado">
+    <eAnnotations source="gmf.node">
+      <details key="tool.description" value="Método"/>
+      <details key="tool.name" value="Método"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Relacion" eSuperTypes="#//ObjetoNombrado">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="es_relacionada"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="relaciona"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="0,0,0"/>
+      <details key="tool.description" value="Relación"/>
+      <details key="tool.name" value="Relación"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="origen" lowerBound="1"
         eType="#//Clase" eOpposite="#//Clase/relaciona"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destino" lowerBound="1"
         eType="#//Clase" eOpposite="#//Clase/es_relacionada"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Agregacion" eSuperTypes="#//Relacion"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Composicion" eSuperTypes="#//Relacion"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Agregacion" eSuperTypes="#//Relacion">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="source.decoration" value="filledrhomb"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="0,0,0"/>
+      <details key="tool.description" value="Agregación"/>
+      <details key="tool.name" value="Agregación"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_a" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/agrega"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_a" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/es_agregada"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Composicion" eSuperTypes="#//Relacion">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="source.decoration" value="filledrhomb"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="0,0,0"/>
+      <details key="tool.description" value="Composición"/>
+      <details key="tool.name" value="Composición"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_c" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/compone"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_c" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/es_compuesta"/>
+  </eClassifiers>
 </ecore:EPackage>

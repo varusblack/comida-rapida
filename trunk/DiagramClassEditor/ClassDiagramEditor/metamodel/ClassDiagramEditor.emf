@@ -1,17 +1,16 @@
-@gmf(foo = "foo")
+@gmf(foo="foo")
 @Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
 @namespace(uri="http://classdiagrameditor/1.0", prefix="classdiagrameditor")
 package classdiagrameditor;
 
-@gmf.node(label = "nombre", 
-	label.icon = "false")
+@gmf.node(label="nombre", label.icon="false")
 abstract class ObjetoNombrado {
   attr String nombre;
 }
 
 @Ecore(constraints="clasesDistintoNombre")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(clasesDistintoNombre="self.clases->isUnique(nombre)")
-@gmf.diagram(foo = "foo")
+@gmf.diagram(foo="foo")
 class DiagramEditor extends ObjetoNombrado {
   val Clase[*] clases;
   val Relacion[*] relaciones;
@@ -19,23 +18,23 @@ class DiagramEditor extends ObjetoNombrado {
 
 @Ecore(constraints="metodosDistintoNombre atributosDistintoNombre")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)")
-@gmf.node(tool.description = "Clase", 
-	tool.name = "Clase")
+@gmf.node(tool.description="Clase", tool.name="Clase")
 class Clase extends ObjetoNombrado {
   val Atributo[*] atributos;
   val Metodo[*] metodos;
   ref Clase#hija padre;
-  @gmf.link(target.decoration = "arrow", 
-  	style = "solid", 
-  	tool.description = "Hija", 
-  	tool.name = "Hija")
+
+  @gmf.link(target.decoration="arrow", style="solid", tool.description="Hija", tool.name="Hija")
   ref Clase#padre hija;
   ref Relacion[*]#origen relaciona;
   ref Relacion[*]#destino es_relacionada;
+  ref Agregacion[*]#origen_a agrega;
+  ref Agregacion[*]#destino_a es_agregada;
+  ref Composicion[*]#origen_c compone;
+  ref Composicion[*]#destino_c es_compuesta;
 }
 
-@gmf.node(tool.description = "Atributo", 
-	tool.name = "Atributo")
+@gmf.node(tool.description="Atributo", tool.name="Atributo")
 class Atributo extends ObjetoNombrado {
   attr TiposBasicos tipo;
 }
@@ -54,47 +53,28 @@ enum TiposBasicos {
   timestamp = 10;
 }
 
-@gmf.node(tool.description = "Método", 
-	tool.name = "Método")
+@gmf.node(tool.description="Método", tool.name="Método")
 class Metodo extends ObjetoNombrado {
 }
 
-@gmf.link(target.decoration = "arrow", 
-	target = "es_relacionada", 
-	source.decoration = "none", 
-	source = "relaciona", 
-	style = "solid",
-	label = "nombre", 
-	border.color = "0,0,0", 
-	tool.description = "Relación", 
-	tool.name = "Relación"
-	)
+@gmf.link(target.decoration="arrow", target="es_relacionada", source.decoration="none", source="relaciona", 
+style="solid", label="nombre", border.color="0,0,0", tool.description="Relación", tool.name="Relación")
 class Relacion extends ObjetoNombrado {
   ref Clase[1]#relaciona origen;
   ref Clase[1]#es_relacionada destino;
 }
 
-@gmf.link(target.decoration = "arrow", 
-	target = "es_relacionada", 
-	source.decoration = "filledrhomb", 
-	source = "relaciona", 
-	style = "solid",
-	label = "nombre", 
-	border.color = "0,0,0", 
-	tool.description = "Agregación", 
-	tool.name = "Agregación")
+@gmf.link(target.decoration="arrow", target="es_agregada", source.decoration="filledrhomb", source="agrega", style="solid", 
+label="nombre", border.color="0,0,0", tool.description="Agregación", tool.name="Agregación")
 class Agregacion extends Relacion {
+  ref Clase[1]#agrega origen_a;
+  ref Clase[1]#es_agregada destino_a;
 }
 
-@gmf.link(target.decoration = "arrow", 
-	target = "es_relacionada", 
-	source.decoration = "filledrhomb", 
-	source = "relaciona", 
-	style = "solid",
-	label = "nombre", 
-	border.color = "0,0,0", 
-	tool.description = "Composición", 
-	tool.name = "Composición")
+@gmf.link(target.decoration="arrow", target="es_compuesta", source.decoration="filledrhomb", source="compone", style="solid", 
+label="nombre", border.color="0,0,0", tool.description="Composición", tool.name="Composición")
 class Composicion extends Relacion {
+  ref Clase[1]#compone origen_c;
+  ref Clase[1]#es_compuesta destino_c;
 }
 
