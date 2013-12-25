@@ -3,7 +3,6 @@
 @namespace(uri="http://classdiagrameditor/1.0", prefix="classdiagrameditor")
 package classdiagrameditor;
 
-@gmf.node(label="nombre", label.icon="false")
 abstract class ObjetoNombrado {
   attr String nombre;
 }
@@ -18,13 +17,15 @@ class DiagramEditor extends ObjetoNombrado {
 
 @Ecore(constraints="metodosDistintoNombre atributosDistintoNombre")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)")
-@gmf.node(tool.description="Clase", tool.name="Clase")
+@gmf.node(label="nombre", label.icon = "false", tool.description="Clase", tool.name="Clase")
 class Clase extends ObjetoNombrado {
+@gmf.compartment
   val Atributo[*] atributos;
+@gmf.compartment
   val Metodo[*] metodos;
   ref Clase#hija padre;
 
-  @gmf.link(target.decoration="arrow", style="solid", tool.description="Hija", tool.name="Hija")
+  @gmf.link(target.decoration="closedarrow", style="solid", tool.description="Hija", tool.name="Hija")
   ref Clase#padre hija;
   ref Relacion[*]#origen relaciona;
   ref Relacion[*]#destino es_relacionada;
@@ -34,7 +35,7 @@ class Clase extends ObjetoNombrado {
   ref Composicion[*]#destino_c es_compuesta;
 }
 
-@gmf.node(tool.description="Atributo", tool.name="Atributo")
+@gmf.node(label="nombre", label.icon = "false", tool.description="Atributo", tool.name="Atributo")
 class Atributo extends ObjetoNombrado {
   attr TiposBasicos tipo;
 }
@@ -53,7 +54,7 @@ enum TiposBasicos {
   timestamp = 10;
 }
 
-@gmf.node(tool.description="Método", tool.name="Método")
+@gmf.node(label="nombre", label.icon = "false", tool.description="Método", tool.name="Método")
 class Metodo extends ObjetoNombrado {
 }
 
@@ -64,7 +65,7 @@ class Relacion extends ObjetoNombrado {
   ref Clase[1]#es_relacionada destino;
 }
 
-@gmf.link(target.decoration="arrow", target="destino", source.decoration="filledrhomb", source="origen", style="solid", 
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="rhomb", source="origen", style="solid", 
 label="nombre", border.color="0,0,0", tool.description="Agregación", tool.name="Agregación")
 class Agregacion extends Relacion {
   ref Clase[1]#agrega origen_a;
