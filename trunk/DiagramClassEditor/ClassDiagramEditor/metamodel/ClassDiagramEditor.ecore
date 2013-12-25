@@ -10,10 +10,6 @@
     <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="ObjetoNombrado" abstract="true">
-    <eAnnotations source="gmf.node">
-      <details key="label" value="nombre"/>
-      <details key="label.icon" value="false"/>
-    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nombre" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramEditor" eSuperTypes="#//ObjetoNombrado">
@@ -40,19 +36,25 @@
       <details key="atributosDistintoNombre" value="self.atributos->isUnique(nombre)"/>
     </eAnnotations>
     <eAnnotations source="gmf.node">
+      <details key="label" value="nombre"/>
+      <details key="label.icon" value="false"/>
       <details key="tool.description" value="Clase"/>
       <details key="tool.name" value="Clase"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="atributos" upperBound="-1"
-        eType="#//Atributo" containment="true"/>
+        eType="#//Atributo" containment="true">
+      <eAnnotations source="gmf.compartment"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metodos" upperBound="-1"
-        eType="#//Metodo" containment="true"/>
+        eType="#//Metodo" containment="true">
+      <eAnnotations source="gmf.compartment"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="padre" eType="#//Clase"
         eOpposite="#//Clase/hija"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hija" eType="#//Clase"
         eOpposite="#//Clase/padre">
       <eAnnotations source="gmf.link">
-        <details key="target.decoration" value="arrow"/>
+        <details key="target.decoration" value="closedarrow"/>
         <details key="style" value="solid"/>
         <details key="tool.description" value="Hija"/>
         <details key="tool.name" value="Hija"/>
@@ -73,6 +75,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Atributo" eSuperTypes="#//ObjetoNombrado">
     <eAnnotations source="gmf.node">
+      <details key="label" value="nombre"/>
+      <details key="label.icon" value="false"/>
       <details key="tool.description" value="Atributo"/>
       <details key="tool.name" value="Atributo"/>
     </eAnnotations>
@@ -93,6 +97,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Metodo" eSuperTypes="#//ObjetoNombrado">
     <eAnnotations source="gmf.node">
+      <details key="label" value="nombre"/>
+      <details key="label.icon" value="false"/>
       <details key="tool.description" value="Método"/>
       <details key="tool.name" value="Método"/>
     </eAnnotations>
@@ -100,9 +106,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Relacion" eSuperTypes="#//ObjetoNombrado">
     <eAnnotations source="gmf.link">
       <details key="target.decoration" value="arrow"/>
-      <details key="target" value="es_relacionada"/>
+      <details key="target" value="destino"/>
       <details key="source.decoration" value="none"/>
-      <details key="source" value="relaciona"/>
+      <details key="source" value="origen"/>
       <details key="style" value="solid"/>
       <details key="label" value="nombre"/>
       <details key="border.color" value="0,0,0"/>
@@ -117,7 +123,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Agregacion" eSuperTypes="#//Relacion">
     <eAnnotations source="gmf.link">
       <details key="target.decoration" value="arrow"/>
-      <details key="source.decoration" value="filledrhomb"/>
+      <details key="target" value="destino"/>
+      <details key="source.decoration" value="rhomb"/>
+      <details key="source" value="origen"/>
       <details key="style" value="solid"/>
       <details key="label" value="nombre"/>
       <details key="border.color" value="0,0,0"/>
@@ -132,7 +140,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Composicion" eSuperTypes="#//Relacion">
     <eAnnotations source="gmf.link">
       <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino"/>
       <details key="source.decoration" value="filledrhomb"/>
+      <details key="source" value="origen"/>
       <details key="style" value="solid"/>
       <details key="label" value="nombre"/>
       <details key="border.color" value="0,0,0"/>
