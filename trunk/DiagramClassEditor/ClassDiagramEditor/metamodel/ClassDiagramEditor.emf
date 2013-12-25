@@ -1,0 +1,100 @@
+@gmf(foo = "foo")
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="http://classdiagrameditor/1.0", prefix="classdiagrameditor")
+package classdiagrameditor;
+
+@gmf.node(label = "nombre", 
+	label.icon = "false")
+abstract class ObjetoNombrado {
+  attr String nombre;
+}
+
+@Ecore(constraints="clasesDistintoNombre")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(clasesDistintoNombre="self.clases->isUnique(nombre)")
+@gmf.diagram(foo = "foo")
+class DiagramEditor extends ObjetoNombrado {
+  val Clase[*] clases;
+  val Relacion[*] relaciones;
+}
+
+@Ecore(constraints="metodosDistintoNombre atributosDistintoNombre")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)")
+@gmf.node(tool.description = "Clase", 
+	tool.name = "Clase")
+class Clase extends ObjetoNombrado {
+  val Atributo[*] atributos;
+  val Metodo[*] metodos;
+  ref Clase#hija padre;
+  @gmf.link(target.decoration = "arrow", 
+  	style = "solid", 
+  	tool.description = "Hija", 
+  	tool.name = "Hija")
+  ref Clase#padre hija;
+  ref Relacion[*]#origen relaciona;
+  ref Relacion[*]#destino es_relacionada;
+}
+
+@gmf.node(tool.description = "Atributo", 
+	tool.name = "Atributo")
+class Atributo extends ObjetoNombrado {
+  attr TiposBasicos tipo;
+}
+
+enum TiposBasicos {
+  binary = 0;
+  boolean = 1;
+  date = 2;
+  datetime = 3;
+  decimal = 4;
+  float = 5;
+  integer = 6;
+  string = 7;
+  text = 8;
+  time = 9;
+  timestamp = 10;
+}
+
+@gmf.node(tool.description = "Método", 
+	tool.name = "Método")
+class Metodo extends ObjetoNombrado {
+}
+
+@gmf.link(target.decoration = "arrow", 
+	target = "es_relacionada", 
+	source.decoration = "none", 
+	source = "relaciona", 
+	style = "solid",
+	label = "nombre", 
+	border.color = "0,0,0", 
+	tool.description = "Relación", 
+	tool.name = "Relación"
+	)
+class Relacion extends ObjetoNombrado {
+  ref Clase[1]#relaciona origen;
+  ref Clase[1]#es_relacionada destino;
+}
+
+@gmf.link(target.decoration = "arrow", 
+	target = "es_relacionada", 
+	source.decoration = "filledrhomb", 
+	source = "relaciona", 
+	style = "solid",
+	label = "nombre", 
+	border.color = "0,0,0", 
+	tool.description = "Agregación", 
+	tool.name = "Agregación")
+class Agregacion extends Relacion {
+}
+
+@gmf.link(target.decoration = "arrow", 
+	target = "es_relacionada", 
+	source.decoration = "filledrhomb", 
+	source = "relaciona", 
+	style = "solid",
+	label = "nombre", 
+	border.color = "0,0,0", 
+	tool.description = "Composición", 
+	tool.name = "Composición")
+class Composicion extends Relacion {
+}
+
