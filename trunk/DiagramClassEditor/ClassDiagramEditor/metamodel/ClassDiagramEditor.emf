@@ -35,7 +35,7 @@ class Clase extends ObjetoNombrado {
   ref Composicion[*]#destino_c es_compuesta;
 }
 
-@gmf.node(label="nombre", label.icon="false", tool.description="Atributo", tool.name="Atributo", label.pattern="{0} : {1}", label.edit.pattern="{0}")
+@gmf.node(label="nombre, tipo", label.icon="false", tool.description="Atributo", tool.name="Atributo", label.pattern="{0} : {1}", label.edit.pattern="{0}")
 class Atributo extends ObjetoNombrado {
   attr TiposBasicos tipo;
 }
