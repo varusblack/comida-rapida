@@ -13,19 +13,23 @@ abstract class ObjetoNombrado {
 class DiagramEditor extends ObjetoNombrado {
   val Clase[*] clases;
   val Relacion[*] relaciones;
+  val Agregacion[*] agregaciones;
+  val Composicion[*] composiciones;
 }
 
 @Ecore(constraints="metodosDistintoNombre atributosDistintoNombre hijaDeSiMisma agregadaPorSiMisma compuestaPorSiMisma")
 @gmf.node(label="nombre", label.icon="false", tool.description="Clase", tool.name="Clase")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)", hijaDeSiMisma="self->closure(padre)->excludes(self)", agregadaPorSiMisma="self.agrega <> self.es_agregada", compuestaPorSiMisma="self.compone <> self.es_compuesta")
 class Clase extends ObjetoNombrado {
-@gmf.compartment
+
+  @gmf.compartment
   val Atributo[*] atributos;
-@gmf.compartment
+
+  @gmf.compartment
   val Metodo[*] metodos;
   ref Clase[*]#hija padre;
 
-  @gmf.link(target.decoration="closedarrow", style="solid", tool.description="Hija", tool.name="Hija", color = "0,0,0")
+  @gmf.link(target.decoration="closedarrow", style="solid", tool.description="Hija", tool.name="Hija", color="0,0,0")
   ref Clase[*]#padre hija;
   ref Relacion[*]#origen relaciona;
   ref Relacion[*]#destino es_relacionada;
@@ -58,20 +62,20 @@ enum TiposBasicos {
 class Metodo extends ObjetoNombrado {
 }
 
-@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color = "0,0,0", tool.description="Relación", tool.name="Relación")
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Relación", tool.name="Relación")
 class Relacion extends ObjetoNombrado {
   ref Clase[1]#relaciona origen;
   ref Clase[1]#es_relacionada destino;
 }
 
-@gmf.link(target.decoration="arrow", target="destino_a", source.decoration="rhomb", source="origen_a", style="solid", label="nombre", border.color="0,0,0", color = "0,0,0", tool.description="Agregación", tool.name="Agregación")
-class Agregacion extends Relacion {
+@gmf.link(target.decoration="arrow", target="destino_a", source.decoration="rhomb", source="origen_a", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Agregación", tool.name="Agregación")
+class Agregacion extends ObjetoNombrado {
   ref Clase[1]#agrega origen_a;
   ref Clase[1]#es_agregada destino_a;
 }
 
-@gmf.link(target.decoration="arrow", target="destino_c", source.decoration="filledrhomb", source="origen_c", style="solid", label="nombre", border.color="0,0,0", color = "0,0,0", tool.description="Composición", tool.name="Composición")
-class Composicion extends Relacion {
+@gmf.link(target.decoration="arrow", target="destino_c", source.decoration="filledrhomb", source="origen_c", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Composición", tool.name="Composición")
+class Composicion extends ObjetoNombrado {
   ref Clase[1]#compone origen_c;
   ref Clase[1]#es_compuesta destino_c;
 }
