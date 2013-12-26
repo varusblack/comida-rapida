@@ -79,11 +79,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Atributo" eSuperTypes="#//ObjetoNombrado">
     <eAnnotations source="gmf.node">
-      <details key="label" value="nombre"/>
+      <details key="label" value="nombre, tipo"/>
       <details key="label.icon" value="false"/>
       <details key="tool.description" value="Atributo"/>
       <details key="tool.name" value="Atributo"/>
-      <details key="label.pattern" value="{0} : {0}"/>
+      <details key="label.pattern" value="{0} : {1}"/>
       <details key="label.edit.pattern" value="{0}"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="#//TiposBasicos"/>
