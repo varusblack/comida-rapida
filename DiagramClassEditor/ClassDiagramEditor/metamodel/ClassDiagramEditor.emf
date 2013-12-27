@@ -17,15 +17,13 @@ class DiagramEditor extends ObjetoNombrado {
   val Composicion[*] composiciones;
 }
 
-@Ecore(constraints="metodosDistintoNombre atributosDistintoNombre hijaDeSiMisma agregadaPorSiMisma compuestaPorSiMisma")
+@Ecore(constraints="metodosDistintoNombre atributosDistintoNombre hijaDeSiMisma")
 @gmf.node(label="nombre", label.icon="false", tool.description="Clase", tool.name="Clase")
-@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)", hijaDeSiMisma="self->closure(padre)->excludes(self)", agregadaPorSiMisma="self.agrega <> self.es_agregada", compuestaPorSiMisma="self.compone <> self.es_compuesta")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)", hijaDeSiMisma="self->closure(padre)->excludes(self)")
 class Clase extends ObjetoNombrado {
-
   @gmf.compartment
   val Atributo[*] atributos;
-
-  @gmf.compartment
+  @gmf.compartment  
   val Metodo[*] metodos;
   ref Clase[*]#hija padre;
 
@@ -68,13 +66,17 @@ class Relacion extends ObjetoNombrado {
   ref Clase[1]#es_relacionada destino;
 }
 
+@Ecore(constraints="agregadaPorSiMisma")
 @gmf.link(target.decoration="arrow", target="destino_a", source.decoration="rhomb", source="origen_a", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Agregación", tool.name="Agregación")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(agregadaPorSiMisma="self.destino_a <> self.origen_a")
 class Agregacion extends ObjetoNombrado {
   ref Clase[1]#agrega origen_a;
   ref Clase[1]#es_agregada destino_a;
 }
 
+@Ecore(constraints="compuestaPorSiMisma")
 @gmf.link(target.decoration="arrow", target="destino_c", source.decoration="filledrhomb", source="origen_c", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Composición", tool.name="Composición")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(compuestaPorSiMisma="self.destino_c <> self.origen_c")
 class Composicion extends ObjetoNombrado {
   ref Clase[1]#compone origen_c;
   ref Clase[1]#es_compuesta destino_c;
