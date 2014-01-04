@@ -3,14 +3,16 @@
 @namespace(uri="http://classdiagrameditor/1.0", prefix="classdiagrameditor")
 package classdiagrameditor;
 
-abstract class ObjetoNombrado {
+@Ecore(constraints="nombreNoValido")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(nombreNoValido="Sequence{1 .. self.nombre.size()}->collect(i | self.nombre.substring(i, i))->excludes(' ')")
+abstract class ElementoDiagrama {
   attr String nombre;
 }
 
 @Ecore(constraints="clasesDistintoNombre")
 @gmf.diagram(foo="foo")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(clasesDistintoNombre="self.clases->isUnique(nombre)")
-class DiagramEditor extends ObjetoNombrado {
+class DiagramEditor extends ElementoDiagrama {
   val Clase[*] clases;
   val Relacion[*] relaciones;
   val Agregacion[*] agregaciones;
@@ -20,10 +22,12 @@ class DiagramEditor extends ObjetoNombrado {
 @Ecore(constraints="metodosDistintoNombre atributosDistintoNombre hijaDeSiMisma")
 @gmf.node(label="nombre", label.icon="false", tool.description="Clase", tool.name="Clase")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)", hijaDeSiMisma="self->closure(padre)->excludes(self)")
-class Clase extends ObjetoNombrado {
-  @gmf.compartment
+class Clase extends ElementoDiagrama {
+
+  @gmf.compartment(layout="list")
   val Atributo[*] atributos;
-  @gmf.compartment  
+
+  @gmf.compartment(layout="list")
   val Metodo[*] metodos;
   ref Clase[*]#hija padre;
 
@@ -37,8 +41,8 @@ class Clase extends ObjetoNombrado {
   ref Composicion[*]#destino_c es_compuesta;
 }
 
-@gmf.node(label="nombre, tipo", label.icon="false", tool.description="Atributo", tool.name="Atributo", label.pattern="{0} : {1}", label.edit.pattern="{0}")
-class Atributo extends ObjetoNombrado {
+@gmf.node(label="nombre, tipo", label.icon="true", figure = "rectangle", tool.description="Atributo", tool.name="Atributo", label.pattern="{0} : {1}", label.edit.pattern="{0}")
+class Atributo extends ElementoDiagrama {
   attr TiposBasicos tipo;
 }
 
@@ -56,12 +60,12 @@ enum TiposBasicos {
   timestamp = 10;
 }
 
-@gmf.node(label="nombre", label.icon="false", tool.description="Método", tool.name="Método")
-class Metodo extends ObjetoNombrado {
+@gmf.node(label="nombre", label.icon="true", figure = "rectangle", tool.description="Método", tool.name="Método")
+class Metodo extends ElementoDiagrama {
 }
 
 @gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Relación", tool.name="Relación")
-class Relacion extends ObjetoNombrado {
+class Relacion extends ElementoDiagrama {
   ref Clase[1]#relaciona origen;
   ref Clase[1]#es_relacionada destino;
 }
@@ -69,7 +73,7 @@ class Relacion extends ObjetoNombrado {
 @Ecore(constraints="agregadaPorSiMisma")
 @gmf.link(target.decoration="arrow", target="destino_a", source.decoration="rhomb", source="origen_a", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Agregación", tool.name="Agregación")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(agregadaPorSiMisma="self.destino_a <> self.origen_a")
-class Agregacion extends ObjetoNombrado {
+class Agregacion extends ElementoDiagrama {
   ref Clase[1]#agrega origen_a;
   ref Clase[1]#es_agregada destino_a;
 }
@@ -77,7 +81,7 @@ class Agregacion extends ObjetoNombrado {
 @Ecore(constraints="compuestaPorSiMisma")
 @gmf.link(target.decoration="arrow", target="destino_c", source.decoration="filledrhomb", source="origen_c", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Composición", tool.name="Composición")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(compuestaPorSiMisma="self.destino_c <> self.origen_c")
-class Composicion extends ObjetoNombrado {
+class Composicion extends ElementoDiagrama {
   ref Clase[1]#compone origen_c;
   ref Clase[1]#es_compuesta destino_c;
 }
