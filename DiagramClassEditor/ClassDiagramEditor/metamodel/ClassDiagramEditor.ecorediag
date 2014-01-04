@@ -4,7 +4,7 @@
     <children xmi:type="notation:Node" xmi:id="_pXrHoG2nEeObR40ncuQdbQ" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_pXrHoW2nEeObR40ncuQdbQ" type="5001">
       <children xmi:type="notation:Node" xmi:id="_sSn10G2nEeObR40ncuQdbQ" type="2001">
-        <element xmi:type="ecore:EAttribute" href="ClassDiagramEditor.ecore#//ObjetoNombrado/nombre"/>
+        <element xmi:type="ecore:EAttribute" href="ClassDiagramEditor.ecore#//ElementoDiagrama/nombre"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_sSn10W2nEeObR40ncuQdbQ"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_pXrHom2nEeObR40ncuQdbQ"/>
@@ -17,7 +17,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_pXrus22nEeObR40ncuQdbQ"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_pXp5gW2nEeObR40ncuQdbQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="ClassDiagramEditor.ecore#//ObjetoNombrado"/>
+    <element xmi:type="ecore:EClass" href="ClassDiagramEditor.ecore#//ElementoDiagrama"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pXp5gm2nEeObR40ncuQdbQ" x="395" y="45"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_uxAj0G2nEeObR40ncuQdbQ" type="1001">
@@ -125,7 +125,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_A2PD0W2oEeObR40ncuQdbQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EEnum" href="ClassDiagramEditor.ecore#//TiposBasicos"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_A2PD0m2oEeObR40ncuQdbQ" x="780" y="10"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_A2PD0m2oEeObR40ncuQdbQ" x="795" y="50"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_WlN4wG2oEeObR40ncuQdbQ" type="1001">
     <children xmi:type="notation:Node" xmi:id="_WlN4w22oEeObR40ncuQdbQ" type="4001"/>
