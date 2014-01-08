@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classdiagrameditor:DiagramEditor xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagrameditor="http://classdiagrameditor/1.0" nombre="Diagrama1">
+  <clases nombre="Clase1">
+    <atributos nombre="atrBinary"/>
+  </clases>
+</classdiagrameditor:DiagramEditor>

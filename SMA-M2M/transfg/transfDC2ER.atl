@@ -1,0 +1,36 @@
+-- @nsURI ERMetamodelo=http://database/1.0
+-- @nsURI DCMetamodelo=http://classdiagrameditor/1.0
+
+module transfDC2ER;
+create outER : ERMetamodelo from inDC : DCMetamodelo;
+
+rule Atributo2Columna {
+	from
+		inDC : DCMetamodelo!Atributo
+	to
+		outER : ERMetamodelo!Column(
+			name <- inDC.nombre,
+			type <- inDC.tipo			
+		)
+}
+
+rule Clase2Tabla {
+	from 
+		inDC : DCMetamodelo!Clase
+	to
+		outER : ERMetamodelo!Table(
+			name <- inDC.nombre,
+			columns <- inDC.atributos
+		)
+}
+
+rule DiagramaClase2DiagramaEntidadRelacion {
+	from
+		inDC : DCMetamodelo!DiagramEditor
+	to	
+		outER : ERMetamodelo!Schema (
+			name <- inDC.nombre,
+			tables <- inDC.clases
+		)
+			
+}
