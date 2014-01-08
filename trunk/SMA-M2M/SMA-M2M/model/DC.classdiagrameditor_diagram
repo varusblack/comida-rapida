@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagrameditor="http://classdiagrameditor/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_ogAEAHPiEeOSItMxusFSZg" type="Classdiagrameditor" name="DC.classdiagrameditor_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_wM_k4HPiEeOX4tJEJKoGuQ" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_wNBaEHPiEeOX4tJEJKoGuQ" type="5003"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_wNBaEXPiEeOX4tJEJKoGuQ" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_1M8QsHPiEeOX4tJEJKoGuQ" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_1M8QsnPiEeOX4tJEJKoGuQ" type="5001"/>
+        <element xmi:type="classdiagrameditor:Atributo" href="DC.classdiagrameditor#//@clases.0/@atributos.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1M8QsXPiEeOX4tJEJKoGuQ" x="20" y="9"/>
+      </children>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_wNBaEnPiEeOX4tJEJKoGuQ" type="7002"/>
+    <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_wM_k4XPiEeOX4tJEJKoGuQ"/>
+    <element xmi:type="classdiagrameditor:Clase" href="DC.classdiagrameditor#//@clases.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wM_k4nPiEeOX4tJEJKoGuQ" x="350" y="125" width="182" height="149"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_ogAEAXPiEeOSItMxusFSZg"/>
+  <element xmi:type="classdiagrameditor:DiagramEditor" href="DC.classdiagrameditor#/"/>
+</notation:Diagram>
