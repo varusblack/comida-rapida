@@ -24,6 +24,13 @@ rule Clase2Tabla {
 		)
 }
 
+helper def: obtenerClasesHijas(clases : Set(DCMetamodelo!Clase), clase : DCMetamodelo!Clase):  
+	Set(DCMetamodelo!Clase) = clases->select(clase | not clase.padre.oclIsUndefined())
+		->collect(c | clase.padre.includes(c));
+
+--Hay que iterar sobre las clases hijas
+	
+
 rule DiagramaClase2DiagramaEntidadRelacion {
 	from
 		inDC : DCMetamodelo!DiagramEditor
