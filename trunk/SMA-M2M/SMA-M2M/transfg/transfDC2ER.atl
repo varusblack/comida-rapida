@@ -53,36 +53,18 @@ rule Clase2Table {
 			foreignKeys <- inDC.compone,
 			foreignKeys <- inDC.agrega,
 			name <- inDC.nombre,
-			columns <- inDC.obtenerAtributos(inDC)
+			columns <- inDC.todosLosAtributos(inDC)
 		)
 }
 
---rule Clase2TablaConHerencia {
---	from
---		inDC : DCMetamodelo!Clase (not inDC.hija.oclIsUndefined())
---	to
---		outER : ERMetamodelo!Table (
---			name <- inDC.nombre,	
---			columns <- inDC.atributosPropiosYPadre()
---		)
---}
 helper context DCMetamodelo!Clase def: todosLosAtributos(clase : DCMetamodelo!Clase):
 	OrderedSet(DCMetamodelo!Atributo) = if clase.hija->isEmpty() then clase.atributos->asOrderedSet()
 		else clase.atributos->asOrderedSet()->union(clase.hija->asOrderedSet()->first().atributos->asOrderedSet())
 		endif;
 
 
---helper context DCMetamodelo!Clase def: todosLosAtributos(clase : DCMetamodelo!Clase):
---	Sequence(DCMetamodelo!Atributo) = if clase.hija.isEmpty() then clase.atributos->asSequence()
---		else clase.atributos->asSequence()->union(clase.obtenerAtributos(clase.hija->asSequence().first()))
---		endif;
---self.atributos->asOrderedSet()->union(self.hija->asOrderedSet()->first().atributos)
-
-
-
-
-helper context DCMetamodelo!Clase def: obtenerAtributos(clase : DCMetamodelo!Clase):
-	OrderedSet(DCMetamodelo!Atributo) = clase.atributos;
+--helper context DCMetamodelo!Clase def: obtenerAtributos(clase : DCMetamodelo!Clase):
+--	OrderedSet(DCMetamodelo!Atributo) = clase.atributos;
 
 
 
