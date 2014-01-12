@@ -4,6 +4,36 @@
 module transfDC2ER;
 create outER : ERMetamodelo from inDC : DCMetamodelo;
 
+rule Relacion2ForeingKey{
+	from
+		inDC : DCMetamodelo!Relacion
+	to
+		outER : ERMetamodelo!ForeignKey(
+			column <- inDC.origen.atributos->asOrderedSet()->first(),
+			reference <- inDC.destino
+		)
+}
+
+rule Agregacion2ForeingKey{
+	from
+		inDC : DCMetamodelo!Agregacion
+	to
+		outER : ERMetamodelo!ForeignKey(
+			column <- inDC.origen_a.atributos->asOrderedSet()->first(),
+			reference <- inDC.destino_a
+		)
+}
+
+rule Composicion2ForeingKey{
+	from
+		inDC : DCMetamodelo!Composicion
+	to
+		outER : ERMetamodelo!ForeignKey(
+			column <- inDC.origen_c.atributos->asOrderedSet()->first(),
+			reference <- inDC.destino_c
+		)
+}
+
 rule Atributo2Columna {
 	from
 		inDC : DCMetamodelo!Atributo
@@ -14,36 +44,47 @@ rule Atributo2Columna {
 		)
 }
 
---rule Clase2TablaSinHerencia {
---	from 
---		inDC : DCMetamodelo!Clase (inDC.hija.isEmpty() or inDC.padre.isEmpty())
---	to
---		outER : ERMetamodelo!Table(
---			name <- inDC.nombre,
---			columns <- inDC.atributos
---		)
---}
-
-rule Clase2TablaConHerencia {
-	from
-		inDC : DCMetamodelo!Clase (not inDC.hija.oclIsUndefined())
+rule Clase2Table {
+	from 
+		inDC : DCMetamodelo!Clase
 	to
-		outER : ERMetamodelo!Table (
-			name <- inDC.nombre,	
-			columns <- inDC.atributosPropiosYPadre()
+		outER : ERMetamodelo!Table(
+			foreignKeys <- inDC.relaciona,
+			foreignKeys <- inDC.compone,
+			foreignKeys <- inDC.agrega,
+			name <- inDC.nombre,
+			columns <- inDC.obtenerAtributos(inDC)
 		)
 }
 
-helper context DCMetamodelo!Clase def: atributosPropiosYPadre(): 
-	Sequence(DCMetamodelo!Atributo) = self->collect(c | c.atributos)->asSequence()->union(self.hija.atributos)->asSequence();
---self->collect(c | c.atributos)->asSequence()->union(self.hija.atributos)
+--rule Clase2TablaConHerencia {
+--	from
+--		inDC : DCMetamodelo!Clase (not inDC.hija.oclIsUndefined())
+--	to
+--		outER : ERMetamodelo!Table (
+--			name <- inDC.nombre,	
+--			columns <- inDC.atributosPropiosYPadre()
+--		)
+--}
+helper context DCMetamodelo!Clase def: todosLosAtributos(clase : DCMetamodelo!Clase):
+	OrderedSet(DCMetamodelo!Atributo) = if clase.hija->isEmpty() then clase.atributos->asOrderedSet()
+		else clase.atributos->asOrderedSet()->union(clase.hija->asOrderedSet()->first().atributos->asOrderedSet())
+		endif;
 
---helper context DCMetamodelo!Clase def: atributosPropiosYPadre(): 
---	Sequence(DCMetamodelo!Atributo) = self.atributos->union(self.obtenerAtributos(self.hija));
---self.atributos->asSequence()->union(self.hija.atributos)
+
+--helper context DCMetamodelo!Clase def: todosLosAtributos(clase : DCMetamodelo!Clase):
+--	Sequence(DCMetamodelo!Atributo) = if clase.hija.isEmpty() then clase.atributos->asSequence()
+--		else clase.atributos->asSequence()->union(clase.obtenerAtributos(clase.hija->asSequence().first()))
+--		endif;
+--self.atributos->asOrderedSet()->union(self.hija->asOrderedSet()->first().atributos)
+
+
+
 
 helper context DCMetamodelo!Clase def: obtenerAtributos(clase : DCMetamodelo!Clase):
-	Set(DCMetamodelo!Atributo) = clase.atributos;
+	OrderedSet(DCMetamodelo!Atributo) = clase.atributos;
+
+
 
 rule DiagramaClase2DiagramaEntidadRelacion {
 	from
