@@ -14,22 +14,36 @@ rule Atributo2Columna {
 		)
 }
 
-rule Clase2Tabla {
-	from 
-		inDC : DCMetamodelo!Clase
+--rule Clase2TablaSinHerencia {
+--	from 
+--		inDC : DCMetamodelo!Clase (inDC.hija.isEmpty() or inDC.padre.isEmpty())
+--	to
+--		outER : ERMetamodelo!Table(
+--			name <- inDC.nombre,
+--			columns <- inDC.atributos
+--		)
+--}
+
+rule Clase2TablaConHerencia {
+	from
+		inDC : DCMetamodelo!Clase (not inDC.hija.oclIsUndefined())
 	to
-		outER : ERMetamodelo!Table(
-			name <- inDC.nombre,
-			columns <- inDC.atributos
+		outER : ERMetamodelo!Table (
+			name <- inDC.nombre,	
+			columns <- inDC.atributosPropiosYPadre()
 		)
 }
 
-helper def: obtenerClasesHijas(clases : Set(DCMetamodelo!Clase), clase : DCMetamodelo!Clase):  
-	Set(DCMetamodelo!Clase) = clases->select(clase | not clase.padre.oclIsUndefined())
-		->collect(c | clase.padre.includes(c));
+helper context DCMetamodelo!Clase def: atributosPropiosYPadre(): 
+	Sequence(DCMetamodelo!Atributo) = self->collect(c | c.atributos)->asSequence()->union(self.hija.atributos)->asSequence();
+--self->collect(c | c.atributos)->asSequence()->union(self.hija.atributos)
 
---Hay que iterar sobre las clases hijas
-	
+--helper context DCMetamodelo!Clase def: atributosPropiosYPadre(): 
+--	Sequence(DCMetamodelo!Atributo) = self.atributos->union(self.obtenerAtributos(self.hija));
+--self.atributos->asSequence()->union(self.hija.atributos)
+
+helper context DCMetamodelo!Clase def: obtenerAtributos(clase : DCMetamodelo!Clase):
+	Set(DCMetamodelo!Atributo) = clase.atributos;
 
 rule DiagramaClase2DiagramaEntidadRelacion {
 	from

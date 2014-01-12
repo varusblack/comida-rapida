@@ -4,6 +4,6 @@
     <atributos nombre="atrBinary"/>
   </clases>
   <clases nombre="ClaseHija1" hija="//@clases.0">
-    <atributos nombre="atrBooleano"/>
+    <atributos nombre="atrBooleano" tipo="boolean"/>
   </clases>
 </classdiagrameditor:DiagramEditor>
