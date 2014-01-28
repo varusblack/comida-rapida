@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
-<classdiagrameditor:DiagramEditor xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classdiagrameditor="http://classdiagrameditor/1.0"
-    xsi:schemaLocation="http://classdiagrameditor/1.0 ../metamodel/ClassDiagramEditor.ecore"/>
+<classdiagrameditor:DiagramEditor
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:classdiagrameditor="http://classdiagrameditor/1.0"
+    nombre="Editor">
+  <clases nombre="Clase1"/>
+</classdiagrameditor:DiagramEditor>
