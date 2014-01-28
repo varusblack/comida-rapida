@@ -19,20 +19,17 @@ class DiagramEditor extends ElementoDiagrama {
   val Composicion[*] composiciones;
 }
 
-@Ecore(constraints="metodosDistintoNombre atributosDistintoNombre hijaDeSiMisma")
+@Ecore(constraints="atributosDistintoNombre hijaDeSiMisma")
 @gmf.node(label="nombre", label.icon="false", tool.description="Clase", tool.name="Clase")
-@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(metodosDistintoNombre="self.metodos->isUnique(nombre)", atributosDistintoNombre="self.atributos->isUnique(nombre)", hijaDeSiMisma="self->closure(padre)->excludes(self)")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(atributosDistintoNombre="self.atributos->isUnique(nombre)", hijaDeSiMisma="self.es_hija->excludes(self)")
 class Clase extends ElementoDiagrama {
 
   @gmf.compartment(layout="list")
   val Atributo[*] atributos;
-
-  @gmf.compartment(layout="list")
-  val Metodo[*] metodos;
-  ref Clase[*]#hija padre;
+  ref Clase[*]#es_hija es_padre;
 
   @gmf.link(target.decoration="closedarrow", style="solid", tool.description="Hija", tool.name="Hija", color="0,0,0")
-  ref Clase[*]#padre hija;
+  ref Clase#es_padre es_hija;
   ref Relacion[*]#origen relaciona;
   ref Relacion[*]#destino es_relacionada;
   ref Agregacion[*]#origen_a agrega;
@@ -41,7 +38,7 @@ class Clase extends ElementoDiagrama {
   ref Composicion[*]#destino_c es_compuesta;
 }
 
-@gmf.node(label="nombre, tipo", label.icon="true", figure = "rectangle", tool.description="Atributo", tool.name="Atributo", label.pattern="{0} : {1}", label.edit.pattern="{0}")
+@gmf.node(label="nombre, tipo", label.icon="true", figure="rectangle", tool.description="Atributo", tool.name="Atributo", label.pattern="{0} : {1}", label.edit.pattern="{0}")
 class Atributo extends ElementoDiagrama {
   attr TiposBasicos tipo;
 }
@@ -58,10 +55,6 @@ enum TiposBasicos {
   text = 8;
   time = 9;
   timestamp = 10;
-}
-
-@gmf.node(label="nombre", label.icon="true", figure = "rectangle", tool.description="Método", tool.name="Método")
-class Metodo extends ElementoDiagrama {
 }
 
 @gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Relación", tool.name="Relación")
