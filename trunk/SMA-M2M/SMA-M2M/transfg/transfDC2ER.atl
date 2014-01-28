@@ -58,9 +58,15 @@ rule Clase2Table {
 }
 
 helper context DCMetamodelo!Clase def: todosLosAtributos(clase : DCMetamodelo!Clase):
-	OrderedSet(DCMetamodelo!Atributo) = if clase.hija->isEmpty() then clase.atributos->asOrderedSet()
-		else clase.atributos->asOrderedSet()->union(clase.hija->asOrderedSet()->first().atributos->asOrderedSet())
+	Sequence(DCMetamodelo!Atributo) = if clase.es_hija->oclIsUndefined() then clase.atributos->asSequence()
+		else clase.atributos->asSequence()->union(clase.es_hija.atributos->asSequence())
 		endif;
+
+
+
+--helper context DCMetamodelo!Clase def: todosLosAtributos():
+--	Sequence(DCMetamodelo!Atributo) = if self.hija->isEmpty() then self.atributos->collect(a | a)
+--		else self.atributos->collect(a | a)->union(self.hija)
 
 
 --helper context DCMetamodelo!Clase def: obtenerAtributos(clase : DCMetamodelo!Clase):
