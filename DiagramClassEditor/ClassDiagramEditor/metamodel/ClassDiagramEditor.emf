@@ -19,17 +19,13 @@ class DiagramEditor extends ElementoDiagrama {
   val Composicion[*] composiciones;
 }
 
-@Ecore(constraints="atributosDistintoNombre hijaDeSiMisma")
+@Ecore(constraints="atributosDistintoNombre")
 @gmf.node(label="nombre", label.icon="false", tool.description="Clase", tool.name="Clase")
-@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(atributosDistintoNombre="self.atributos->isUnique(nombre)", hijaDeSiMisma="self.es_hija->excludes(self)")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(atributosDistintoNombre="self.atributos->isUnique(nombre)")
 class Clase extends ElementoDiagrama {
 
   @gmf.compartment(layout="list")
   val Atributo[*] atributos;
-  ref Clase[*]#es_hija es_padre;
-
-  @gmf.link(target.decoration="closedarrow", style="solid", tool.description="Hija", tool.name="Hija", color="0,0,0")
-  ref Clase#es_padre es_hija;
   ref Relacion[*]#origen relaciona;
   ref Relacion[*]#destino es_relacionada;
   ref Agregacion[*]#origen_a agrega;
