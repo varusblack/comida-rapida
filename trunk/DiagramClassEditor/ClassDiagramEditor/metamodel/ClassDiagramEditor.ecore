@@ -39,7 +39,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Clase" eSuperTypes="#//ElementoDiagrama">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="atributosDistintoNombre hijaDeSiMisma"/>
+      <details key="constraints" value="atributosDistintoNombre"/>
     </eAnnotations>
     <eAnnotations source="gmf.node">
       <details key="label" value="nombre"/>
@@ -49,24 +49,11 @@
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
       <details key="atributosDistintoNombre" value="self.atributos->isUnique(nombre)"/>
-      <details key="hijaDeSiMisma" value="self.es_hija->excludes(self)"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="atributos" upperBound="-1"
         eType="#//Atributo" containment="true">
       <eAnnotations source="gmf.compartment">
         <details key="layout" value="list"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_padre" upperBound="-1"
-        eType="#//Clase" eOpposite="#//Clase/es_hija"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_hija" eType="#//Clase"
-        eOpposite="#//Clase/es_padre">
-      <eAnnotations source="gmf.link">
-        <details key="target.decoration" value="closedarrow"/>
-        <details key="style" value="solid"/>
-        <details key="tool.description" value="Hija"/>
-        <details key="tool.name" value="Hija"/>
-        <details key="color" value="0,0,0"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relaciona" upperBound="-1"
