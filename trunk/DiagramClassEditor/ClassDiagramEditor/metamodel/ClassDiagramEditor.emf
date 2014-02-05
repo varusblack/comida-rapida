@@ -54,7 +54,7 @@ enum TiposBasicos {
 }
 
 @gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Relación", tool.name="Relación")
-class Relacion extends ElementoDiagrama {
+abstract class Relacion extends ElementoDiagrama {
   ref Clase[1]#relaciona origen;
   ref Clase[1]#es_relacionada destino;
 }
@@ -73,5 +73,17 @@ class Agregacion extends ElementoDiagrama {
 class Composicion extends ElementoDiagrama {
   ref Clase[1]#compone origen_c;
   ref Clase[1]#es_compuesta destino_c;
+}
+
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Relación 1:1", tool.name="Relación 1:1")
+class OneToOne extends Relacion {
+}
+
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,255", color="0,0,255", tool.description="Relación 1:n", tool.name="Relación 1:n")
+class OneToMany extends Relacion {
+}
+
+@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="255,80,0", color="255,80,0", tool.description="Relación n:m", tool.name="Relación n:m")
+class ManyToMany extends Relacion {
 }
 

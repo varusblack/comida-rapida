@@ -94,7 +94,7 @@
     <eLiterals name="time" value="9"/>
     <eLiterals name="timestamp" value="10"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Relacion" eSuperTypes="#//ElementoDiagrama">
+  <eClassifiers xsi:type="ecore:EClass" name="Relacion" abstract="true" eSuperTypes="#//ElementoDiagrama">
     <eAnnotations source="gmf.link">
       <details key="target.decoration" value="arrow"/>
       <details key="target" value="destino"/>
@@ -159,5 +159,47 @@
         eType="#//Clase" eOpposite="#//Clase/compone"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destino_c" lowerBound="1"
         eType="#//Clase" eOpposite="#//Clase/es_compuesta"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OneToOne" eSuperTypes="#//Relacion">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="origen"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="0,0,0"/>
+      <details key="color" value="0,0,0"/>
+      <details key="tool.description" value="Relación 1:1"/>
+      <details key="tool.name" value="Relación 1:1"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OneToMany" eSuperTypes="#//Relacion">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="origen"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="0,0,255"/>
+      <details key="color" value="0,0,255"/>
+      <details key="tool.description" value="Relación 1:n"/>
+      <details key="tool.name" value="Relación 1:n"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ManyToMany" eSuperTypes="#//Relacion">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="origen"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="255,80,0"/>
+      <details key="color" value="255,80,0"/>
+      <details key="tool.description" value="Relación n:m"/>
+      <details key="tool.name" value="Relación n:m"/>
+    </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>
