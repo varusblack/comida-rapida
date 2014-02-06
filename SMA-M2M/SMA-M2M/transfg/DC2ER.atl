@@ -1,0 +1,250 @@
+-- @path ERMetamodelo=/SMA-M2M/metamodel/dataBase.ecore
+-- @path DCMetamodelo=/SMA-M2M/metamodel/ClassDiagramEditor.ecore
+
+
+module DC2ER;
+create outER: ERMetamodelo from inDC: DCMetamodelo;
+
+rule RelacionBT2ForeingKey{
+	from
+		rBTDC : DCMetamodelo!RelacionBelongTo
+	to
+		fKER : ERMetamodelo!ForeignKey(
+			column <- thisModule.columnaFKPorNombre(rBTDC.origen_BT.nombre),
+			reference <- rBTDC.destino_BT
+		)
+--		,
+--		columnaFK : ERMetamodelo!Column (
+--			name <- 'ID_'.concat(rBTDC.destino_BT.nombre),
+--			type <- 'integer'
+--		)
+	do	{
+--		fKER.column <- thisModule.columnaFKPorClase(rBTDC.origen_BT);
+		rBTDC.origen_BT.nombre.println();
+--		thisModule.addColumnaATabla(thisModule.encontrarTablaPorNombre(rBTDC.origen_BT.nombre),
+-- columnaFK);
+--		thisModule.addColumnaATabla(thisModule.encontrarTablaPorNombre(rBTDC.origen_BT.nombre),
+-- columnaFK);
+--		rBTDC.origen_BT.nombre.println();
+--		thisModule.encontrarTablaPorNombre(rBTDC.origen_BT.nombre);
+	}
+}
+
+helper def : columnaFKPorClase (clase : DCMetamodelo!Clase) : 
+	ERMetamodelo!Column = ERMetamodelo!Column.allInstances()->select(columna | columna.name = 'ID_'.concat(clase.nombre)).first();
+
+helper def : columnaFKPorNombre (nombre : String) : 
+	ERMetamodelo!Column = ERMetamodelo!Column.allInstances()->select(columna | columna.name = nombre).first(); 
+
+--helper def : addColumnaATabla (tabla : ERMetamodelo!Table, colum : ERMetamodelo!Column)
+		-- : 
+--	Sequence(ERMetamodelo!Column) = tabla.columns->including(colum);
+--
+--helper def : encontrarTablaDeColumnaPorColumna (columna : ERMetamodelo!Column) :
+--	ERMetamodelo!Table = ERMetamodelo!Table.allInstances()->select( tabla|
+		-- (tabla.columns->includes(columna))).at(1);
+--	ERMetamodelo!Table = ERMetamodelo!Table.allInstances().println();
+--
+--helper def : encontrarTablaPorNombre(nombreTabla : String) :
+--	--ERMetamodelo!Table = ERMetamodelo!Table.allInstances()->select( tabla|
+-- (tabla.name = 'Clase1')).first();
+--	ERMetamodelo!Table =
+		-- ERMetamodelo!Table.allInstances().asSequence().at(1).name.println();
+--	
+
+--rule RelacionHO2ForeingKey{
+--	from
+--		inDC : DCMetamodelo!RelacionHasOne
+--	to
+--		outER : ERMetamodelo!ForeignKey (
+--			column <- columnaFK1,
+--			reference <- inDC.destino_HO
+--		)
+--		,
+--		FK2 : ERMetamodelo!ForeignKey (
+--			column <- columnaFK2,
+--			reference <- inDC.origen_HO
+--		)
+--		,
+--		columnaFK1 : ERMetamodelo!Column (
+--			name <- 'ID_'.concat(inDC.origen_HO.nombre),
+--			type <- 'integer'
+--		)
+--		,
+--		columnaFK2 : ERMetamodelo!Column (
+--			name <- 'ID_'.concat(inDC.destino_HO.nombre),
+--			type <- 'integer'
+--		)
+--}
+--
+--rule RelacionHMT2ForeingKey {
+--	from
+--		inDC: DCMetamodelo!RelacionHasManyThrough
+--	to
+--		tablaRelacion: ERMetamodelo!Table (
+--			name <- inDC.nombre,
+--			columns <- Sequence{clavePrimaria,
+--						columnaFK1,
+--						columnaFK2},
+--			foreignKeys <- Sequence{claveForanea1,
+--						claveForanea2},
+--			primaryKey <- clavePrimaria
+--		),
+--		clavePrimaria: ERMetamodelo!Column (
+--			name <- 'ID_'.concat(inDC.origen_HMT.nombre).concat('_').concat(inDC.
+--					destino_HMT.nombre),
+--			type <- 'integer'
+--		),
+--		claveForanea1: ERMetamodelo!ForeignKey (
+--			column <- columnaFK1,
+--			reference <- inDC.origen_HMT
+--		),
+--		columnaFK1: ERMetamodelo!Column (
+--			name <- 'ID_'.concat(inDC.origen_HMT.nombre),
+--			type <- 'integer'
+--		),
+--		claveForanea2: ERMetamodelo!ForeignKey (
+--			column <- columnaFK2,
+--			reference <- inDC.destino_HMT
+--		),
+--		columnaFK2: ERMetamodelo!Column (
+--			name <- 'ID_'.concat(inDC.destino_HMT.nombre),
+--			type <- 'integer'
+--		)
+--}
+
+--
+--rule Agregacion2ForeingKey{
+--	from
+--		inDC : DCMetamodelo!Agregacion
+--	to
+--		outER : ERMetamodelo!ForeignKey(
+--			column <- columnaFK,
+--			reference <- inDC.destino_a
+--		)
+--		,
+--		columnaFK : ERMetamodelo!Column (
+--			name <- 'ID_'.concat(inDC.origen_a.nombre),
+--			type <- 'integer'
+--		)
+--}
+
+--
+--rule Composicion2ForeingKey{
+--	from
+--		inDC : DCMetamodelo!Composicion
+--	to
+--		outER : ERMetamodelo!ForeignKey(
+--			column <- columnaFK,
+--			reference <- inDC.destino_c
+--		)
+--		,
+--		columnaFK : ERMetamodelo!Column (
+--			name <- 'ID_'.concat(inDC.origen_c.nombre),
+--			type <- 'integer'
+--		)
+--}
+rule Atributo2Columna {
+	from
+		inDC: DCMetamodelo!Atributo
+	to
+		outER: ERMetamodelo!Column (
+			name <- inDC.nombre,
+			type <- inDC.tipo
+		)
+}
+
+rule Clase2TableBT {
+	from
+		clase: DCMetamodelo!Clase -- (
+			-- not clase.relacionesBT -> isEmpty()
+		-- )
+	
+	to
+		tabla: ERMetamodelo!Table (
+			name <- clase.nombre,
+			columns <- clase.atributos,
+			-- -> union(Sequence{PK})
+			columns <- tabla.columns -> union(Sequence{PK})
+			,
+			--	-> union( -- Sequence{thisModule.nuevaColumnaFK(clase)})
+			--	clase.relacionesBT 
+			--	 -> 
+			--	 collect(r | thisModule.nuevaColumnaFK(r.destino_BT))),
+			columns <- tabla.columns->union(clase.relacionesBT->collect(rBT | thisModule.nuevaColumnaFK(rBT.destino_BT)))
+			,
+			foreignKeys <- clase.relacionesBT
+--			,
+--			foreignKeys <- clase.relacionesHMT
+		),
+		--		FK: Sequence(ERMetamodelo!Column) (
+	--		FK <- clase.relacionesBT -> collect(r |
+			-- thisModule.nuevaColumnaFK(r.destino_BT.nombre))
+		--),
+		PK: ERMetamodelo!Column (
+			name <- 'ID',
+			type <- 'integer'
+		)
+}
+
+lazy rule nuevaColumnaFK {
+	from
+		clase : DCMetamodelo!Clase
+	to
+		columna: ERMetamodelo!Column (
+			name <- 'ID_'.concat(clase.nombre),
+			type <- 'integer'
+		)
+--	do {
+--		columna.name <- 'ID_'.concat(nombre);
+--		columna.type <- 'integer';
+--	}
+}
+
+-- rule Clase2Table {
+--	from
+--		inDC : DCMetamodelo!Clase
+--	to
+--		outER : ERMetamodelo!Table(
+--			name <- inDC.nombre,
+--			columns <- inDC.atributos->union(Sequence{PK}),
+--			primaryKey <- PK
+--			foreignKeys <- inDC.relacionesBT
+--			foreignKeys <- inDC.relacionesHM,
+--			foreignKeys <- inDC.relacionesHMT
+--			foreignKeys <- inDC.relacionesHO,
+--			foreignKeys <- inDC.agregaciones,
+--			foreignKeys <- inDC.composiciones
+--		)
+--		,
+--		PK : ERMetamodelo!Column (
+--			name <- 'ID',
+--			type <- 'integer'
+--		)
+--		do {
+--			for(rBT in inDC.relacionesBT){
+--				outER.columns.union(Sequence{thisModule.nuevaColumnaFK(rBT.origen_BT.nombre)});
+--			}
+--		}
+--}
+
+
+--helper context ERMetamodelo!Table def : columnasBT (relacionesBT :
+-- Sequence(DCMetamodelo!RelacionBelongTo)) :
+--	Sequence(ERMetamodelo!Column) = self.columns->prepend(o);
+--
+
+--helper def : relacionAColumna (relacionBT : DCMetamodelo!RelacionBelongTo) :
+--	ERMetamodelo!Column = let columna : ERMetamodelo!Column  = columna in
+--	columna.name = 'ID_'.concat(relacionBT.destino_BT.nombre) and
+--	columna.type = 'integer';
+
+rule DiagramaClase2DiagramaEntidadRelacion {
+	from
+		inDC: DCMetamodelo!DiagramEditor
+	to
+		outER: ERMetamodelo!Schema (
+			name <- inDC.nombre,
+			tables <- inDC.clases
+		)
+}
