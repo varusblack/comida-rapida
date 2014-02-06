@@ -30,16 +30,10 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="clases" upperBound="-1"
         eType="#//Clase" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relaciones" upperBound="-1"
-        eType="#//Relacion" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="agregaciones" upperBound="-1"
-        eType="#//Agregacion" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="composiciones" upperBound="-1"
-        eType="#//Composicion" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Clase" eSuperTypes="#//ElementoDiagrama">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="atributosDistintoNombre hijaDeSiMisma"/>
+      <details key="constraints" value="atributosDistintoNombre"/>
     </eAnnotations>
     <eAnnotations source="gmf.node">
       <details key="label" value="nombre"/>
@@ -49,7 +43,6 @@
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
       <details key="atributosDistintoNombre" value="self.atributos->isUnique(nombre)"/>
-      <details key="hijaDeSiMisma" value="self.es_hija->excludes(self)"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="atributos" upperBound="-1"
         eType="#//Atributo" containment="true">
@@ -57,22 +50,6 @@
         <details key="layout" value="list"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_padre" upperBound="-1"
-        eType="#//Clase" eOpposite="#//Clase/es_hija"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_hija" eType="#//Clase"
-        eOpposite="#//Clase/es_padre">
-      <eAnnotations source="gmf.link">
-        <details key="target.decoration" value="closedarrow"/>
-        <details key="style" value="solid"/>
-        <details key="tool.description" value="Hija"/>
-        <details key="tool.name" value="Hija"/>
-        <details key="color" value="0,0,0"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relaciona" upperBound="-1"
-        eType="#//Relacion" eOpposite="#//Relacion/origen"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionada" upperBound="-1"
-        eType="#//Relacion" eOpposite="#//Relacion/destino"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="agrega" upperBound="-1"
         eType="#//Agregacion" eOpposite="#//Agregacion/origen_a"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="es_agregada" upperBound="-1"
@@ -81,6 +58,34 @@
         eType="#//Composicion" eOpposite="#//Composicion/origen_c"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="es_compuesta" upperBound="-1"
         eType="#//Composicion" eOpposite="#//Composicion/destino_c"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="composiciones" upperBound="-1"
+        eType="#//Composicion" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agregaciones" upperBound="-1"
+        eType="#//Agregacion" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesBT" upperBound="-1"
+        eType="#//RelacionBelongTo" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaBT" upperBound="-1"
+        eType="#//RelacionBelongTo" eOpposite="#//RelacionBelongTo/origen_BT"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionadaBT" upperBound="-1"
+        eType="#//RelacionBelongTo" eOpposite="#//RelacionBelongTo/destino_BT"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesHO" upperBound="-1"
+        eType="#//RelacionHasOne" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaHO" upperBound="-1"
+        eType="#//RelacionHasOne" eOpposite="#//RelacionHasOne/origen_HO"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionadaHO" upperBound="-1"
+        eType="#//RelacionHasOne" eOpposite="#//RelacionHasOne/destino_HO"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesHM" upperBound="-1"
+        eType="#//RelacionHasMany" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaHM" upperBound="-1"
+        eType="#//RelacionHasMany" eOpposite="#//RelacionHasMany/origen_HM"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_reacionadaHM" upperBound="-1"
+        eType="#//RelacionHasMany" eOpposite="#//RelacionHasMany/destino_HM"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesHMT" upperBound="-1"
+        eType="#//RelacionHasManyThrough" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaHMT" upperBound="-1"
+        eType="#//RelacionHasManyThrough" eOpposite="#//RelacionHasManyThrough/origen_HMT"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionadaHMT" upperBound="-1"
+        eType="#//RelacionHasManyThrough" eOpposite="#//RelacionHasManyThrough/destino_HMT"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Atributo" eSuperTypes="#//ElementoDiagrama">
     <eAnnotations source="gmf.node">
@@ -106,24 +111,6 @@
     <eLiterals name="text" value="8"/>
     <eLiterals name="time" value="9"/>
     <eLiterals name="timestamp" value="10"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Relacion" eSuperTypes="#//ElementoDiagrama">
-    <eAnnotations source="gmf.link">
-      <details key="target.decoration" value="arrow"/>
-      <details key="target" value="destino"/>
-      <details key="source.decoration" value="none"/>
-      <details key="source" value="origen"/>
-      <details key="style" value="solid"/>
-      <details key="label" value="nombre"/>
-      <details key="border.color" value="0,0,0"/>
-      <details key="color" value="0,0,0"/>
-      <details key="tool.description" value="Relación"/>
-      <details key="tool.name" value="Relación"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="origen" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/relaciona"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destino" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/es_relacionada"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Agregacion" eSuperTypes="#//ElementoDiagrama">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -172,5 +159,77 @@
         eType="#//Clase" eOpposite="#//Clase/compone"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destino_c" lowerBound="1"
         eType="#//Clase" eOpposite="#//Clase/es_compuesta"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelacionBelongTo" eSuperTypes="#//ElementoDiagrama">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino_BT"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="origen_BT"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="0,0,0"/>
+      <details key="color" value="0,0,0"/>
+      <details key="tool.description" value="Relación Belongs to"/>
+      <details key="tool.name" value="Relación Belongs to"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_BT" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/relacionaBT"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_BT" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/es_relacionadaBT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelacionHasOne" eSuperTypes="#//ElementoDiagrama">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino_HO"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="origen_HO"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="255,0,0"/>
+      <details key="color" value="255,0,0"/>
+      <details key="tool.description" value="Relación Has one"/>
+      <details key="tool.name" value="Relación Has one"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_HO" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/relacionaHO"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_HO" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/es_relacionadaHO"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelacionHasMany" eSuperTypes="#//ElementoDiagrama">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino_HM"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="origen_HM"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="0,255,0"/>
+      <details key="color" value="0,255,0"/>
+      <details key="tool.description" value="Relación Has many"/>
+      <details key="tool.name" value="Relación Has many"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_HM" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/relacionaHM"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_HM" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/es_reacionadaHM"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelacionHasManyThrough" eSuperTypes="#//ElementoDiagrama">
+    <eAnnotations source="gmf.link">
+      <details key="target.decoration" value="arrow"/>
+      <details key="target" value="destino_HMT"/>
+      <details key="source.decoration" value="none"/>
+      <details key="source" value="origen_HMT"/>
+      <details key="style" value="solid"/>
+      <details key="label" value="nombre"/>
+      <details key="border.color" value="255,80,0"/>
+      <details key="color" value="255,80,0"/>
+      <details key="tool.description" value="Relación Has many through"/>
+      <details key="tool.name" value="Relación Has many through"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_HMT" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/relacionaHMT"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_HMT" lowerBound="1"
+        eType="#//Clase" eOpposite="#//Clase/es_relacionadaHMT"/>
   </eClassifiers>
 </ecore:EPackage>
