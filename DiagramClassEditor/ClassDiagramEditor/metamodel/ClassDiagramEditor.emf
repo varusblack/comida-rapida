@@ -14,9 +14,6 @@ abstract class ElementoDiagrama {
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(clasesDistintoNombre="self.clases->isUnique(nombre)")
 class DiagramEditor extends ElementoDiagrama {
   val Clase[*] clases;
-  val Relacion[*] relaciones;
-  val Agregacion[*] agregaciones;
-  val Composicion[*] composiciones;
 }
 
 @Ecore(constraints="atributosDistintoNombre")
@@ -26,12 +23,24 @@ class Clase extends ElementoDiagrama {
 
   @gmf.compartment(layout="list")
   val Atributo[*] atributos;
-  ref Relacion[*]#origen relaciona;
-  ref Relacion[*]#destino es_relacionada;
   ref Agregacion[*]#origen_a agrega;
   ref Agregacion[*]#destino_a es_agregada;
   ref Composicion[*]#origen_c compone;
   ref Composicion[*]#destino_c es_compuesta;
+  val Composicion[*] composiciones;
+  val Agregacion[*] agregaciones;
+  val RelacionBelongTo[*] relacionesBT;
+  ref RelacionBelongTo[*]#origen_BT relacionaBT;
+  ref RelacionBelongTo[*]#destino_BT es_relacionadaBT;
+  val RelacionHasOne[*] relacionesHO;
+  ref RelacionHasOne[*]#origen_HO relacionaHO;
+  ref RelacionHasOne[*]#destino_HO es_relacionadaHO;
+  val RelacionHasMany[*] relacionesHM;
+  ref RelacionHasMany[*]#origen_HM relacionaHM;
+  ref RelacionHasMany[*]#destino_HM es_reacionadaHM;
+  val RelacionHasManyThrough[*] relacionesHMT;
+  ref RelacionHasManyThrough[*]#origen_HMT relacionaHMT;
+  ref RelacionHasManyThrough[*]#destino_HMT es_relacionadaHMT;
 }
 
 @gmf.node(label="nombre, tipo", label.icon="true", figure="rectangle", tool.description="Atributo", tool.name="Atributo", label.pattern="{0} : {1}", label.edit.pattern="{0}")
@@ -53,12 +62,6 @@ enum TiposBasicos {
   timestamp = 10;
 }
 
-@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Relación", tool.name="Relación")
-abstract class Relacion extends ElementoDiagrama {
-  ref Clase[1]#relaciona origen;
-  ref Clase[1]#es_relacionada destino;
-}
-
 @Ecore(constraints="agregadaPorSiMisma")
 @gmf.link(target.decoration="arrow", target="destino_a", source.decoration="rhomb", source="origen_a", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Agregación", tool.name="Agregación")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(agregadaPorSiMisma="self.destino_a <> self.origen_a")
@@ -75,15 +78,27 @@ class Composicion extends ElementoDiagrama {
   ref Clase[1]#es_compuesta destino_c;
 }
 
-@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Relación 1:1", tool.name="Relación 1:1")
-class OneToOne extends Relacion {
+@gmf.link(target.decoration="arrow", target="destino_BT", source.decoration="none", source="origen_BT", style="solid", label="nombre", border.color="255,0,255", color="255,0,255", tool.description="Relación Belongs to", tool.name="Relación Belongs to")
+class RelacionBelongTo extends ElementoDiagrama {
+  ref Clase[1]#relacionaBT origen_BT;
+  ref Clase[1]#es_relacionadaBT destino_BT;
 }
 
-@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="0,0,255", color="0,0,255", tool.description="Relación 1:n", tool.name="Relación 1:n")
-class OneToMany extends Relacion {
+@gmf.link(target.decoration="arrow", target="destino_HO", source.decoration="none", source="origen_HO", style="solid", label="nombre", border.color="255,0,0", color="255,0,0", tool.description="Relación Has one", tool.name="Relación Has one")
+class RelacionHasOne extends ElementoDiagrama {
+  ref Clase[1]#relacionaHO origen_HO;
+  ref Clase[1]#es_relacionadaHO destino_HO;
 }
 
-@gmf.link(target.decoration="arrow", target="destino", source.decoration="none", source="origen", style="solid", label="nombre", border.color="255,80,0", color="255,80,0", tool.description="Relación n:m", tool.name="Relación n:m")
-class ManyToMany extends Relacion {
+@gmf.link(target.decoration="arrow", target="destino_HM", source.decoration="none", source="origen_HM", style="solid", label="nombre", border.color="0,255,0", color="0,255,0", tool.description="Relación Has many", tool.name="Relación Has many")
+class RelacionHasMany extends ElementoDiagrama {
+  ref Clase[1]#relacionaHM origen_HM;
+  ref Clase[1]#es_reacionadaHM destino_HM;
+}
+
+@gmf.link(target.decoration="arrow", target="destino_HMT", source.decoration="none", source="origen_HMT", style="solid", label="nombre", border.color="0,0,255", color="0,0,255", tool.description="Relación Has many through", tool.name="Relación Has many through")
+class RelacionHasManyThrough extends ElementoDiagrama {
+  ref Clase[1]#relacionaHMT origen_HMT;
+  ref Clase[1]#es_relacionadaHMT destino_HMT;
 }
 
