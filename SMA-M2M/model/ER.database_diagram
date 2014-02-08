@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:database="http://database/1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_bD8HgHPiEeOSItMxusFSZg" type="Database" name="ER.database_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_FD_2QHu1EeOM9o2h9EA1sQ" type="2003">
+    <children xmi:type="notation:DecorationNode" xmi:id="_FD_2Rnu1EeOM9o2h9EA1sQ" type="5006"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_FD_2R3u1EeOM9o2h9EA1sQ" type="7003">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_FD_2SHu1EeOM9o2h9EA1sQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_FD_2SXu1EeOM9o2h9EA1sQ"/>
+    </children>
+    <styles xmi:type="notation:DescriptionStyle" xmi:id="_FD_2QXu1EeOM9o2h9EA1sQ"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_FD_2Qnu1EeOM9o2h9EA1sQ" fontName="Segoe UI"/>
+    <styles xmi:type="notation:FillStyle" xmi:id="_FD_2Q3u1EeOM9o2h9EA1sQ"/>
+    <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_FD_2RHu1EeOM9o2h9EA1sQ"/>
+    <element xmi:type="database:Table" href="ER.database#//@tables.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FD_2RXu1EeOM9o2h9EA1sQ" width="121" height="91"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_FEAdUHu1EeOM9o2h9EA1sQ" type="2003">
+    <children xmi:type="notation:DecorationNode" xmi:id="_FEAdVnu1EeOM9o2h9EA1sQ" type="5006"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_FEAdV3u1EeOM9o2h9EA1sQ" type="7003">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_FEAdWHu1EeOM9o2h9EA1sQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_FEAdWXu1EeOM9o2h9EA1sQ"/>
+    </children>
+    <styles xmi:type="notation:DescriptionStyle" xmi:id="_FEAdUXu1EeOM9o2h9EA1sQ"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_FEAdUnu1EeOM9o2h9EA1sQ" fontName="Segoe UI"/>
+    <styles xmi:type="notation:FillStyle" xmi:id="_FEAdU3u1EeOM9o2h9EA1sQ"/>
+    <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_FEAdVHu1EeOM9o2h9EA1sQ"/>
+    <element xmi:type="database:Table" href="ER.database#//@tables.1"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FEAdVXu1EeOM9o2h9EA1sQ" x="180" width="126" height="91"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_0nKMMHu7EeOClZJoxoCsbQ" type="2003">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0nKMNnu7EeOClZJoxoCsbQ" type="5006"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0nKMN3u7EeOClZJoxoCsbQ" type="7003">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0nKMOHu7EeOClZJoxoCsbQ"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0nKMOXu7EeOClZJoxoCsbQ"/>
+    </children>
+    <styles xmi:type="notation:DescriptionStyle" xmi:id="_0nKMMXu7EeOClZJoxoCsbQ"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_0nKMMnu7EeOClZJoxoCsbQ" fontName="Segoe UI"/>
+    <styles xmi:type="notation:FillStyle" xmi:id="_0nKMM3u7EeOClZJoxoCsbQ"/>
+    <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_0nKMNHu7EeOClZJoxoCsbQ"/>
+    <element xmi:type="database:Table" href="ER.database#//@tables.2"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0nKMNXu7EeOClZJoxoCsbQ" x="70" y="180" width="136" height="111"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_bD8HgXPiEeOSItMxusFSZg"/>
+  <element xmi:type="database:Schema" href="ER.database#/"/>
+</notation:Diagram>

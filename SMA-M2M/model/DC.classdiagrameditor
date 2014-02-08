@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classdiagrameditor:DiagramEditor xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:classdiagrameditor="http://classdiagrameditor/1.0" nombre="Diagrama1">
+  <clases nombre="Clase">
+    <atributos nombre="atrBoolean" tipo="boolean"/>
+  </clases>
+  <clases nombre="ClaseHija" es_padre="//@clases.2">
+    <atributos nombre="atrTime" tipo="time"/>
+    <atributos nombre="atrText" tipo="text"/>
+  </clases>
+  <clases nombre="ClaseHijaHija" es_hija="//@clases.1">
+    <atributos nombre="atrInteger" tipo="integer"/>
+  </clases>
+</classdiagrameditor:DiagramEditor>
