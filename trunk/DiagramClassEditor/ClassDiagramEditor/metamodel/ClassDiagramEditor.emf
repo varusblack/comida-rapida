@@ -9,9 +9,10 @@ abstract class ElementoDiagrama {
   attr String nombre;
 }
 
-@Ecore(constraints="clasesDistintoNombre")
+@Ecore(constraints="clasesDistintoNombre relacionesBTSinCorresponder")
 @gmf.diagram(foo="foo")
-@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(clasesDistintoNombre="self.clases->isUnique(nombre)")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(clasesDistintoNombre="self.clases->isUnique(nombre)", relacionesBTSinCorresponder="
+		clases->collect(c | c.relacionesBT)->size() = clases->collect(c| c.relacionesBT->collect(rBT | c.atributos->select(a | a.nombre.toLowerCase() = rBT.destino_BT.nombre.toString().toLowerCase() and a.tipo.toString() = 'integer' )))->size()")
 class DiagramEditor extends ElementoDiagrama {
   val Clase[*] clases;
 }
