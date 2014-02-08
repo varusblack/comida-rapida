@@ -23,7 +23,8 @@
     <atributos
         nombre="id"/>
     <atributos
-        nombre="destino"/>
+        nombre="destino"
+        tipo="integer"/>
     <relacionesBT
         nombre="relacionBT2"
         origen_BT="//@clases.2"

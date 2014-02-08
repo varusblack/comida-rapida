@@ -27,7 +27,7 @@
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
       <details key="clasesDistintoNombre" value="self.clases->isUnique(nombre)"/>
-      <details key="relacionesBTSinCorresponder" value="&#xA;&#x9;&#x9;clases->collect(c | c.relacionesBT)->size() = clases->collect(c| c.relacionesBT->collect(rBT | c.atributos->select(a | a.nombre.toLowerCase() = rBT.destino_BT.nombre.toString().toLowerCase() and a.tipo.toString() = 'integer' )))->size()"/>
+      <details key="relacionesBTSinCorresponder" value="&#xA;&#x9;&#x9;clases->collect(c | c.relacionesBT)->size() = clases->collect(c| c.relacionesBT->collect(rBT | c.atributos->select(a | a.nombre.toLowerCase() = rBT.destino_BT.nombre.toString().toLowerCase())))->size()"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="clases" upperBound="-1"
         eType="#//Clase" containment="true"/>
@@ -51,36 +51,12 @@
         <details key="layout" value="list"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="agrega" upperBound="-1"
-        eType="#//Agregacion" eOpposite="#//Agregacion/origen_a"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_agregada" upperBound="-1"
-        eType="#//Agregacion" eOpposite="#//Agregacion/destino_a"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="compone" upperBound="-1"
-        eType="#//Composicion" eOpposite="#//Composicion/origen_c"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_compuesta" upperBound="-1"
-        eType="#//Composicion" eOpposite="#//Composicion/destino_c"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="composiciones" upperBound="-1"
-        eType="#//Composicion" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="agregaciones" upperBound="-1"
-        eType="#//Agregacion" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesBT" upperBound="-1"
         eType="#//RelacionBelongTo" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaBT" upperBound="-1"
         eType="#//RelacionBelongTo" eOpposite="#//RelacionBelongTo/origen_BT"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionadaBT" upperBound="-1"
         eType="#//RelacionBelongTo" eOpposite="#//RelacionBelongTo/destino_BT"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesHO" upperBound="-1"
-        eType="#//RelacionHasOne" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaHO" upperBound="-1"
-        eType="#//RelacionHasOne" eOpposite="#//RelacionHasOne/origen_HO"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_relacionadaHO" upperBound="-1"
-        eType="#//RelacionHasOne" eOpposite="#//RelacionHasOne/destino_HO"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesHM" upperBound="-1"
-        eType="#//RelacionHasMany" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaHM" upperBound="-1"
-        eType="#//RelacionHasMany" eOpposite="#//RelacionHasMany/origen_HM"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="es_reacionadaHM" upperBound="-1"
-        eType="#//RelacionHasMany" eOpposite="#//RelacionHasMany/destino_HM"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relacionesHMT" upperBound="-1"
         eType="#//RelacionHasManyThrough" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="relacionaHMT" upperBound="-1"
@@ -113,55 +89,10 @@
     <eLiterals name="time" value="9"/>
     <eLiterals name="timestamp" value="10"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Agregacion" eSuperTypes="#//ElementoDiagrama">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="agregadaPorSiMisma"/>
-    </eAnnotations>
-    <eAnnotations source="gmf.link">
-      <details key="target.decoration" value="arrow"/>
-      <details key="target" value="destino_a"/>
-      <details key="source.decoration" value="rhomb"/>
-      <details key="source" value="origen_a"/>
-      <details key="style" value="solid"/>
-      <details key="label" value="nombre"/>
-      <details key="border.color" value="0,0,0"/>
-      <details key="color" value="0,0,0"/>
-      <details key="tool.description" value="Agregación"/>
-      <details key="tool.name" value="Agregación"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-      <details key="agregadaPorSiMisma" value="self.destino_a &lt;> self.origen_a"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_a" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/agrega"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_a" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/es_agregada"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Composicion" eSuperTypes="#//ElementoDiagrama">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="compuestaPorSiMisma"/>
-    </eAnnotations>
-    <eAnnotations source="gmf.link">
-      <details key="target.decoration" value="arrow"/>
-      <details key="target" value="destino_c"/>
-      <details key="source.decoration" value="filledrhomb"/>
-      <details key="source" value="origen_c"/>
-      <details key="style" value="solid"/>
-      <details key="label" value="nombre"/>
-      <details key="border.color" value="0,0,0"/>
-      <details key="color" value="0,0,0"/>
-      <details key="tool.description" value="Composición"/>
-      <details key="tool.name" value="Composición"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-      <details key="compuestaPorSiMisma" value="self.destino_c &lt;> self.origen_c"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_c" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/compone"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_c" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/es_compuesta"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RelacionBelongTo" eSuperTypes="#//ElementoDiagrama">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="relacionadaBTASiMisma"/>
+    </eAnnotations>
     <eAnnotations source="gmf.link">
       <details key="target.decoration" value="arrow"/>
       <details key="target" value="destino_BT"/>
@@ -174,48 +105,18 @@
       <details key="tool.description" value="Relación Belongs to"/>
       <details key="tool.name" value="Relación Belongs to"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="relacionadaBTASiMisma" value="self.destino_BT &lt;> self.origen_BT"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="origen_BT" lowerBound="1"
         eType="#//Clase" eOpposite="#//Clase/relacionaBT"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destino_BT" lowerBound="1"
         eType="#//Clase" eOpposite="#//Clase/es_relacionadaBT"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RelacionHasOne" eSuperTypes="#//ElementoDiagrama">
-    <eAnnotations source="gmf.link">
-      <details key="target.decoration" value="arrow"/>
-      <details key="target" value="destino_HO"/>
-      <details key="source.decoration" value="none"/>
-      <details key="source" value="origen_HO"/>
-      <details key="style" value="solid"/>
-      <details key="label" value="nombre"/>
-      <details key="border.color" value="255,0,0"/>
-      <details key="color" value="255,0,0"/>
-      <details key="tool.description" value="Relación Has one"/>
-      <details key="tool.name" value="Relación Has one"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_HO" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/relacionaHO"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_HO" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/es_relacionadaHO"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RelacionHasMany" eSuperTypes="#//ElementoDiagrama">
-    <eAnnotations source="gmf.link">
-      <details key="target.decoration" value="arrow"/>
-      <details key="target" value="destino_HM"/>
-      <details key="source.decoration" value="none"/>
-      <details key="source" value="origen_HM"/>
-      <details key="style" value="solid"/>
-      <details key="label" value="nombre"/>
-      <details key="border.color" value="0,255,0"/>
-      <details key="color" value="0,255,0"/>
-      <details key="tool.description" value="Relación Has many"/>
-      <details key="tool.name" value="Relación Has many"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="origen_HM" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/relacionaHM"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="destino_HM" lowerBound="1"
-        eType="#//Clase" eOpposite="#//Clase/es_reacionadaHM"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RelacionHasManyThrough" eSuperTypes="#//ElementoDiagrama">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="relacionadaHMTPorSiMisma"/>
+    </eAnnotations>
     <eAnnotations source="gmf.link">
       <details key="target.decoration" value="arrow"/>
       <details key="target" value="destino_HMT"/>
@@ -227,6 +128,9 @@
       <details key="color" value="0,0,255"/>
       <details key="tool.description" value="Relación Has many through"/>
       <details key="tool.name" value="Relación Has many through"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="relacionadaHMTPorSiMisma" value="self.destino_HMT &lt;> self.origen_HMT"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="origen_HMT" lowerBound="1"
         eType="#//Clase" eOpposite="#//Clase/relacionaHMT"/>
