@@ -12,7 +12,7 @@ abstract class ElementoDiagrama {
 @Ecore(constraints="clasesDistintoNombre relacionesBTSinCorresponder")
 @gmf.diagram(foo="foo")
 @"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(clasesDistintoNombre="self.clases->isUnique(nombre)", relacionesBTSinCorresponder="
-		clases->collect(c | c.relacionesBT)->size() = clases->collect(c| c.relacionesBT->collect(rBT | c.atributos->select(a | a.nombre.toLowerCase() = rBT.destino_BT.nombre.toString().toLowerCase() and a.tipo.toString() = 'integer' )))->size()")
+		clases->collect(c | c.relacionesBT)->size() = clases->collect(c| c.relacionesBT->collect(rBT | c.atributos->select(a | a.nombre.toLowerCase() = rBT.destino_BT.nombre.toString().toLowerCase())))->size()")
 class DiagramEditor extends ElementoDiagrama {
   val Clase[*] clases;
 }
@@ -24,21 +24,9 @@ class Clase extends ElementoDiagrama {
 
   @gmf.compartment(layout="list")
   val Atributo[*] atributos;
-  ref Agregacion[*]#origen_a agrega;
-  ref Agregacion[*]#destino_a es_agregada;
-  ref Composicion[*]#origen_c compone;
-  ref Composicion[*]#destino_c es_compuesta;
-  val Composicion[*] composiciones;
-  val Agregacion[*] agregaciones;
   val RelacionBelongTo[*] relacionesBT;
   ref RelacionBelongTo[*]#origen_BT relacionaBT;
   ref RelacionBelongTo[*]#destino_BT es_relacionadaBT;
-  val RelacionHasOne[*] relacionesHO;
-  ref RelacionHasOne[*]#origen_HO relacionaHO;
-  ref RelacionHasOne[*]#destino_HO es_relacionadaHO;
-  val RelacionHasMany[*] relacionesHM;
-  ref RelacionHasMany[*]#origen_HM relacionaHM;
-  ref RelacionHasMany[*]#destino_HM es_reacionadaHM;
   val RelacionHasManyThrough[*] relacionesHMT;
   ref RelacionHasManyThrough[*]#origen_HMT relacionaHMT;
   ref RelacionHasManyThrough[*]#destino_HMT es_relacionadaHMT;
@@ -63,41 +51,17 @@ enum TiposBasicos {
   timestamp = 10;
 }
 
-@Ecore(constraints="agregadaPorSiMisma")
-@gmf.link(target.decoration="arrow", target="destino_a", source.decoration="rhomb", source="origen_a", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Agregación", tool.name="Agregación")
-@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(agregadaPorSiMisma="self.destino_a <> self.origen_a")
-class Agregacion extends ElementoDiagrama {
-  ref Clase[1]#agrega origen_a;
-  ref Clase[1]#es_agregada destino_a;
-}
-
-@Ecore(constraints="compuestaPorSiMisma")
-@gmf.link(target.decoration="arrow", target="destino_c", source.decoration="filledrhomb", source="origen_c", style="solid", label="nombre", border.color="0,0,0", color="0,0,0", tool.description="Composición", tool.name="Composición")
-@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(compuestaPorSiMisma="self.destino_c <> self.origen_c")
-class Composicion extends ElementoDiagrama {
-  ref Clase[1]#compone origen_c;
-  ref Clase[1]#es_compuesta destino_c;
-}
-
+@Ecore(constraints="relacionadaBTASiMisma")
 @gmf.link(target.decoration="arrow", target="destino_BT", source.decoration="none", source="origen_BT", style="solid", label="nombre", border.color="255,0,255", color="255,0,255", tool.description="Relación Belongs to", tool.name="Relación Belongs to")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(relacionadaBTASiMisma="self.destino_BT <> self.origen_BT")
 class RelacionBelongTo extends ElementoDiagrama {
   ref Clase[1]#relacionaBT origen_BT;
   ref Clase[1]#es_relacionadaBT destino_BT;
 }
 
-@gmf.link(target.decoration="arrow", target="destino_HO", source.decoration="none", source="origen_HO", style="solid", label="nombre", border.color="255,0,0", color="255,0,0", tool.description="Relación Has one", tool.name="Relación Has one")
-class RelacionHasOne extends ElementoDiagrama {
-  ref Clase[1]#relacionaHO origen_HO;
-  ref Clase[1]#es_relacionadaHO destino_HO;
-}
-
-@gmf.link(target.decoration="arrow", target="destino_HM", source.decoration="none", source="origen_HM", style="solid", label="nombre", border.color="0,255,0", color="0,255,0", tool.description="Relación Has many", tool.name="Relación Has many")
-class RelacionHasMany extends ElementoDiagrama {
-  ref Clase[1]#relacionaHM origen_HM;
-  ref Clase[1]#es_reacionadaHM destino_HM;
-}
-
+@Ecore(constraints="relacionadaHMTPorSiMisma")
 @gmf.link(target.decoration="arrow", target="destino_HMT", source.decoration="none", source="origen_HMT", style="solid", label="nombre", border.color="0,0,255", color="0,0,255", tool.description="Relación Has many through", tool.name="Relación Has many through")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(relacionadaHMTPorSiMisma="self.destino_HMT <> self.origen_HMT")
 class RelacionHasManyThrough extends ElementoDiagrama {
   ref Clase[1]#relacionaHMT origen_HMT;
   ref Clase[1]#es_relacionadaHMT destino_HMT;
