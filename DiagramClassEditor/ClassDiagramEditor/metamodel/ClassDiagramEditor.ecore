@@ -20,13 +20,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramEditor" eSuperTypes="#//ElementoDiagrama">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="clasesDistintoNombre"/>
+      <details key="constraints" value="clasesDistintoNombre relacionesBTSinCorresponder"/>
     </eAnnotations>
     <eAnnotations source="gmf.diagram">
       <details key="foo" value="foo"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
       <details key="clasesDistintoNombre" value="self.clases->isUnique(nombre)"/>
+      <details key="relacionesBTSinCorresponder" value="&#xA;&#x9;&#x9;clases->collect(c | c.relacionesBT)->size() = clases->collect(c| c.relacionesBT->collect(rBT | c.atributos->select(a | a.nombre.toLowerCase() = rBT.destino_BT.nombre.toString().toLowerCase() and a.tipo.toString() = 'integer' )))->size()"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="clases" upperBound="-1"
         eType="#//Clase" containment="true"/>
