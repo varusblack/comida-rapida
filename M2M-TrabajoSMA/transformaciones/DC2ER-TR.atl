@@ -62,9 +62,6 @@ rule RelacionBT2ForeingKey{
 rule RelacionHMT2ForeingKey {
 	from
 		inDC: DCMetamodelo!RelacionHasManyThrough
-		using {
-			diagrama : ERMetamodelo!Schema = ERMetamodelo!Schema.allInstances().first();	
-		}
 	to
 		claveForanea1: ERMetamodelo!ForeignKey (
 			column <- columnaFK1,
