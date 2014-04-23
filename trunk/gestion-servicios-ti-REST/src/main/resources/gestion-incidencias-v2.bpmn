@@ -1,0 +1,1195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_fsGuEMY3EeOBCocfl9CkbQ" exporter="camunda modeler" exporterVersion="2.5.0" targetNamespace="http://activiti.org/bpmn">
+  <bpmn2:collaboration id="gestion-incidencias-v2" name="Gestión de incidencias">
+    <bpmn2:participant id="_Participant_3" name="Vip Customer" processRef="Process_1"/>
+    <bpmn2:participant id="Participant_1" name="Key Account Manager" processRef="Process_2"/>
+    <bpmn2:participant id="Participant_2" name="Trouble Ticket System" processRef="Process_3"/>
+    <bpmn2:messageFlow id="MessageFlow_10" name="" sourceRef="SendTask_10" targetRef="IntermediateCatchEvent_4"/>
+    <bpmn2:messageFlow id="MessageFlow_11" name="" sourceRef="SendTask_1" targetRef="StartEvent_2"/>
+    <bpmn2:messageFlow id="MessageFlow_12" name="" sourceRef="SendTask_2" targetRef="StartEvent_3"/>
+    <bpmn2:messageFlow id="MessageFlow_1" name="" sourceRef="SendTask_11" targetRef="IntermediateCatchEvent_1"/>
+  </bpmn2:collaboration>
+  <bpmn2:process id="Process_1" isExecutable="true">
+    <bpmn2:startEvent id="StartEvent_1" name="Customer has &#xD;&#xA;a problem">
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="UserTask_1" camunda:assignee="demo" name="User reports&#xD;&#xA;a problem">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="ticketType" label="Tipo de consulta" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+              <camunda:constraint name="maxlength" config="150"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+              <camunda:constraint name="maxlength" config="150"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
+    <bpmn2:endEvent id="EndEvent_2">
+      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sendTask id="SendTask_1" camunda:expression="#{messageSenderService.vipCustomer2AccManager(ticketType,ticketIssue,ticketDescription,ticketAuthor)}" name="User sends report">
+      <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_61</bpmn2:outgoing>
+    </bpmn2:sendTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" name="" sourceRef="UserTask_1" targetRef="SendTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_61" name="" sourceRef="SendTask_1" targetRef="IntermediateCatchEvent_1"/>
+    <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_1">
+      <bpmn2:incoming>SequenceFlow_61</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+      <bpmn2:messageEventDefinition id="_MessageEventDefinition_33" messageRef="Message_10"/>
+    </bpmn2:intermediateCatchEvent>
+    <bpmn2:userTask id="UserTask_5" camunda:assignee="demo" name="See results">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="ticketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketResults" label="Resultado" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="customerIssueResolved" label="¿Problema resuelto?" type="boolean"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="IntermediateCatchEvent_1" targetRef="UserTask_5"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_6" name="Problem resolved?">
+      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="UserTask_5" targetRef="ExclusiveGateway_6"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" name="yes" sourceRef="ExclusiveGateway_6" targetRef="EndEvent_2">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${customerIssueResolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_10" name="no" sourceRef="ExclusiveGateway_6" targetRef="UserTask_1">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not customerIssueResolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+  </bpmn2:process>
+  <bpmn2:process id="Process_2" isExecutable="true">
+    <bpmn2:startEvent id="StartEvent_2" name="Report is &#xD;&#xA;received">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="ticketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketType" label="ticketType" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:messageEventDefinition id="_MessageEventDefinition_12" messageRef="Message_1"/>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="UserTask_2" camunda:assignee="demo" name="Get problem description">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="ticketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketType" label="ticketType" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="accCanHandle" label="¿Se conoce la solución?" type="boolean"/>
+          <camunda:formField id="isIncidence" label="¿Es una incidencia?" type="boolean"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="StartEvent_2" targetRef="UserTask_2"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_1" name="Can handle myself?">
+      <bpmn2:incoming>SequenceFlow_62</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="UserTask_2" targetRef="ExclusiveGateway_5"/>
+    <bpmn2:userTask id="UserTask_3" camunda:assignee="demo" name="Document results">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="ticketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketType" label="ticketType" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="ticketResults" label="Solución" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_63</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_64</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_39</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="yes" sourceRef="ExclusiveGateway_1" targetRef="UserTask_3">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${accCanHandle}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:userTask id="UserTask_4" camunda:assignee="demo" name="Fill report to&#xD;&#xA;support system">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+              <camunda:constraint name="maxlength" config="250"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_11</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" name="no" sourceRef="ExclusiveGateway_1" targetRef="UserTask_4">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not accCanHandle}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:serviceTask id="ServiceTask_1" camunda:expression="#{PPICalculator.calculatePPIAccountManager()}" camunda:resultVariable="PPIAccountManager" name="PPI:&#xD;&#xA;Account Manager">
+      <bpmn2:incoming>SequenceFlow_49</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_40</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:endEvent id="EndEvent_1">
+      <bpmn2:incoming>SequenceFlow_60</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:userTask id="UserTask_16" camunda:assignee="demo" name="Get support system results">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="systemTicketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketResults" label="Resultados" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_48</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_63</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_39" name="" sourceRef="UserTask_3" targetRef="SendTask_11"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_40" name="" sourceRef="ServiceTask_1" targetRef="UserTask_20"/>
+    <bpmn2:sendTask id="SendTask_2" camunda:expression="#{messageSenderService.accManager2TroubleTicketSystem(systemTicketIssue,systemTicketDescription,systemTicketAuthor)}" name="Sed report to support system">
+      <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
+    </bpmn2:sendTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="UserTask_4" targetRef="SendTask_2"/>
+    <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_4">
+      <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_48</bpmn2:outgoing>
+      <bpmn2:messageEventDefinition id="_MessageEventDefinition_26" messageRef="Message_8"/>
+    </bpmn2:intermediateCatchEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_48" name="" sourceRef="IntermediateCatchEvent_4" targetRef="UserTask_16"/>
+    <bpmn2:sendTask id="SendTask_11" camunda:expression="#{messageSenderService.accManager2VipCustomer(ticketId,ticketType,ticketIssue,ticketDescription,ticketAuthor,ticketResults)}" name="Send results">
+      <bpmn2:incoming>SequenceFlow_39</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_49</bpmn2:outgoing>
+    </bpmn2:sendTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_49" name="" sourceRef="SendTask_11" targetRef="ServiceTask_1"/>
+    <bpmn2:userTask id="UserTask_20" camunda:formKey="embedded:app:forms/ppiAccManager.html" camunda:assignee="demo" name="Show PPI:&#xD;&#xA;Account Manager">
+      <bpmn2:incoming>SequenceFlow_40</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_60</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_60" name="" sourceRef="UserTask_20" targetRef="EndEvent_1"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_5" name="Is incidence?">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_62</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_64</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_62" name="yes" sourceRef="ExclusiveGateway_5" targetRef="ExclusiveGateway_1">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${isIncidence}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_63" name="" sourceRef="UserTask_16" targetRef="UserTask_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_64" name="no" sourceRef="ExclusiveGateway_5" targetRef="UserTask_3">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not isIncidence}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="SendTask_2" targetRef="IntermediateCatchEvent_4"/>
+  </bpmn2:process>
+  <bpmn2:process id="Process_3" isExecutable="true">
+    <bpmn2:laneSet id="LaneSet_1" name="Lane Set 1">
+      <bpmn2:lane id="Lane_1" name="First Level Support">
+        <bpmn2:flowNodeRef>StartEvent_3</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ManualTask_1</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>UserTask_8</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ExclusiveGateway_2</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>EndEvent_6</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>UserTask_18</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ServiceTask_6</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>SendTask_10</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>UserTask_17</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+      <bpmn2:lane id="Lane_2" name="Second Level Support">
+        <bpmn2:flowNodeRef>ManualTask_2</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>UserTask_10</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ExclusiveGateway_3</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>UserTask_11</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>UserTask_15</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ExclusiveGateway_4</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ServiceTask_5</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ServiceTask_4</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>UserTask_19</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+    </bpmn2:laneSet>
+    <bpmn2:startEvent id="StartEvent_3" name="Issue received">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="systemTicketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_51</bpmn2:outgoing>
+      <bpmn2:messageEventDefinition id="_MessageEventDefinition_16" messageRef="Message_2"/>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_51" name="" sourceRef="StartEvent_3" targetRef="ManualTask_1"/>
+    <bpmn2:manualTask id="ManualTask_1" name="Handle first&#xD;&#xA;level issue">
+      <bpmn2:incoming>SequenceFlow_51</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_53</bpmn2:outgoing>
+    </bpmn2:manualTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_53" name="" sourceRef="ManualTask_1" targetRef="UserTask_8"/>
+    <bpmn2:userTask id="UserTask_8" camunda:assignee="demo" name="Document first&#xD;&#xA;level results">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="systemTicketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketResults" label="Resultados" type="string"/>
+          <camunda:formField id="firstLevelTicketSolved" label="¿Problema resuelto?" type="boolean"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_53</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_12</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_12" name="" sourceRef="UserTask_8" targetRef="ExclusiveGateway_2"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_2" name="Solved?">
+      <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_26</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_13" name="no" sourceRef="ExclusiveGateway_2" targetRef="ManualTask_2">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not firstLevelTicketSolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_26" name="yes" sourceRef="ExclusiveGateway_2" targetRef="UserTask_17">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${firstLevelTicketSolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:manualTask id="ManualTask_2" name="Handle second&#xD;&#xA;level issue">
+      <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_54</bpmn2:outgoing>
+    </bpmn2:manualTask>
+    <bpmn2:userTask id="UserTask_10" camunda:assignee="demo" name="Document second level results">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="systemTicketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketResults" label="Resultados" type="string"/>
+          <camunda:formField id="secondLevelTicketSolved" label="¿Estaría resuelto el problema?" type="boolean"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_54</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_16" name="" sourceRef="UserTask_10" targetRef="ExclusiveGateway_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_54" name="" sourceRef="ManualTask_2" targetRef="UserTask_10"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_3" name="Solved?">
+      <bpmn2:incoming>SequenceFlow_16</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_17</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_20</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_17" name="no" sourceRef="ExclusiveGateway_3" targetRef="UserTask_11">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not secondLevelTicketSolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_20" name="yes" sourceRef="ExclusiveGateway_3" targetRef="UserTask_15">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${secondLevelTicketSolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:manualTask id="UserTask_11" camunda:assignee="mary" name="Ask developer">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="developerTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="developerTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="developerTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_17</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_55</bpmn2:outgoing>
+    </bpmn2:manualTask>
+    <bpmn2:userTask id="UserTask_15" camunda:assignee="demo" name="Get second level results">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="systemTicketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketResults" label="Resultados" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="secondLevelTicketSolved" label="¿Solucionado para estar versión?" type="boolean"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_20</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_55</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_24</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_24" name="" sourceRef="UserTask_15" targetRef="ExclusiveGateway_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_55" name="" sourceRef="UserTask_11" targetRef="UserTask_15"/>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_4" name="Result?">
+      <bpmn2:incoming>SequenceFlow_24</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_25</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_27</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_25" name="fix in&#xD;&#xA;next release" sourceRef="ExclusiveGateway_4" targetRef="ServiceTask_5">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not secondLevelTicketSolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_27" name="Issue resolved" sourceRef="ExclusiveGateway_4" targetRef="ServiceTask_4">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${secondLevelTicketSolved}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:serviceTask id="ServiceTask_5" camunda:expression="#{PPICalculator.vacio()}" name="Insert issue into product backlog">
+      <bpmn2:incoming>SequenceFlow_25</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_30</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_30" name="" sourceRef="ServiceTask_5" targetRef="ServiceTask_4"/>
+    <bpmn2:endEvent id="EndEvent_6">
+      <bpmn2:incoming>SequenceFlow_56</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:userTask id="UserTask_18" camunda:formKey="embedded:app:forms/ppiFirstLevel.html" camunda:assignee="demo" name="Show PPI: First Level Support System">
+      <bpmn2:incoming>SequenceFlow_38</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_56</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_56" name="" sourceRef="UserTask_18" targetRef="EndEvent_6"/>
+    <bpmn2:serviceTask id="ServiceTask_6" camunda:expression="#{PPICalculator.calculatePPITicketSystem()}" camunda:resultVariable="PPITicketSystem" name="PPI: First Level Support System">
+      <bpmn2:incoming>SequenceFlow_47</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_38</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_38" name="" sourceRef="ServiceTask_6" targetRef="UserTask_18"/>
+    <bpmn2:sendTask id="SendTask_10" camunda:expression="#{messageSenderService.troubleTicketSystem2AccManager(systemTicketId,systemTicketIssue,systemTicketDescription,systemTicketAuthor,systemTicketResults)}" name="Send support system results">
+      <bpmn2:incoming>SequenceFlow_37</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_47</bpmn2:outgoing>
+    </bpmn2:sendTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_47" name="" sourceRef="SendTask_10" targetRef="ServiceTask_6"/>
+    <bpmn2:userTask id="UserTask_17" camunda:assignee="demo" name="Document support system results">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="systemTicketId" label="Ticket ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDescription" label="Descripción" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketDate" label="Fecha" type="date">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketAuthor" label="Autor" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly"/>
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="systemTicketResults" label="Resultados" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required"/>
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_26</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_59</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_37</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_37" name="" sourceRef="UserTask_17" targetRef="SendTask_10"/>
+    <bpmn2:serviceTask id="ServiceTask_4" camunda:expression="#{PPICalculator.calculatePPISecondLevelSupport()}" camunda:resultVariable="PPISecondLevelSupport" name="PPI: Second level">
+      <bpmn2:incoming>SequenceFlow_27</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_30</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_58</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_58" name="" sourceRef="ServiceTask_4" targetRef="UserTask_19"/>
+    <bpmn2:userTask id="UserTask_19" camunda:formKey="embedded:app:forms/ppiSecondLevel.html" camunda:assignee="demo" name="Show PPI: Second level">
+      <bpmn2:incoming>SequenceFlow_58</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_59</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_59" name="" sourceRef="UserTask_19" targetRef="UserTask_17"/>
+  </bpmn2:process>
+  <bpmn2:message id="Message_1" name="vipCustomer2AccManager"/>
+  <bpmn2:message id="Message_2" name="accManager2TroubleTicketSystem"/>
+  <bpmn2:message id="Message_3" name="troubleTicketSystem2FirstLevelSupportAgent"/>
+  <bpmn2:message id="Message_4" name="firstLevelSupportAgent2TroubleTicketSystem"/>
+  <bpmn2:message id="Message_5" name="troubleTicketSystem2SecondLevelSupportAgent"/>
+  <bpmn2:message id="Message_6" name="secondLevelSupportAgent2SoftwareDeveloper"/>
+  <bpmn2:message id="Message_7" name="softwareDeveloper2SecondLevelSupportAgent"/>
+  <bpmn2:message id="Message_8" name="troubleTicketSystem2AccManager"/>
+  <bpmn2:message id="Message_9" name="secondLevelSupportAgent2TroubleTicketSystem"/>
+  <bpmn2:message id="Message_10" name="accManager2VipCustomer"/>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="gestion-incidencias-v2">
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_10" bpmnElement="_Participant_3" isHorizontal="true">
+        <dc:Bounds height="148.0" width="885.0" x="0.0" y="0.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_12" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="84.0" y="48.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="38.0" width="101.0" x="52.0" y="89.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_7" bpmnElement="UserTask_1">
+        <dc:Bounds height="80.0" width="100.0" x="192.0" y="35.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_StartEvent_12" targetElement="_BPMNShape_UserTask_7">
+        <di:waypoint xsi:type="dc:Point" x="120.0" y="66.0"/>
+        <di:waypoint xsi:type="dc:Point" x="156.0" y="66.0"/>
+        <di:waypoint xsi:type="dc:Point" x="156.0" y="75.0"/>
+        <di:waypoint xsi:type="dc:Point" x="192.0" y="75.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="153.0" y="71.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_11" bpmnElement="Participant_1" isHorizontal="true">
+        <dc:Bounds height="217.0" width="1681.0" x="0.0" y="204.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_13" bpmnElement="StartEvent_2">
+        <dc:Bounds height="36.0" width="36.0" x="54.0" y="286.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="38.0" width="72.0" x="36.0" y="327.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_8" bpmnElement="UserTask_2">
+        <dc:Bounds height="80.0" width="100.0" x="168.0" y="264.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_StartEvent_13" targetElement="_BPMNShape_UserTask_8">
+        <di:waypoint xsi:type="dc:Point" x="90.0" y="304.0"/>
+        <di:waypoint xsi:type="dc:Point" x="168.0" y="304.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="126.0" y="304.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_6" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="432.0" y="335.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="120.0" x="402.0" y="392.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_UserTask_8" targetElement="_BPMNShape_ExclusiveGateway_10">
+        <di:waypoint xsi:type="dc:Point" x="268.0" y="304.0"/>
+        <di:waypoint xsi:type="dc:Point" x="302.0" y="304.0"/>
+        <di:waypoint xsi:type="dc:Point" x="302.0" y="271.0"/>
+        <di:waypoint xsi:type="dc:Point" x="336.0" y="270.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="290.0" y="304.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_9" bpmnElement="UserTask_3">
+        <dc:Bounds height="80.0" width="100.0" x="1092.0" y="216.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_ExclusiveGateway_6" targetElement="_BPMNShape_UserTask_9">
+        <di:waypoint xsi:type="dc:Point" x="457.0" y="335.0"/>
+        <di:waypoint xsi:type="dc:Point" x="457.0" y="295.0"/>
+        <di:waypoint xsi:type="dc:Point" x="650.0" y="295.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1002.0" y="295.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1092.0" y="270.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="27.0" x="636.0" y="273.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_10" bpmnElement="UserTask_4">
+        <dc:Bounds height="80.0" width="100.0" x="528.0" y="321.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="_BPMNShape_ExclusiveGateway_6" targetElement="_BPMNShape_UserTask_10">
+        <di:waypoint xsi:type="dc:Point" x="482.0" y="360.0"/>
+        <di:waypoint xsi:type="dc:Point" x="505.0" y="360.0"/>
+        <di:waypoint xsi:type="dc:Point" x="505.0" y="361.0"/>
+        <di:waypoint xsi:type="dc:Point" x="528.0" y="361.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="20.0" x="497.0" y="341.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_13" bpmnElement="Participant_2" isHorizontal="true">
+        <dc:Bounds height="421.0" width="2569.0" x="0.0" y="492.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_8" bpmnElement="Lane_1" isHorizontal="true">
+        <dc:Bounds height="205.0" width="2539.0" x="30.0" y="492.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_9" bpmnElement="Lane_2" isHorizontal="true">
+        <dc:Bounds height="217.0" width="2539.0" x="30.0" y="696.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_15" bpmnElement="StartEvent_3">
+        <dc:Bounds height="36.0" width="36.0" x="89.0" y="588.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="88.0" x="63.0" y="629.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ManualTask_7" bpmnElement="ManualTask_1">
+        <dc:Bounds height="80.0" width="100.0" x="180.0" y="566.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_4" bpmnElement="ServiceTask_1">
+        <dc:Bounds height="80.0" width="100.0" x="1356.0" y="216.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_9" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="1620.0" y="238.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="1638.0" y="279.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_10" bpmnElement="EndEvent_2">
+        <dc:Bounds height="36.0" width="36.0" x="828.0" y="52.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="846.0" y="93.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_15" bpmnElement="UserTask_8">
+        <dc:Bounds height="80.0" width="100.0" x="348.0" y="566.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_7" bpmnElement="ExclusiveGateway_2" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="504.0" y="580.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="51.0" x="505.0" y="545.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_12" bpmnElement="SequenceFlow_12" sourceElement="_BPMNShape_UserTask_15" targetElement="_BPMNShape_ExclusiveGateway_7">
+        <di:waypoint xsi:type="dc:Point" x="448.0" y="606.0"/>
+        <di:waypoint xsi:type="dc:Point" x="504.0" y="605.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="470.0" y="606.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_13" bpmnElement="SequenceFlow_13" sourceElement="_BPMNShape_ExclusiveGateway_7" targetElement="_BPMNShape_ManualTask_8">
+        <di:waypoint xsi:type="dc:Point" x="529.0" y="630.0"/>
+        <di:waypoint xsi:type="dc:Point" x="529.0" y="805.0"/>
+        <di:waypoint xsi:type="dc:Point" x="576.0" y="805.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="20.0" x="534.0" y="758.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ManualTask_8" bpmnElement="ManualTask_2">
+        <dc:Bounds height="80.0" width="100.0" x="576.0" y="765.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_17" bpmnElement="UserTask_10">
+        <dc:Bounds height="80.0" width="100.0" x="732.0" y="765.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_8" bpmnElement="ExclusiveGateway_3" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="900.0" y="779.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="51.0" x="901.0" y="755.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_16" bpmnElement="SequenceFlow_16" sourceElement="_BPMNShape_UserTask_17" targetElement="_BPMNShape_ExclusiveGateway_8">
+        <di:waypoint xsi:type="dc:Point" x="832.0" y="805.0"/>
+        <di:waypoint xsi:type="dc:Point" x="854.0" y="805.0"/>
+        <di:waypoint xsi:type="dc:Point" x="854.0" y="804.0"/>
+        <di:waypoint xsi:type="dc:Point" x="900.0" y="804.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="853.0" y="804.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_18" bpmnElement="UserTask_11">
+        <dc:Bounds height="80.0" width="100.0" x="1032.0" y="828.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_17" bpmnElement="SequenceFlow_17" sourceElement="_BPMNShape_ExclusiveGateway_8" targetElement="_BPMNShape_UserTask_18">
+        <di:waypoint xsi:type="dc:Point" x="925.0" y="829.0"/>
+        <di:waypoint xsi:type="dc:Point" x="925.0" y="868.0"/>
+        <di:waypoint xsi:type="dc:Point" x="991.0" y="868.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1032.0" y="868.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="20.0" x="950.0" y="844.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_20" bpmnElement="SequenceFlow_20" sourceElement="_BPMNShape_ExclusiveGateway_8" targetElement="_BPMNShape_UserTask_22">
+        <di:waypoint xsi:type="dc:Point" x="950.0" y="804.0"/>
+        <di:waypoint xsi:type="dc:Point" x="986.0" y="804.0"/>
+        <di:waypoint xsi:type="dc:Point" x="986.0" y="760.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1188.0" y="760.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="27.0" x="979.0" y="727.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_7" bpmnElement="ServiceTask_4">
+        <dc:Bounds height="80.0" width="100.0" x="1740.0" y="715.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_22" bpmnElement="UserTask_15">
+        <dc:Bounds height="80.0" width="100.0" x="1188.0" y="720.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_9" bpmnElement="ExclusiveGateway_4" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="1380.0" y="816.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="50.0" x="1381.0" y="881.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_24" bpmnElement="SequenceFlow_24" sourceElement="_BPMNShape_UserTask_22" targetElement="_BPMNShape_ExclusiveGateway_9">
+        <di:waypoint xsi:type="dc:Point" x="1288.0" y="760.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1316.0" y="760.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1316.0" y="841.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1380.0" y="841.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1310.0" y="760.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_8" bpmnElement="ServiceTask_5">
+        <dc:Bounds height="80.0" width="100.0" x="1560.0" y="802.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_25" bpmnElement="SequenceFlow_25" sourceElement="_BPMNShape_ExclusiveGateway_9" targetElement="_BPMNShape_ServiceTask_8">
+        <di:waypoint xsi:type="dc:Point" x="1430.0" y="841.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1531.0" y="841.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1531.0" y="842.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1560.0" y="842.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="38.0" width="77.0" x="1431.0" y="782.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_23" bpmnElement="UserTask_16">
+        <dc:Bounds height="80.0" width="100.0" x="912.0" y="321.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_24" bpmnElement="UserTask_17">
+        <dc:Bounds height="80.0" width="100.0" x="1992.0" y="514.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_26" bpmnElement="SequenceFlow_26" sourceElement="_BPMNShape_ExclusiveGateway_7" targetElement="_BPMNShape_UserTask_24">
+        <di:waypoint xsi:type="dc:Point" x="554.0" y="605.0"/>
+        <di:waypoint xsi:type="dc:Point" x="801.0" y="605.0"/>
+        <di:waypoint xsi:type="dc:Point" x="801.0" y="555.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1992.0" y="554.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="27.0" x="756.0" y="584.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_27" bpmnElement="SequenceFlow_27" sourceElement="_BPMNShape_ExclusiveGateway_9" targetElement="_BPMNShape_ServiceTask_7">
+        <di:waypoint xsi:type="dc:Point" x="1405.0" y="816.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1405.0" y="755.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1603.0" y="755.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1740.0" y="755.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="88.0" x="1536.0" y="755.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_9" bpmnElement="ServiceTask_6">
+        <dc:Bounds height="80.0" width="100.0" x="2256.0" y="514.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_14" bpmnElement="EndEvent_6">
+        <dc:Bounds height="36.0" width="36.0" x="2520.0" y="536.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="2538.0" y="577.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_MessageFlow_10" bpmnElement="MessageFlow_10" sourceElement="_BPMNShape_SendTask_14" targetElement="_BPMNShape_IntermediateCatchEvent_7">
+        <di:waypoint xsi:type="dc:Point" x="2174.0" y="514.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2174.0" y="445.0"/>
+        <di:waypoint xsi:type="dc:Point" x="846.0" y="445.0"/>
+        <di:waypoint xsi:type="dc:Point" x="846.0" y="379.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1900.0" y="445.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_30" bpmnElement="SequenceFlow_30" sourceElement="_BPMNShape_ServiceTask_8" targetElement="_BPMNShape_ServiceTask_7">
+        <di:waypoint xsi:type="dc:Point" x="1660.0" y="843.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1707.0" y="843.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1707.0" y="768.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1740.0" y="763.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1697.0" y="799.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_37" bpmnElement="SequenceFlow_37" sourceElement="_BPMNShape_UserTask_24" targetElement="_BPMNShape_SendTask_14">
+        <di:waypoint xsi:type="dc:Point" x="2092.0" y="554.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2124.0" y="554.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="2105.0" y="554.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_38" bpmnElement="SequenceFlow_38" sourceElement="_BPMNShape_ServiceTask_9" targetElement="_BPMNShape_UserTask_28">
+        <di:waypoint xsi:type="dc:Point" x="2356.0" y="554.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2388.0" y="554.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="2369.0" y="554.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_39" bpmnElement="SequenceFlow_39" sourceElement="_BPMNShape_UserTask_9" targetElement="_BPMNShape_SendTask_15">
+        <di:waypoint xsi:type="dc:Point" x="1192.0" y="256.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1224.0" y="256.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1205.0" y="256.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_40" bpmnElement="SequenceFlow_40" sourceElement="_BPMNShape_ServiceTask_4" targetElement="_BPMNShape_UserTask_30">
+        <di:waypoint xsi:type="dc:Point" x="1456.0" y="256.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1488.0" y="256.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1469.0" y="256.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_SendTask_5" bpmnElement="SendTask_1">
+        <dc:Bounds height="80.0" width="100.0" x="324.0" y="35.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="_BPMNShape_UserTask_7" targetElement="_BPMNShape_SendTask_5">
+        <di:waypoint xsi:type="dc:Point" x="292.0" y="75.0"/>
+        <di:waypoint xsi:type="dc:Point" x="324.0" y="75.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="305.0" y="75.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_MessageFlow_11" bpmnElement="MessageFlow_11" sourceElement="_BPMNShape_SendTask_5" targetElement="_BPMNShape_StartEvent_13">
+        <di:waypoint xsi:type="dc:Point" x="374.0" y="115.0"/>
+        <di:waypoint xsi:type="dc:Point" x="374.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="72.0" y="180.0"/>
+        <di:waypoint xsi:type="dc:Point" x="72.0" y="286.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="200.0" y="180.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_SendTask_6" bpmnElement="SendTask_2">
+        <dc:Bounds height="80.0" width="100.0" x="672.0" y="321.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_11" bpmnElement="SequenceFlow_11" sourceElement="_BPMNShape_UserTask_10" targetElement="_BPMNShape_SendTask_6">
+        <di:waypoint xsi:type="dc:Point" x="628.0" y="361.0"/>
+        <di:waypoint xsi:type="dc:Point" x="672.0" y="361.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="641.0" y="361.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_MessageFlow_12" bpmnElement="MessageFlow_12" sourceElement="_BPMNShape_SendTask_6" targetElement="_BPMNShape_StartEvent_15">
+        <di:waypoint xsi:type="dc:Point" x="722.0" y="401.0"/>
+        <di:waypoint xsi:type="dc:Point" x="722.0" y="481.0"/>
+        <di:waypoint xsi:type="dc:Point" x="107.0" y="481.0"/>
+        <di:waypoint xsi:type="dc:Point" x="107.0" y="588.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="421.0" y="481.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_SendTask_14" bpmnElement="SendTask_10">
+        <dc:Bounds height="80.0" width="100.0" x="2124.0" y="514.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_47" bpmnElement="SequenceFlow_47" sourceElement="_BPMNShape_SendTask_14" targetElement="_BPMNShape_ServiceTask_9">
+        <di:waypoint xsi:type="dc:Point" x="2224.0" y="554.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2256.0" y="554.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="2243.0" y="554.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_IntermediateCatchEvent_7" bpmnElement="IntermediateCatchEvent_4">
+        <dc:Bounds height="36.0" width="36.0" x="828.0" y="343.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="846.0" y="384.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_48" bpmnElement="SequenceFlow_48" sourceElement="_BPMNShape_IntermediateCatchEvent_7" targetElement="_BPMNShape_UserTask_23">
+        <di:waypoint xsi:type="dc:Point" x="864.0" y="361.0"/>
+        <di:waypoint xsi:type="dc:Point" x="912.0" y="361.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="884.0" y="361.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_SendTask_15" bpmnElement="SendTask_11">
+        <dc:Bounds height="80.0" width="100.0" x="1224.0" y="216.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_49" bpmnElement="SequenceFlow_49" sourceElement="_BPMNShape_SendTask_15" targetElement="_BPMNShape_ServiceTask_4">
+        <di:waypoint xsi:type="dc:Point" x="1324.0" y="256.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1356.0" y="256.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1337.0" y="256.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_51" bpmnElement="SequenceFlow_51" sourceElement="_BPMNShape_StartEvent_15" targetElement="_BPMNShape_ManualTask_7">
+        <di:waypoint xsi:type="dc:Point" x="125.0" y="606.0"/>
+        <di:waypoint xsi:type="dc:Point" x="180.0" y="606.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="168.0" y="606.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_53" bpmnElement="SequenceFlow_53" sourceElement="_BPMNShape_ManualTask_7" targetElement="_BPMNShape_UserTask_15">
+        <di:waypoint xsi:type="dc:Point" x="280.0" y="606.0"/>
+        <di:waypoint xsi:type="dc:Point" x="348.0" y="606.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="311.0" y="606.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_54" bpmnElement="SequenceFlow_54" sourceElement="_BPMNShape_ManualTask_8" targetElement="_BPMNShape_UserTask_17">
+        <di:waypoint xsi:type="dc:Point" x="676.0" y="805.0"/>
+        <di:waypoint xsi:type="dc:Point" x="732.0" y="805.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="701.0" y="805.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_55" bpmnElement="SequenceFlow_55" sourceElement="_BPMNShape_UserTask_18" targetElement="_BPMNShape_UserTask_22">
+        <di:waypoint xsi:type="dc:Point" x="1132.0" y="868.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1160.0" y="868.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1160.0" y="788.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1188.0" y="778.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1157.0" y="814.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_28" bpmnElement="UserTask_18">
+        <dc:Bounds height="80.0" width="100.0" x="2388.0" y="514.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_56" bpmnElement="SequenceFlow_56" sourceElement="_BPMNShape_UserTask_28" targetElement="_BPMNShape_EndEvent_14">
+        <di:waypoint xsi:type="dc:Point" x="2488.0" y="554.0"/>
+        <di:waypoint xsi:type="dc:Point" x="2520.0" y="554.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="2501.0" y="554.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_29" bpmnElement="UserTask_19">
+        <dc:Bounds height="80.0" width="100.0" x="1884.0" y="715.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_58" bpmnElement="SequenceFlow_58" sourceElement="_BPMNShape_ServiceTask_7" targetElement="_BPMNShape_UserTask_29">
+        <di:waypoint xsi:type="dc:Point" x="1840.0" y="755.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1884.0" y="755.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1859.0" y="755.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_59" bpmnElement="SequenceFlow_59" sourceElement="_BPMNShape_UserTask_29" targetElement="_BPMNShape_UserTask_24">
+        <di:waypoint xsi:type="dc:Point" x="1934.0" y="715.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1934.0" y="655.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1934.0" y="576.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1992.0" y="564.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1931.0" y="636.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_30" bpmnElement="UserTask_20">
+        <dc:Bounds height="80.0" width="100.0" x="1488.0" y="216.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_60" bpmnElement="SequenceFlow_60" sourceElement="_BPMNShape_UserTask_30" targetElement="_BPMNShape_EndEvent_9">
+        <di:waypoint xsi:type="dc:Point" x="1588.0" y="256.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1620.0" y="256.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_61" bpmnElement="SequenceFlow_61" sourceElement="_BPMNShape_SendTask_5" targetElement="_BPMNShape_IntermediateCatchEvent_11">
+        <di:waypoint xsi:type="dc:Point" x="424.0" y="75.0"/>
+        <di:waypoint xsi:type="dc:Point" x="480.0" y="75.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="446.0" y="75.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_MessageFlow_1" bpmnElement="MessageFlow_1" sourceElement="_BPMNShape_SendTask_15" targetElement="_BPMNShape_IntermediateCatchEvent_11">
+        <di:waypoint xsi:type="dc:Point" x="1277.0" y="216.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1280.0" y="175.0"/>
+        <di:waypoint xsi:type="dc:Point" x="498.0" y="175.0"/>
+        <di:waypoint xsi:type="dc:Point" x="498.0" y="93.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="692.0" y="196.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_10" bpmnElement="ExclusiveGateway_5" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="336.0" y="245.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="82.0" x="321.0" y="225.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_62" bpmnElement="SequenceFlow_62" sourceElement="_BPMNShape_ExclusiveGateway_10" targetElement="_BPMNShape_ExclusiveGateway_6">
+        <di:waypoint xsi:type="dc:Point" x="361.0" y="295.0"/>
+        <di:waypoint xsi:type="dc:Point" x="361.0" y="360.0"/>
+        <di:waypoint xsi:type="dc:Point" x="432.0" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_63" bpmnElement="SequenceFlow_63" sourceElement="_BPMNShape_UserTask_23" targetElement="_BPMNShape_UserTask_9">
+        <di:waypoint xsi:type="dc:Point" x="1012.0" y="361.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1052.0" y="361.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1052.0" y="268.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1092.0" y="263.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="1049.0" y="309.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_64" bpmnElement="SequenceFlow_64" sourceElement="_BPMNShape_ExclusiveGateway_10" targetElement="_BPMNShape_UserTask_9">
+        <di:waypoint xsi:type="dc:Point" x="386.0" y="270.0"/>
+        <di:waypoint xsi:type="dc:Point" x="739.0" y="270.0"/>
+        <di:waypoint xsi:type="dc:Point" x="739.0" y="256.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1092.0" y="256.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_IntermediateCatchEvent_11" bpmnElement="IntermediateCatchEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="480.0" y="57.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="498.0" y="98.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_32" bpmnElement="UserTask_5">
+        <dc:Bounds height="80.0" width="100.0" x="566.0" y="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="_BPMNShape_IntermediateCatchEvent_11" targetElement="_BPMNShape_UserTask_32">
+        <di:waypoint xsi:type="dc:Point" x="516.0" y="75.0"/>
+        <di:waypoint xsi:type="dc:Point" x="541.0" y="75.0"/>
+        <di:waypoint xsi:type="dc:Point" x="541.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="566.0" y="70.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_11" bpmnElement="ExclusiveGateway_6" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="725.0" y="44.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="_BPMNShape_UserTask_32" targetElement="_BPMNShape_ExclusiveGateway_11">
+        <di:waypoint xsi:type="dc:Point" x="666.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="695.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="695.0" y="69.0"/>
+        <di:waypoint xsi:type="dc:Point" x="725.0" y="69.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_9" sourceElement="_BPMNShape_ExclusiveGateway_11" targetElement="_BPMNShape_EndEvent_10">
+        <di:waypoint xsi:type="dc:Point" x="775.0" y="69.0"/>
+        <di:waypoint xsi:type="dc:Point" x="801.0" y="69.0"/>
+        <di:waypoint xsi:type="dc:Point" x="801.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="828.0" y="70.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="_BPMNShape_ExclusiveGateway_11" targetElement="_BPMNShape_UserTask_7">
+        <di:waypoint xsi:type="dc:Point" x="750.0" y="44.0"/>
+        <di:waypoint xsi:type="dc:Point" x="750.0" y="14.0"/>
+        <di:waypoint xsi:type="dc:Point" x="154.0" y="14.0"/>
+        <di:waypoint xsi:type="dc:Point" x="154.0" y="57.0"/>
+        <di:waypoint xsi:type="dc:Point" x="192.0" y="65.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="20.0" x="757.0" y="30.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_14" bpmnElement="SequenceFlow_14" sourceElement="_BPMNShape_SendTask_6" targetElement="_BPMNShape_IntermediateCatchEvent_7">
+        <di:waypoint xsi:type="dc:Point" x="772.0" y="361.0"/>
+        <di:waypoint xsi:type="dc:Point" x="828.0" y="361.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
