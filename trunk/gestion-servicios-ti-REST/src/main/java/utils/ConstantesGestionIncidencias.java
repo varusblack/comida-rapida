@@ -62,11 +62,14 @@ public class ConstantesGestionIncidencias {
 	public static final String MESSAGE_ACC_MANAGER_2_VIP_CUSTOMER = "accManager2VipCustomer";
 
 	// ID Procesos
-	public static final String PROCESS_VIP_CUSTOMER = "Process_1";
+	public static final String PROCESS_VIP_CUSTOMER = "Gestion_incidencias_Vip_Customer";
 	public static final String PROCESS_KEY_ACCOUNT_MANAGER = "Process_2";
 	public static final String PROCESS_TROUBLE_TICKET_SYSTEM = "Process_3";
 	public static final String PROCESS_FIRST_LEVEL_SUPPORT_AGENT = "Process_4";
 	public static final String PROCESS_SECOND_LEVEL_SUPPORT_AGENT = "Process_5";
 	public static final String PROCESS_SOFTWARE_DEVELOPER = "Process_6";
+	
+	// URL API RESTful
+	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/";
 
 }
