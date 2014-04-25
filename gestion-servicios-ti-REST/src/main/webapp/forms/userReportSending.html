@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="js/utiles.js"></script>
+<script form-script type="text/form-script" src="js/jquery-1.8.0.min.js"></script>
+<script form-script type="text/form-script" src="js/utiles.js"></script>
 <title>Envío de solicitud</title>
 </head>
 <body>
 
-<form name="userReportSending" class="form-horizontal">
+<form name="userReportSendingForm" id="userReportSendingForm" class="form-horizontal" onsubmit="alerta()">
 
 	<div class="control-group">
 		<label class="control-label" for="ticketType">Tipo de solicitud</label>
@@ -42,10 +42,9 @@
 	</div>
 	
 	
-	<input form-field type="string" id="ticketId" name="ticketId" hidden/>
-	<input form-field type="string" id="ticketDate" name="ticketDate" hidden/>
+	<input type="string" id="ticketId" name="ticketId" style="display:none" value="ticketId"/>
+	<input type="string" id="ticketDate" name="ticketDate" style="display:none" value="ticketDate"/>
 
-	<button type="submit" onsubmit="alerta()">Enviar</button>
 	
 </form>
 
@@ -53,16 +52,30 @@
 	Errores de validación en el formulario
 </p>
 
-<script type="text/javascript">
+<script form-script type="text/form-script">
 function alerta() {
 	var guid = guid();
 	var fecha = fechaActual();
 	
+	var ticketType = $("#ticketType");
+	var ticketIssue = $("#ticketIssue");
+	var ticketDescription = $("#ticketDescription");
+	var ticketAuthor = $("#ticketAuthor");
+	
 	$("#ticketId").val(guid);
 	$("#ticketDate").val(fecha);
 	
-	alert(guid + " - " + fecha);
+	var mostrando = "GUID: " + guid + ", FECHA: " + fecha + ", TYPE: " + ticketType + ", ISSUE: " + ticketIssue;
+	
+	alert(mostrando);
 }
+
+$(function() {
+	$("#userReportSendingForm").submit(function(){
+		alerta();
+	});
+});
+
 </script>
 
 </body>

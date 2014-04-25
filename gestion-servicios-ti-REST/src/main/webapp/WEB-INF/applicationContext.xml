@@ -37,4 +37,7 @@
 	
 	<bean id="PPICalculator" class="incidenceManagement.PPICalculator"></bean>
 	
+	<bean id="RESTVipCustomerService" class="incidenceManagement.RESTVipCustomerService"></bean>
+	
+	<bean id="RESTKeyAccountManagerService" class="incidenceManagement.RESTKeyAccountManagerService"></bean>
 </beans>
