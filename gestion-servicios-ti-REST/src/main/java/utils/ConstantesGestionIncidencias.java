@@ -71,5 +71,10 @@ public class ConstantesGestionIncidencias {
 	
 	// URL API RESTful
 	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/";
+	
+	// Estado de los tiques
+	public static final String STATE_NEW = "Nueva";
+	public static final String STATE_WORKING = "En curso";
+	public static final String STATE_FINISHED = "Finalizada";
 
 }
