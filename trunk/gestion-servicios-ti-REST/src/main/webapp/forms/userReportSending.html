@@ -2,8 +2,6 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<script form-script type="text/form-script" src="js/jquery-1.8.0.min.js"></script>
-<script form-script type="text/form-script" src="js/utiles.js"></script>
 <title>Envío de solicitud</title>
 </head>
 <body>
@@ -41,42 +39,10 @@
 		</div>
 	</div>
 	
-	
-	<input type="string" id="ticketId" name="ticketId" style="display:none" value="ticketId"/>
-	<input type="string" id="ticketDate" name="ticketDate" style="display:none" value="ticketDate"/>
-
-	
 </form>
 
 <p ng-if="varialesForm.$invalid">
 	Errores de validación en el formulario
 </p>
-
-<script form-script type="text/form-script">
-function alerta() {
-	var guid = guid();
-	var fecha = fechaActual();
-	
-	var ticketType = $("#ticketType");
-	var ticketIssue = $("#ticketIssue");
-	var ticketDescription = $("#ticketDescription");
-	var ticketAuthor = $("#ticketAuthor");
-	
-	$("#ticketId").val(guid);
-	$("#ticketDate").val(fecha);
-	
-	var mostrando = "GUID: " + guid + ", FECHA: " + fecha + ", TYPE: " + ticketType + ", ISSUE: " + ticketIssue;
-	
-	alert(mostrando);
-}
-
-$(function() {
-	$("#userReportSendingForm").submit(function(){
-		alerta();
-	});
-});
-
-</script>
-
 </body>
 </html>

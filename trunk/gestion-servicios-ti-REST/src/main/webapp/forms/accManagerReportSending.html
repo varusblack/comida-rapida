@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Envío de solicitud a centro de soporte</title>
+</head>
+<body>
+
+<form name="userReportSendingForm" id="userReportSendingForm" class="form-horizontal">
+
+	<div class="control-group">
+		<label class="control-label" for="systemTicketIssue">Asunto</label>
+		<div class="controls">
+			<input form-field type="string" id="systemTicketIssue" name="systemTicketIssue" ng-required="true" ng-minlength="5" ng-maxlength="50"/>
+			<span class="help-inline">Asunto...</span>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="systemTicketDescription">Descripción</label>
+		<div class="controls">
+			<textarea form-field rows="4" cols="40" id="systemTicketDescription" name="systemTicketDescription"></textarea>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="systemTicketAuthor">Autor</label>
+		<div class="controls">
+			<input form-field type="string" id="systemTicketAuthor" name="systemTicketAuthor"/>
+		</div>
+	</div>
+	
+</form>
+
+<p ng-if="varialesForm.$invalid">
+	Errores de validación en el formulario
+</p>
+
+</body>
+</html>
