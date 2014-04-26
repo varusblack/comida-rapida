@@ -33,11 +33,9 @@
 
 	<!-- Incluye aquí abajo las definiciones de las clases que se usen en los procesos -->
 	
-	<bean id="messageSenderService" class="incidenceManagement.MessageSenderService"></bean>
-	
+	<bean id="messageSenderService" class="services.MessageSenderService"></bean>
 	<bean id="PPICalculator" class="incidenceManagement.PPICalculator"></bean>
-	
-	<bean id="RESTVipCustomerService" class="incidenceManagement.RESTVipCustomerService"></bean>
-	
-	<bean id="RESTKeyAccountManagerService" class="incidenceManagement.RESTKeyAccountManagerService"></bean>
+	<bean id="RESTVipCustomerService" class="services.RESTVipCustomerService"></bean>
+	<bean id="RESTKeyAccountManagerService" class="services.RESTKeyAccountManagerService"></bean>
+	<bean id="accManagerVariableAsignator" class="incidenceManagement.AsignadorVariablesListener"></bean>
 </beans>

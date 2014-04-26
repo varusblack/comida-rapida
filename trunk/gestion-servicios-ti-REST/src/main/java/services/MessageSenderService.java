@@ -1,4 +1,4 @@
-package incidenceManagement;
+package services;
 
 import java.util.Date;
 import java.util.HashMap;

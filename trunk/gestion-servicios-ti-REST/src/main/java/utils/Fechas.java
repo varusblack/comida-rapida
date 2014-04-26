@@ -1,14 +1,15 @@
 package utils;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Fechas {
 	
-	public static Date fechaActual() {
-		Calendar calendar = Calendar.getInstance();
-		Date fecha = new Date(calendar.getTimeInMillis());
-		return fecha;
+	public static String fechaActual() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
+		String date = dateFormat.format(new Date());
+ 		
+		return date;
 	}
 
 }
