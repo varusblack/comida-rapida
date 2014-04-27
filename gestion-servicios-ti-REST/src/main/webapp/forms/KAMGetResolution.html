@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Ver resolución del sistema de soporte</title>
+</head>
+<body>
+
+	<form name="accManagerViewReport" id="accManagerViewReport"
+		class="form-horizontal">
+
+		<div class="control-group">
+			<label class="control-label" for="ticketType">Identificador
+				de consulta</label>
+			<div class="controls">
+				<input form-field type="string" id="ticketId" name="ticketId"
+					readonly="true" value="{{formVariable('ticketId')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketIssue">Asunto</label>
+			<div class="controls">
+				<input form-field type="string" id="systemTicketIssue" name="systemTicketIssue"
+					readonly="true" value="{{formVariable('systemTicketIssue')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketDescription">Descripción</label>
+			<div class="controls">
+				<textarea form-field rows="4" cols="40" id="systemTicketDescription"
+					name="systemTicketDescription" readonly="true"
+					value="{{formVariable('systemTicketDescription')}}"></textarea>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketAuthor">Autor</label>
+			<div class="controls">
+				<input form-field type="string" id="systemTicketAuthor"
+					name="systemTicketAuthor" readonly="true"
+					value="{{formVariable('systemTicketAuthor')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketDate">Fecha de
+				envío</label>
+			<div class="controls">
+				<input form-field type="string" id="systemTicketDate" name="systemTicketDate"
+					readonly="true" value="{{formVariable('systemTicketDate')}}" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="systemTicketResults">Resolución</label>
+			<div class="controls">
+				<textarea form-field rows="4" cols="40" id="systemTicketResults"
+					name="systemTicketResults" readonly="true"
+					value="{{formVariable('systemTicketResults')}}"></textarea>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

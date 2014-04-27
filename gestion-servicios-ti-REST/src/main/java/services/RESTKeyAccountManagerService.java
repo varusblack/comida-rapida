@@ -4,7 +4,6 @@ import incidenceManagement.RESTClient;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,10 @@ public class RESTKeyAccountManagerService {
 	private static RuntimeService runtimeService; 
 	
 	private static List<Request> peticionesPendientesVip = new LinkedList<Request>();
+	private static Request peticionVip = null;
+	private static Request respuestaTTS = null;
 	
-	public Boolean comprobarPeticiones() {
+	public Boolean comprobarPeticionesVip() {
 		Boolean hayPeticiones = false;
 		String peticiones = RESTClient.doGet("");
 		Gson gson = new Gson();
@@ -30,6 +31,7 @@ public class RESTKeyAccountManagerService {
 		peticionesPendientesVip = (List<Request>) gson.fromJson(peticiones, Request.class);
 		if(peticionesPendientesVip.size() > 0) {
 			hayPeticiones = true;
+			peticionVip = peticionesPendientesVip.get(0);
 		}
 		return hayPeticiones;
 	}
@@ -55,29 +57,53 @@ public class RESTKeyAccountManagerService {
 		return resultado;
 	}
 	
-	public Boolean modificarPeticion() {
-		String url;
-		String POSTText;
+	public Boolean comprobarRespuestasTTS(String ticketId) {
+		Boolean hayRespuesta = false;
+		
+		String peticion = RESTClient.doGet(ticketId);
+		Gson gson = new Gson();
+		
+		respuestaTTS = gson.fromJson(peticion, Request.class);
+		if (respuestaTTS != null) {
+			hayRespuesta = true;
+		}
+		
+		return hayRespuesta;
+	}
+	
+	public Boolean modificarPeticion(String ticketResults) {
+		String url = peticionVip.getTicketId();
+		
+		String POSTText = ConstantesGestionIncidencias.TICKET_RESULTS + "=" + ticketResults + "&" + 
+				ConstantesGestionIncidencias.TICKET_STATE + "=" + ConstantesGestionIncidencias.STATE_FINISHED;
 		
 		Boolean resultado = RESTClient.doPut(url, POSTText);
 		
 		return resultado;
 	}
 	
-	public Boolean borrarPeticion() {
-		String url;
-		
-		Boolean resultado = RESTClient.doDelete(url);
-		
-		return resultado;
-	}
-
 	public static List<Request> getPeticionesPendientesVip() {
 		return peticionesPendientesVip;
 	}
 
 	public static void setPeticionesPendientesVip(List<Request> peticionesPendientesVip) {
 		RESTKeyAccountManagerService.peticionesPendientesVip = peticionesPendientesVip;
+	}
+
+	public static Request getPeticionVip() {
+		return peticionVip;
+	}
+
+	public static void setPeticionVip(Request peticionVip) {
+		RESTKeyAccountManagerService.peticionVip = peticionVip;
+	}
+
+	public static Request getRespuestaTTS() {
+		return respuestaTTS;
+	}
+
+	public static void setRespuestaTTS(Request respuestaTTS) {
+		RESTKeyAccountManagerService.respuestaTTS = respuestaTTS;
 	}
 
 	

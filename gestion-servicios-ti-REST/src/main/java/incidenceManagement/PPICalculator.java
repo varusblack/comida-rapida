@@ -9,7 +9,6 @@ import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import utils.ConstantesGestionIncidencias;
-import utils.Fechas;
 
 
 public class PPICalculator {
@@ -59,25 +58,25 @@ public class PPICalculator {
 		return avg.toString();
 	}
 	
-	public String calculatePPIFirstLevelSupport () {
-		String processDefinitionKey = ConstantesGestionIncidencias.PROCESS_FIRST_LEVEL_SUPPORT_AGENT;
-		List<HistoricProcessInstance> instances = historyService.createHistoricProcessInstanceQuery().
-				processDefinitionKey(processDefinitionKey).list();
-		LOGGER.info("CalculatePPI Fist Level Support - Obtenida lista de instancias del proceso con KEY = " + processDefinitionKey);
-		
-		Long sum = 0L;
-		
-		for (HistoricProcessInstance hpi : instances) {
-			sum +=  Calendar.getInstance().getTimeInMillis();
-		}
-		LOGGER.info("CalculatePPI Fist Level Support - Calculada la suma de todos los milisegundos");
-		
-		Double avg = new Double((sum/instances.size()));
-		avg = avg/1000;
-		LOGGER.info("CalculatePPI Fist Level Support - Calculada la media de la suma de milisengundos");
-		
-		return avg.toString();
-	}
+//	public String calculatePPIFirstLevelSupport () {
+//		String processDefinitionKey = ConstantesGestionIncidencias.PROCESS_FIRST_LEVEL_SUPPORT_AGENT;
+//		List<HistoricProcessInstance> instances = historyService.createHistoricProcessInstanceQuery().
+//				processDefinitionKey(processDefinitionKey).list();
+//		LOGGER.info("CalculatePPI Fist Level Support - Obtenida lista de instancias del proceso con KEY = " + processDefinitionKey);
+//		
+//		Long sum = 0L;
+//		
+//		for (HistoricProcessInstance hpi : instances) {
+//			sum +=  Calendar.getInstance().getTimeInMillis();
+//		}
+//		LOGGER.info("CalculatePPI Fist Level Support - Calculada la suma de todos los milisegundos");
+//		
+//		Double avg = new Double((sum/instances.size()));
+//		avg = avg/1000;
+//		LOGGER.info("CalculatePPI Fist Level Support - Calculada la media de la suma de milisengundos");
+//		
+//		return avg.toString();
+//	}
 	
 	public String calculatePPISecondLevelSupport () {
 		String processDefinitionKey = "Process_3";
@@ -99,25 +98,25 @@ public class PPICalculator {
 		return avg.toString();
 	}
 	
-	public String calculatePPISoftwareDeveloper () {
-		String processDefinitionKey = ConstantesGestionIncidencias.PROCESS_SOFTWARE_DEVELOPER;
-		List<HistoricProcessInstance> instances = historyService.createHistoricProcessInstanceQuery().
-				processDefinitionKey(processDefinitionKey).list();
-		LOGGER.info("CalculatePPI Software Developer - Obtenida lista de instancias del proceso con KEY = " + processDefinitionKey);
-		
-		Long sum = 0L;
-		
-		for (HistoricProcessInstance hpi : instances) {
-			sum +=  Calendar.getInstance().getTimeInMillis();
-		}
-		LOGGER.info("CalculatePPI Software Developer - Calculada la suma de todos los milisegundos");
-		
-		Double avg = new Double((sum/instances.size()));
-		avg = avg/1000;
-		LOGGER.info("CalculatePPI Software Developer - Calculada la media de la suma de milisengundos");
-		
-		return avg.toString();
-	}
+//	public String calculatePPISoftwareDeveloper () {
+//		String processDefinitionKey = ConstantesGestionIncidencias.PROCESS_SOFTWARE_DEVELOPER;
+//		List<HistoricProcessInstance> instances = historyService.createHistoricProcessInstanceQuery().
+//				processDefinitionKey(processDefinitionKey).list();
+//		LOGGER.info("CalculatePPI Software Developer - Obtenida lista de instancias del proceso con KEY = " + processDefinitionKey);
+//		
+//		Long sum = 0L;
+//		
+//		for (HistoricProcessInstance hpi : instances) {
+//			sum +=  Calendar.getInstance().getTimeInMillis();
+//		}
+//		LOGGER.info("CalculatePPI Software Developer - Calculada la suma de todos los milisegundos");
+//		
+//		Double avg = new Double((sum/instances.size()));
+//		avg = avg/1000;
+//		LOGGER.info("CalculatePPI Software Developer - Calculada la media de la suma de milisengundos");
+//		
+//		return avg.toString();
+//	}
 	
 	public void vacio(){
 		

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Ver solicitud</title>
+</head>
+<body>
+
+	<form name="accManagerViewReport" id="accManagerViewReport"
+		class="form-horizontal">
+
+		<div class="control-group">
+			<label class="control-label" for="ticketId">Identificador
+				de consulta</label>
+			<div class="controls">
+				<input form-field type="string" id="ticketId" name="ticketId"
+					readonly="true" value="{{formVariable('ticketId')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="ticketType">Tipo de
+				solicitud</label>
+			<div class="controls">
+				<input form-field type="string" id="ticketType" name="ticketType"
+					readonly="true" value="{{formVariable('ticketType')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="ticketIssue">Asunto</label>
+			<div class="controls">
+				<input form-field type="string" id="ticketIssue" name="ticketIssue"
+					readonly="true" value="{{formVariable('ticketIssue')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="ticketDescription">Descripción</label>
+			<div class="controls">
+				<textarea form-field rows="4" cols="40" id="ticketDescription"
+					name="ticketDescription" readonly="true"
+					value="{{formVariable('ticketDescription')}}"></textarea>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="ticketAuthor">Autor</label>
+			<div class="controls">
+				<input form-field type="string" id="ticketAuthor"
+					name="ticketAuthor" readonly="true"
+					value="{{formVariable('ticketAuthor')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for=""ticketDate"">Fecha de
+				envío</label>
+			<div class="controls">
+				<input form-field type="string" id="ticketDate" name="ticketDate"
+					readonly="true" value="{{formVariable('ticketDate')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="isIncidence">¿Es una
+				incidencia?</label> <input form-field type="boolean" id="isIncidence"
+				name="isIncidence" />
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="accCanHandle">¿Se conoce
+				una solución inmediata?</label> <input form-field type="boolean"
+				id="accCanHandle" name="accCanHandle" />
+		</div>
+	</form>
+</body>
+</html>

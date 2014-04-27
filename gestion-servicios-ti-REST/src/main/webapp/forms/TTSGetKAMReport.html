@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Ver solicitud de Key account manager</title>
+</head>
+<body>
+
+	<form name="TTSGetKAMReport" id="TTSGetKAMReport"
+		class="form-horizontal">
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketId">Identificador
+				de consulta</label>
+			<div class="controls">
+				<input form-field type="string" id="systemTicketId" name="systemTicketId"
+					readonly="true" value="{{formVariable('systemTicketId')}}" />
+			</div>
+		</div>
+
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketIssue">Asunto</label>
+			<div class="controls">
+				<input form-field type="string" id="systemTicketIssue" name="systemTicketIssue"
+					readonly="true" value="{{formVariable('systemTicketIssue')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketDescription">Descripción</label>
+			<div class="controls">
+				<textarea form-field rows="4" cols="40" id="systemTicketDescription"
+					name="systemTicketDescription" readonly="true"
+					value="{{formVariable('systemTicketDescription')}}"></textarea>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketAuthor">Autor</label>
+			<div class="controls">
+				<input form-field type="string" id="systemTicketAuthor"
+					name="systemTicketAuthor" readonly="true"
+					value="{{formVariable('systemTicketAuthor')}}" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="systemTicketDate">Fecha de
+				envío</label>
+			<div class="controls">
+				<input form-field type="string" id="systemTicketDate" name="systemTicketDate"
+					readonly="true" value="{{formVariable('systemTicketDate')}}" />
+			</div>
+		</div>
+
+	</form>
+</body>
+</html>
