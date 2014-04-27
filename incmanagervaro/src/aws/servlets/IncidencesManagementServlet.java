@@ -117,12 +117,12 @@ public class IncidencesManagementServlet extends HttpServlet {
 			i.setId(id);
 		}
 
-		i.setTicketType(type);
-		i.setTicketIssue(issue);
-		i.setTicketDescription(description);
-		i.setTicketAuthor(author);
+		i.setType(type);
+		i.setIssue(issue);
+		i.setDescription(description);
+		i.setAuthor(author);
 		i.setState(state);
-		i.setTicketSolution(solution);
+		i.setSolution(solution);
 
 		if (date != null) {
 			i.setDate(date);
@@ -195,13 +195,13 @@ public class IncidencesManagementServlet extends HttpServlet {
 	private void storeInDataStore(Incidence i) {
 		Entity e = new Entity("Incidence");
 		e.setProperty("id", i.getId());
-		e.setProperty("type", i.getTicketType());
-		e.setProperty("issue", i.getTicketIssue());
-		e.setProperty("description", i.getTicketDescription());
+		e.setProperty("type", i.getType());
+		e.setProperty("issue", i.getIssue());
+		e.setProperty("description", i.getDescription());
 		e.setProperty("date", i.getDate());
 		e.setProperty("state", i.getState());
-		e.setProperty("author", i.getTicketAuthor());
-		e.setProperty("solution", i.getTicketSolution());
+		e.setProperty("author", i.getAuthor());
+		e.setProperty("solution", i.getSolution());
 		datastore.put(e);
 	}
 
@@ -260,7 +260,7 @@ public class IncidencesManagementServlet extends HttpServlet {
 	private void updateIncidenceInDataStore(Incidence i) {
 		Entity e = getEntity(i.getId());
 		e.setProperty("state", i.getState());
-		e.setProperty("solution", i.getTicketSolution());
+		e.setProperty("solution", i.getSolution());
 		datastore.put(e);
 	}
 
@@ -313,13 +313,13 @@ public class IncidencesManagementServlet extends HttpServlet {
 	private Incidence setIncidenceFromEntity(Entity e) {
 		Incidence i = new Incidence();
 		i.setId((String) e.getProperty("id"));
-		i.setTicketType((String) e.getProperty("type"));
-		i.setTicketIssue((String) e.getProperty("issue"));
-		i.setTicketDescription((String) e.getProperty("description"));
+		i.setType((String) e.getProperty("type"));
+		i.setIssue((String) e.getProperty("issue"));
+		i.setDescription((String) e.getProperty("description"));
 		i.setDate((String) e.getProperty("date"));
-		i.setTicketAuthor((String) e.getProperty("author"));
+		i.setAuthor((String) e.getProperty("author"));
 		i.setState((String) e.getProperty("state"));
-		i.setTicketSolution((String) e.getProperty("solution"));
+		i.setSolution((String) e.getProperty("solution"));
 		return i;
 	}
 

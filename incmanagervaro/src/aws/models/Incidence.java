@@ -17,14 +17,14 @@ public class Incidence {
 	public static String COMPLETED = "Completada";
 
 	// Atributos de la clase.
-	private String ticketID;
-	private String ticketType;
-	private String ticketIssue;
-	private String ticketDescription;
-	private String ticketDate;
-	private String ticketAuthor;
-	private String ticketState;
-	private String ticketSolution;
+	private String id;
+	private String type;
+	private String issue;
+	private String description;
+	private String date;
+	private String author;
+	private String state;
+	private String solution;
 
 	/**
 	 * Constructor. Crea una nueva incidencia a fecha actual y con estado
@@ -39,7 +39,7 @@ public class Incidence {
 	 * @return the id
 	 */
 	public String getId() {
-		return this.ticketID;
+		return this.id;
 	}
 
 	/**
@@ -49,63 +49,63 @@ public class Incidence {
 	 *            the id to set
 	 */
 	public void setId(String id) {
-		this.ticketID = id;
+		this.id = id;
 	}
 
 	/**
-	 * @return the ticketType
+	 * @return the type
 	 */
-	public String getTicketType() {
-		return ticketType;
+	public String getType() {
+		return type;
 	}
 
 	/**
-	 * @param ticketType the ticketType to set
+	 * @param type the type to set
 	 */
-	public void setTicketType(String ticketType) {
-		this.ticketType = ticketType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	/**
-	 * @return the ticketIssue
+	 * @return the issue
 	 */
-	public String getTicketIssue() {
-		return ticketIssue;
+	public String getIssue() {
+		return issue;
 	}
 
 	/**
-	 * @param ticketIssue the ticketIssue to set
+	 * @param issue the issue to set
 	 */
-	public void setTicketIssue(String ticketIssue) {
-		this.ticketIssue = ticketIssue;
+	public void setIssue(String issue) {
+		this.issue = issue;
 	}
 
 	/**
-	 * @return the ticketDescription
+	 * @return the description
 	 */
-	public String getTicketDescription() {
-		return ticketDescription;
+	public String getDescription() {
+		return description;
 	}
 
 	/**
-	 * @param ticketDescription the ticketDescription to set
+	 * @param description the description to set
 	 */
-	public void setTicketDescription(String ticketDescription) {
-		this.ticketDescription = ticketDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**
-	 * @return the ticketAuthor
+	 * @return the author
 	 */
-	public String getTicketAuthor() {
-		return ticketAuthor;
+	public String getAuthor() {
+		return author;
 	}
 
 	/**
-	 * @param ticketAuthor the ticketAuthor to set
+	 * @param author the author to set
 	 */
-	public void setTicketAuthor(String ticketAuthor) {
-		this.ticketAuthor = ticketAuthor;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Incidence {
 	 * @return the state
 	 */
 	public String getState() {
-		return this.ticketState;
+		return this.state;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class Incidence {
 	 *            the state to set
 	 */
 	public void setState(String state) {
-		this.ticketState = state;
+		this.state = state;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class Incidence {
 	 *            the date to set
 	 */
 	public void setDate(String date) {
-		this.ticketDate = date;
+		this.date = date;
 	}
 
 	/**
@@ -141,21 +141,21 @@ public class Incidence {
 	 * @return
 	 */
 	public String getDate() {
-		return this.ticketDate;
+		return this.date;
 	}
 
 	/**
 	 * @return the ticketSolution
 	 */
-	public String getTicketSolution() {
-		return ticketSolution;
+	public String getSolution() {
+		return solution;
 	}
 
 	/**
-	 * @param ticketSolution the ticketSolution to set
+	 * @param solution the solution to set
 	 */
-	public void setTicketSolution(String ticketSolution) {
-		this.ticketSolution = ticketSolution;
+	public void setSolution(String solution) {
+		this.solution = solution;
 	}
 
 	/* (non-Javadoc)
@@ -166,21 +166,21 @@ public class Incidence {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((ticketAuthor == null) ? 0 : ticketAuthor.hashCode());
+				+ ((author == null) ? 0 : author.hashCode());
 		result = prime * result
-				+ ((ticketDate == null) ? 0 : ticketDate.hashCode());
+				+ ((date == null) ? 0 : date.hashCode());
 		result = prime
 				* result
-				+ ((ticketDescription == null) ? 0 : ticketDescription
+				+ ((description == null) ? 0 : description
 						.hashCode());
 		result = prime * result
-				+ ((ticketID == null) ? 0 : ticketID.hashCode());
+				+ ((id == null) ? 0 : id.hashCode());
 		result = prime * result
-				+ ((ticketIssue == null) ? 0 : ticketIssue.hashCode());
+				+ ((issue == null) ? 0 : issue.hashCode());
 		result = prime * result
-				+ ((ticketState == null) ? 0 : ticketState.hashCode());
+				+ ((state == null) ? 0 : state.hashCode());
 		result = prime * result
-				+ ((ticketType == null) ? 0 : ticketType.hashCode());
+				+ ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -196,53 +196,55 @@ public class Incidence {
 		if (getClass() != obj.getClass())
 			return false;
 		Incidence other = (Incidence) obj;
-		if (ticketAuthor == null) {
-			if (other.ticketAuthor != null)
+		if (author == null) {
+			if (other.author != null)
 				return false;
-		} else if (!ticketAuthor.equals(other.ticketAuthor))
+		} else if (!author.equals(other.author))
 			return false;
-		if (ticketDate == null) {
-			if (other.ticketDate != null)
+		if (date == null) {
+			if (other.date != null)
 				return false;
-		} else if (!ticketDate.equals(other.ticketDate))
+		} else if (!date.equals(other.date))
 			return false;
-		if (ticketDescription == null) {
-			if (other.ticketDescription != null)
+		if (description == null) {
+			if (other.description != null)
 				return false;
-		} else if (!ticketDescription.equals(other.ticketDescription))
+		} else if (!description.equals(other.description))
 			return false;
-		if (ticketID == null) {
-			if (other.ticketID != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!ticketID.equals(other.ticketID))
+		} else if (!id.equals(other.id))
 			return false;
-		if (ticketIssue == null) {
-			if (other.ticketIssue != null)
+		if (issue == null) {
+			if (other.issue != null)
 				return false;
-		} else if (!ticketIssue.equals(other.ticketIssue))
+		} else if (!issue.equals(other.issue))
 			return false;
-		if (ticketState == null) {
-			if (other.ticketState != null)
+		if (state == null) {
+			if (other.state != null)
 				return false;
-		} else if (!ticketState.equals(other.ticketState))
+		} else if (!state.equals(other.state))
 			return false;
-		if (ticketType == null) {
-			if (other.ticketType != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!ticketType.equals(other.ticketType))
+		} else if (!type.equals(other.type))
 			return false;
 		return true;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Incidence [ticketID=" + ticketID + ", ticketType=" + ticketType
-				+ ", ticketIssue=" + ticketIssue + ", ticketDescription="
-				+ ticketDescription + ", ticketDate=" + ticketDate
-				+ ", ticketAuthor=" + ticketAuthor + ", ticketState="
-				+ ticketState + "]";
+		return "Incidence [id=" + id + ", type=" + type + ", issue=" + issue
+				+ ", description=" + description + ", date=" + date
+				+ ", author=" + author + ", state=" + state + ", solution="
+				+ solution + "]";
 	}
+
+
 }
