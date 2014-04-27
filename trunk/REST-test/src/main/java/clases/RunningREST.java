@@ -28,8 +28,9 @@ public class RunningREST {
 //		System.out.println(respuestaJSON);
 		Gson gson = new Gson();
 		Request[] arrayRequest = gson.fromJson(respuestaJSON, Request[].class);
-//		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();
-		List<Request> requests = Arrays.asList(arrayRequest);
+		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();
+//		List<Request> requests = Arrays.asList(arrayRequest);
+		List<Request> requests = gson.fromJson(respuestaJSON, listType);
 		System.out.println(requests.get(0).getId());
 		
 		
