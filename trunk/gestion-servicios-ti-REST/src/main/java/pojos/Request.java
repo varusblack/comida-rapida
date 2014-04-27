@@ -2,80 +2,89 @@ package pojos;
 
 public class Request {
 
-	private String ticketId;
-	private String ticketType;
-	private String ticketIssue;
-	private String ticketDescription;
-	private String ticketAuthor;
-	private String ticketDate;
-	private String ticketSolution;
-	private String ticketState;
+	private String id;
+	private String type;
+	private String issue;
+	private String description;
+	private String author;
+	private String date;
+	private String solution;
+	private String state;
 	
 	public Request() {
 	}
 
-	public String getTicketId() {
-		return ticketId;
+	public String getId() {
+		return id;
 	}
 
-	public void setTicketId(String ticketId) {
-		this.ticketId = ticketId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getTicketType() {
-		return ticketType;
+	public String getType() {
+		return type;
 	}
 
-	public void setTicketType(String ticketType) {
-		this.ticketType = ticketType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getTicketIssue() {
-		return ticketIssue;
+	public String getIssue() {
+		return issue;
 	}
 
-	public void setTicketIssue(String ticketIssue) {
-		this.ticketIssue = ticketIssue;
+	public void setIssue(String issue) {
+		this.issue = issue;
 	}
 
-	public String getTicketDescription() {
-		return ticketDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setTicketDescription(String ticketDescription) {
-		this.ticketDescription = ticketDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getTicketAuthor() {
-		return ticketAuthor;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setTicketAuthor(String ticketAuthor) {
-		this.ticketAuthor = ticketAuthor;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
-	public String getTicketDate() {
-		return ticketDate;
+	public String getDate() {
+		return date;
 	}
 
-	public void setTicketDate(String ticketDate) {
-		this.ticketDate = ticketDate;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getTicketSolution() {
-		return ticketSolution;
+	public String getSolution() {
+		return solution;
 	}
 
-	public void setTicketSolution(String ticketSolution) {
-		this.ticketSolution = ticketSolution;
+	public void setSolution(String solution) {
+		this.solution = solution;
 	}
 
-	public String getTicketState() {
-		return ticketState;
+	public String getState() {
+		return state;
 	}
 
-	public void setTicketState(String ticketState) {
-		this.ticketState = ticketState;
+	public void setState(String state) {
+		this.state = state;
 	}
+
+	@Override
+	public String toString() {
+		return "Request [id=" + id + ", type=" + type + ", issue=" + issue
+				+ ", description=" + description + ", author=" + author
+				+ ", date=" + date + ", solution=" + solution + ", state="
+				+ state + "]";
+	}
+
 	
 }

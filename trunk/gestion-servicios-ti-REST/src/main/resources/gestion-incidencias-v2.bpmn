@@ -9,7 +9,7 @@
     <bpmn2:startEvent id="StartEvent_1" name="Customer has &#xD;&#xA;a problem">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:userTask id="UserTask_1" camunda:assignee="demo" camunda:formKey="embedded:app:forms/userReportSending.html" name="User reports&#xD;&#xA;a problem">
+    <bpmn2:userTask id="UserTask_1" camunda:assignee="demo" camunda:formKey="embedded:app:forms/VIPReportSending.html" name="User reports&#xD;&#xA;a problem">
       <bpmn2:extensionElements>
         <camunda:executionListener class="listeners.VipCustomerListener" event="start"/>
       </bpmn2:extensionElements>
@@ -68,7 +68,7 @@
     <bpmn2:startEvent id="StartEvent_2" name="Report is &#xD;&#xA;received">
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:userTask id="UserTask_2" camunda:assignee="demo" camunda:formKey="embedded:app:forms/accManagerGetDescription.html" name="Get problem description">
+    <bpmn2:userTask id="UserTask_2" camunda:assignee="demo" camunda:formKey="embedded:app:forms/KAMGetDescription.html" name="Get problem description">
       <bpmn2:incoming>SequenceFlow_21</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -78,7 +78,7 @@
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="UserTask_2" targetRef="ExclusiveGateway_5"/>
-    <bpmn2:userTask id="UserTask_3" camunda:assignee="demo" name="Document results">
+    <bpmn2:userTask id="UserTask_3" camunda:assignee="demo" camunda:formKey="embedded:app:forms/KAMDocumentResults.html" name="Document results">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_63</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_64</bpmn2:incoming>
@@ -87,7 +87,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="yes" sourceRef="ExclusiveGateway_1" targetRef="UserTask_3">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${accCanHandle}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:userTask id="UserTask_4" camunda:assignee="demo" name="Fill report to&#xD;&#xA;support system">
+    <bpmn2:userTask id="UserTask_4" camunda:assignee="demo" camunda:formKey="embedded:app:forms/KAMReportSending.html" name="Fill report to&#xD;&#xA;support system">
       <bpmn2:extensionElements>
         <camunda:formData>
           <camunda:formField id="systemTicketIssue" label="Asunto" type="string">
@@ -122,7 +122,7 @@
     <bpmn2:endEvent id="EndEvent_1">
       <bpmn2:incoming>SequenceFlow_60</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:userTask id="UserTask_16" camunda:assignee="demo" camunda:formKey="embedded:app:forms/accManagerGetResolution.html" name="Get support system results">
+    <bpmn2:userTask id="UserTask_16" camunda:assignee="demo" camunda:formKey="embedded:app:forms/KAMGetResolution.html" name="Get support system results">
       <bpmn2:incoming>SequenceFlow_23</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_63</bpmn2:outgoing>
     </bpmn2:userTask>

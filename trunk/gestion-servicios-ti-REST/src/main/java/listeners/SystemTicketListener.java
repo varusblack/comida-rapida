@@ -14,14 +14,14 @@ public class SystemTicketListener implements ExecutionListener {
 		Request request = RESTTroubleTicketSystemService.getPeticionKAM();
 		
 		if (request != null) {
-			request.setTicketState(ConstantesGestionIncidencias.STATE_WORKING_SYSTEM);
+			request.setState(ConstantesGestionIncidencias.STATE_WORKING_SYSTEM);
 			
-			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_ID, request.getTicketId());
-			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_ISSUE, request.getTicketIssue());
-			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_DESCRIPTION, request.getTicketDescription());
-			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_AUTHOR, request.getTicketAuthor());
-			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_DATE, request.getTicketDate());
-			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_RESULTS, request.getTicketSolution());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_ID, request.getId());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_ISSUE, request.getIssue());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_DESCRIPTION, request.getDescription());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_AUTHOR, request.getAuthor());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_DATE, request.getDate());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_RESULTS, request.getSolution());
 		}
 		
 	}
