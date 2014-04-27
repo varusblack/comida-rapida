@@ -2,6 +2,8 @@ package services;
 
 import incidenceManagement.RESTClient;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import utils.ConstantesGestionIncidencias;
 import utils.Fechas;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class RESTKeyAccountManagerService {
 	
@@ -28,7 +31,8 @@ public class RESTKeyAccountManagerService {
 		String peticiones = RESTClient.doGet("");
 		Gson gson = new Gson();
 		
-		peticionesPendientesVip = (List<Request>) gson.fromJson(peticiones, Request.class);
+		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();
+		peticionesPendientesVip = gson.fromJson(peticiones, listType);
 		if(peticionesPendientesVip.size() > 0) {
 			hayPeticiones = true;
 			peticionVip = peticionesPendientesVip.get(0);
@@ -40,19 +44,15 @@ public class RESTKeyAccountManagerService {
 		String systemTicketDate = Fechas.fechaActual();
 		
 		Request request = new Request();
-		Gson gson = new Gson();
 		
-		request.setTicketId(ticketId);
-		request.setTicketType("");
-		request.setTicketIssue(systemTicketIssue);
-		request.setTicketDescription(systemTicketDescription);
-		request.setTicketAuthor(systemTicketAuthor);
-		request.setTicketDate(systemTicketDate);
-		request.setTicketSolution("");
-		request.setTicketState(ConstantesGestionIncidencias.STATE_NEW_SYSTEM);
+		request.setId(ticketId);
+		request.setIssue(systemTicketIssue);
+		request.setDescription(systemTicketDescription);
+		request.setAuthor(systemTicketAuthor);
+		request.setDate(systemTicketDate);
+		request.setState(ConstantesGestionIncidencias.STATE_NEW_SYSTEM);
 		
-		String POSTText = gson.toJson(request);
-		String resultado = RESTClient.doPost("", POSTText);
+		String resultado = RESTClient.doPost("", request);
 		
 		return resultado;
 	}
@@ -72,12 +72,11 @@ public class RESTKeyAccountManagerService {
 	}
 	
 	public Boolean modificarPeticion(String ticketResults) {
-		String url = peticionVip.getTicketId();
+		peticionVip.setSolution(ticketResults);
+		peticionVip.setState(ConstantesGestionIncidencias.STATE_FINISHED);
 		
-		String POSTText = ConstantesGestionIncidencias.TICKET_RESULTS + "=" + ticketResults + "&" + 
-				ConstantesGestionIncidencias.TICKET_STATE + "=" + ConstantesGestionIncidencias.STATE_FINISHED;
 		
-		Boolean resultado = RESTClient.doPut(url, POSTText);
+		Boolean resultado = RESTClient.doPut(peticionVip.getId(), peticionVip);
 		
 		return resultado;
 	}

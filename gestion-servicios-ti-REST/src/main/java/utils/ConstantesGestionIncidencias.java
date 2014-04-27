@@ -23,12 +23,23 @@ public class ConstantesGestionIncidencias {
 	public static final String SYSTEM_TICKET_RESULTS = "systemTicketResults";
 
 	// ID Procesos
-	public static final String PROCESS_VIP_CUSTOMER = "Gestion_incidencias_Vip_Customer";
+	public static final String PROCESS_VIP_CUSTOMER = "Process_1";
 	public static final String PROCESS_KEY_ACCOUNT_MANAGER = "Process_2";
 	public static final String PROCESS_TROUBLE_TICKET_SYSTEM = "Process_3";
 	
 	// URL API RESTful
-	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/";
+//	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/"; AppEngine de Google
+	public static final String URL_API = "http://localhost:8888/incidences/";
+	
+	// Parametros de la URL
+	public static final String URL_ID = "id";
+	public static final String URL_TYPE = "type";
+	public static final String URL_ISSUE = "issue";
+	public static final String URL_DESCRIPTION = "description";
+	public static final String URL_AUTHOR = "author";
+	public static final String URL_DATE = "date";
+	public static final String URL_SOLUTION = "solution";
+	public static final String URL_STATE = "state";
 	
 	// Estado de los tiques
 	public static final String STATE_NEW = "Nueva";
@@ -37,5 +48,6 @@ public class ConstantesGestionIncidencias {
 	public static final String STATE_WORKING_SYSTEM = "En curso en centro de soporte";
 	public static final String STATE_FINISHED_SYSTEM = "Finalizada centro de soporte";
 	public static final String STATE_FINISHED = "Finalizada";
+	
 
 }

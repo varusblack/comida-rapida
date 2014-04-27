@@ -6,22 +6,25 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.protocol.HTTP;
 
+import pojos.Request;
 import utils.ConstantesGestionIncidencias;
 
 public class RESTClient {
@@ -29,7 +32,7 @@ public class RESTClient {
 	private static final Logger LOGGER = Logger.getLogger("IncidenceManagement");
 	
 	public static String doGet(final String url) {
-		LOGGER.info("INICIANDO: Peticion GET - Parametros [URL=" + ConstantesGestionIncidencias.URL_API + "]");
+		LOGGER.info("INICIANDO: Peticion GET - Parametros [URL -> " + ConstantesGestionIncidencias.URL_API + "]");
 
 		String resultado = null;
 		final HttpClient httpClient = new DefaultHttpClient();
@@ -38,7 +41,7 @@ public class RESTClient {
 		InputStream instream = null;
 		
 		try {
-			LOGGER.info("EJECUTANDO: Peticion GET - Parametros"  );
+			LOGGER.info("EJECUTANDO: Peticion GET - Parametros [ url -> " + url + "]");
 			httpget = new HttpGet(ConstantesGestionIncidencias.URL_API + url);
 			HttpResponse response = httpClient.execute(httpget);
 			HttpEntity entity = response.getEntity();
@@ -58,7 +61,7 @@ public class RESTClient {
 		return resultado;
 	}
 
-	public static String doPost(final String url, final String POSTText){
+	public static String doPost(final String url, final Request request){
 		LOGGER.info("INICIANDO: Peticion POST - Parametros [URL=" + ConstantesGestionIncidencias.URL_API + "]");
 		
 		String resultado = null;
@@ -68,14 +71,20 @@ public class RESTClient {
 
 		HttpPost httpPost;
 		try {
-			LOGGER.info("EJECUTANDO: Peticion POST - Parametros"  );
+			LOGGER.info("EJECUTANDO: Peticion POST - Parametros [url -> " + url + "; request -> " + request.toString() + "]");
 			httpPost = new HttpPost(ConstantesGestionIncidencias.URL_API + url);
 			//Pasando parámetros para la petición
-			StringEntity entity = new StringEntity(POSTText, "UTF-8");
-			BasicHeader basicHeader = new BasicHeader(HTTP.CONTENT_TYPE, "application/json");
-			httpPost.getParams().setBooleanParameter("http.protocol.expect-continue", false);
-			entity.setContentType(basicHeader);
-			httpPost.setEntity(entity);
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_ID,request.getId()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_TYPE,request.getType()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_ISSUE,request.getIssue()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_DESCRIPTION,request.getDescription()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_AUTHOR,request.getAuthor()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_DATE,request.getDate()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_STATE,request.getState()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_SOLUTION,request.getSolution()));
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			
 			HttpResponse response = httpClient.execute(httpPost);
 			InputStream instream = response.getEntity().getContent();
 			resultado = read(instream);
@@ -96,8 +105,8 @@ public class RESTClient {
 		return resultado;
 	}
 
-	public static boolean doPut(final String url, final String PUTText) {
-		LOGGER.info("INICIANDO: Peticion PUT - Parametros [URL=" + ConstantesGestionIncidencias.URL_API + "]");
+	public static boolean doPut(final String url, final Request request) {
+		LOGGER.info("INICIANDO: Peticion PUT - Parametros [URL -> " + ConstantesGestionIncidencias.URL_API + "]");
 		Boolean resultado = null;
 		
 		final HttpClient httpClient = new DefaultHttpClient();
@@ -105,14 +114,20 @@ public class RESTClient {
 
 		HttpPut httpPut;
 		try {
-			LOGGER.info("EJECUTANDO: Peticion PUT - Parametros [URL=" + ConstantesGestionIncidencias.URL_API + "]");
+			LOGGER.info("EJECUTANDO: Peticion PUT - Parametros [url -> " + url + "; request -> " + request.toString() + "]");
 			httpPut = new HttpPut(ConstantesGestionIncidencias.URL_API + url);
-			httpPut.addHeader("Accept", "application/json");
-			httpPut.addHeader("Content-Type", "application/json");
 			//Pasando parámetros para la petición
-			StringEntity entity = new StringEntity(PUTText, "UTF-8");
-			entity.setContentType("application/json");
-			httpPut.setEntity(entity);
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_ID,request.getId()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_TYPE,request.getType()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_ISSUE,request.getIssue()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_DESCRIPTION,request.getDescription()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_AUTHOR,request.getAuthor()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_DATE,request.getDate()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_STATE,request.getState()));
+			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_SOLUTION,request.getSolution()));
+			httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			
 			HttpResponse response = httpClient.execute(httpPut);
 			int statusCode = response.getStatusLine().getStatusCode();
 			resultado = statusCode == 200 ? true : false;
@@ -134,7 +149,7 @@ public class RESTClient {
 	}
 
 	public static boolean doDelete(final String url) {
-		LOGGER.info("INICIANDO: Peticion DELETE - Parametros [URL=" + ConstantesGestionIncidencias.URL_API + "]");
+		LOGGER.info("INICIANDO: Peticion DELETE - Parametros [URL -> " + ConstantesGestionIncidencias.URL_API + "]");
 		Boolean resultado = null;
 		
 		final HttpClient httpClient = new DefaultHttpClient();
@@ -143,7 +158,7 @@ public class RESTClient {
 
 		HttpDelete httpDelete;
 		try {
-			LOGGER.info("EJECUTANDO: Peticion DELETE - Parametros [URL=" + ConstantesGestionIncidencias.URL_API + "]");
+			LOGGER.info("EJECUTANDO: Peticion DELETE - Parametros [url -> " + url + "]");
 			httpDelete = new HttpDelete(ConstantesGestionIncidencias.URL_API + url);
 			httpDelete.addHeader("Accept", "text/html, image/jpeg, *; q=.2, */*; q=.2");
 			HttpResponse response = httpClient.execute(httpDelete);

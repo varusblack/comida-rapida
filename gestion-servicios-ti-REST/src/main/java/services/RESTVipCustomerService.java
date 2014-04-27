@@ -5,6 +5,7 @@ import incidenceManagement.RESTClient;
 
 
 
+
 import com.google.gson.Gson;
 
 import utils.ConstantesGestionIncidencias;
@@ -16,26 +17,23 @@ public class RESTVipCustomerService {
 	public String enviarPeticion(String ticketId, String ticketType, String ticketIssue, String ticketDescription, String ticketAuthor, String ticketDate) {
 		
 		Request request = new Request();
-		Gson gson = new Gson();
+		request.setId(ticketId);
+		request.setType(ticketType);;
+		request.setIssue(ticketIssue);
+		request.setDescription(ticketDescription);
+		request.setAuthor(ticketAuthor);
+		request.setDate(ticketDate);
+		request.setState(ConstantesGestionIncidencias.STATE_NEW);
 		
-		request.setTicketId(ticketId);
-		request.setTicketType(ticketType);;
-		request.setTicketIssue(ticketIssue);
-		request.setTicketDescription(ticketDescription);
-		request.setTicketAuthor(ticketAuthor);
-		request.setTicketDate(ticketDate);
-		request.setTicketSolution("");
-		request.setTicketState(ConstantesGestionIncidencias.STATE_NEW);
-		
-		String POSTText = gson.toJson(request);
-		String resultado = RESTClient.doPost("", POSTText);
+		String resultado = RESTClient.doPost("", request);
 		
 		return resultado;
 	}
 	
 	public Boolean comprobarRespuestasDeKAW(String ticketId) {
-		Boolean haySolucion = false;
 		
+		Boolean haySolucion = false;
+		//TODO
 		String peticion = RESTClient.doGet(ticketId);
 		Gson gson = new Gson();
 		

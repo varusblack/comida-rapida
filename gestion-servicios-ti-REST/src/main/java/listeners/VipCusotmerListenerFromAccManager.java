@@ -15,8 +15,8 @@ public class VipCusotmerListenerFromAccManager implements ExecutionListener {
 		Request respuestaKAW = RESTVipCustomerService.getRespuestaKAM();
 		
 		if (respuestaKAW != null) {
-			execution.setVariable(ConstantesGestionIncidencias.TICKET_RESULTS, respuestaKAW.getTicketSolution());
-			respuestaKAW.setTicketState(ConstantesGestionIncidencias.STATE_FINISHED);
+			execution.setVariable(ConstantesGestionIncidencias.TICKET_RESULTS, respuestaKAW.getSolution());
+			respuestaKAW.setState(ConstantesGestionIncidencias.STATE_FINISHED);
 		}
 		
 	}

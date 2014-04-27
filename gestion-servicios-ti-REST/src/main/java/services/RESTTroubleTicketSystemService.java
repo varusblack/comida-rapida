@@ -2,9 +2,12 @@ package services;
 
 import incidenceManagement.RESTClient;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import pojos.Request;
 import utils.ConstantesGestionIncidencias;
@@ -20,7 +23,8 @@ public class RESTTroubleTicketSystemService {
 		String peticiones = RESTClient.doGet("");
 		Gson gson = new Gson();
 		
-		listaPeticionesKAM = (List<Request>) gson.fromJson(peticiones, Request.class);
+		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();
+		listaPeticionesKAM = gson.fromJson(peticiones,listType);
 		if(listaPeticionesKAM.size() > 0) {
 			hayPeticiones = true;
 			peticionKAM = listaPeticionesKAM.get(0);
@@ -29,12 +33,10 @@ public class RESTTroubleTicketSystemService {
 	}
 	
 	public Boolean actualizarResultado(String systemTicketResults) {
-		String url = peticionKAM.getTicketId();
+		peticionKAM.setSolution(systemTicketResults);
+		peticionKAM.setState(ConstantesGestionIncidencias.STATE_FINISHED_SYSTEM);
 		
-		String POSTText = ConstantesGestionIncidencias.TICKET_RESULTS + "=" + systemTicketResults + "&" + 
-				ConstantesGestionIncidencias.TICKET_STATE + "=" + ConstantesGestionIncidencias.STATE_FINISHED_SYSTEM;
-		
-		Boolean resultado = RESTClient.doPut(url, POSTText);
+		Boolean resultado = RESTClient.doPut(peticionKAM.getId(), peticionKAM);
 		
 		return resultado;
 		
