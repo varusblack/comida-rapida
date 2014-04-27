@@ -1,22 +1,19 @@
 package services;
 
+import pojos.Request;
 import incidenceManagement.RESTClient;
 
-import java.util.UUID;
 
-import pojos.Request;
 
 import com.google.gson.Gson;
 
 import utils.ConstantesGestionIncidencias;
-import utils.Fechas;
 
 public class RESTVipCustomerService {
 	
-	public String enviarPeticion(String ticketType, String ticketIssue, String ticketDescription, String ticketAuthor) {
-		
-		String ticketId = UUID.randomUUID().toString();
-		String ticketDate = Fechas.fechaActual();
+	private static Request respuestaKAM = null;
+	
+	public String enviarPeticion(String ticketId, String ticketType, String ticketIssue, String ticketDescription, String ticketAuthor, String ticketDate) {
 		
 		Request request = new Request();
 		Gson gson = new Gson();
@@ -35,5 +32,29 @@ public class RESTVipCustomerService {
 		
 		return resultado;
 	}
+	
+	public Boolean comprobarRespuestasDeKAW(String ticketId) {
+		Boolean haySolucion = false;
+		
+		String peticion = RESTClient.doGet(ticketId);
+		Gson gson = new Gson();
+		
+		respuestaKAM = gson.fromJson(peticion, Request.class);
+		if (respuestaKAM != null) {
+			haySolucion = true;
+		}
+		
+		return haySolucion;
+	}
+
+	public static Request getRespuestaKAM() {
+		return respuestaKAM;
+	}
+
+	public static void setRespuestaKAM(Request respuestaKAM) {
+		RESTVipCustomerService.respuestaKAM = respuestaKAM;
+	}
+	
+	
 
 }

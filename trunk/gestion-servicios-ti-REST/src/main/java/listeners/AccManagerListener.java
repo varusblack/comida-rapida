@@ -1,4 +1,4 @@
-package incidenceManagement;
+package listeners;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
@@ -11,7 +11,7 @@ public class AccManagerListener implements ExecutionListener{
 
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
-		Request request = RESTKeyAccountManagerService.getPeticionesPendientesVip().get(0);
+		Request request = RESTKeyAccountManagerService.getPeticionVip();
 		
 		if (request != null) {
 			request.setTicketState(ConstantesGestionIncidencias.STATE_WORKING);

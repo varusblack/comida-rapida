@@ -11,6 +11,7 @@ public class ConstantesGestionIncidencias {
 	public static final String TICKET_DATE = "ticketDate";
 	public static final String TICKET_AUTHOR = "ticketAuthor";
 	public static final String TICKET_RESULTS = "ticketResults";
+	public static final String TICKET_STATE = "ticketState";
 
 	// Datos formulario Acc Manager
 	public static final String SYSTEM_TICKET_ID = "systemTicketId";
