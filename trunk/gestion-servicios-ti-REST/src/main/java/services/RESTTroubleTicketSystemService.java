@@ -4,7 +4,9 @@ import incidenceManagement.RESTClient;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,7 +22,9 @@ public class RESTTroubleTicketSystemService {
 	public Boolean comprobarPeticiones() {
 		Boolean hayPeticiones = false;
 		//Buscar por estado
-		String peticiones = RESTClient.doGet("");
+		Map<String, String> parametros = new HashMap<String, String>();
+		parametros.put(ConstantesGestionIncidencias.URL_STATE, ConstantesGestionIncidencias.STATE_NEW_SYSTEM);
+		String peticiones = RESTClient.doGet(parametros);
 		Gson gson = new Gson();
 		
 		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();

@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.http.HttpEntity;
@@ -31,7 +32,40 @@ public class RESTClient {
 	
 	private static final Logger LOGGER = Logger.getLogger("IncidenceManagement");
 	
-	public static String doGet(final String url) {
+	public static String doGet(Map<String, String> params) {
+		String url = ConstantesGestionIncidencias.URL_STATE + "=" + params.get(ConstantesGestionIncidencias.URL_STATE);
+		
+		LOGGER.info("INICIANDO: Peticion GET - Parametros [URL -> " + ConstantesGestionIncidencias.URL_API + "]");
+
+		String resultado = null;
+		final HttpClient httpClient = new DefaultHttpClient();
+		HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10000);
+		HttpGet httpget;
+		InputStream instream = null;
+		
+		try {
+			LOGGER.info("EJECUTANDO: Peticion GET - Parametros [ url -> " + url + "]");
+			httpget = new HttpGet(ConstantesGestionIncidencias.URL_API + url);
+			HttpResponse response = httpClient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			instream = entity.getContent();
+			resultado = read(instream);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error de sintaxis en la URI");
+		} catch (HttpException e) {
+			e.printStackTrace();
+			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en el proceso de envío");
+		} catch (IOException e) {
+			e.printStackTrace();
+			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en operación IO");
+		}
+		LOGGER.info("EXITO: Peticion GET completada"  );
+		return resultado;
+	}
+	
+	public static String doGet(String url) {
+		
 		LOGGER.info("INICIANDO: Peticion GET - Parametros [URL -> " + ConstantesGestionIncidencias.URL_API + "]");
 
 		String resultado = null;

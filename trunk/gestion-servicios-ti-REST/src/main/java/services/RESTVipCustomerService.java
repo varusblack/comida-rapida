@@ -12,7 +12,7 @@ import utils.ConstantesGestionIncidencias;
 
 public class RESTVipCustomerService {
 	
-	private static Request respuestaKAM = null;
+	private static Request respuestaKAM;
 	
 	public String enviarPeticion(String ticketId, String ticketType, String ticketIssue, String ticketDescription, String ticketAuthor, String ticketDate) {
 		
@@ -39,6 +39,7 @@ public class RESTVipCustomerService {
 		
 		respuestaKAM = gson.fromJson(peticion, Request.class);
 		if (respuestaKAM != null) {
+			System.out.println(respuestaKAM.toString());
 			haySolucion = true;
 		}
 		
