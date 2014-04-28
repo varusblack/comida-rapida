@@ -64,7 +64,6 @@ public class IncidencesManagementServlet extends HttpServlet {
 			path = path.substring(1);
 			if (!path.contains("=")) {
 				// Obtiene la Incidence por su ID de Datastore
-				path = path.substring(1); // Elimina el caracter '/'
 				Incidence i = getIncidenceFromDS(path);
 				String json = getJson(i);
 				resp.getWriter().println(json);
