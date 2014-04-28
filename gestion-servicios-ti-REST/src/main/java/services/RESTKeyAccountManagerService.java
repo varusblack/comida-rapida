@@ -4,8 +4,10 @@ import incidenceManagement.RESTClient;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +22,17 @@ import com.google.gson.reflect.TypeToken;
 public class RESTKeyAccountManagerService {
 	
 	@Autowired
-	private static RuntimeService runtimeService; 
+	private RuntimeService runtimeService; 
 	
-	private static List<Request> peticionesPendientesVip = new LinkedList<Request>();
-	private static Request peticionVip = null;
-	private static Request respuestaTTS = null;
+	private static List<Request> peticionesPendientesVip;
+	private static Request peticionVip;
+	private static Request respuestaTTS;
 	
 	public Boolean comprobarPeticionesVip() {
 		Boolean hayPeticiones = false;
-		String peticiones = RESTClient.doGet("");
+		Map<String, String> parametros = new HashMap<String, String>();
+		parametros.put(ConstantesGestionIncidencias.URL_STATE, ConstantesGestionIncidencias.STATE_NEW);
+		String peticiones = RESTClient.doGet(parametros);
 		Gson gson = new Gson();
 		
 		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();
@@ -57,13 +61,20 @@ public class RESTKeyAccountManagerService {
 		return resultado;
 	}
 	
-	public Boolean comprobarRespuestasTTS(String ticketId) {
+	public Boolean comprobarRespuestasTTS() {
 		Boolean hayRespuesta = false;
 		
-		String peticion = RESTClient.doGet(ticketId);
 		Gson gson = new Gson();
 		
-		respuestaTTS = gson.fromJson(peticion, Request.class);
+		Map<String, String> parametros = new HashMap<String, String>();
+		parametros.put(ConstantesGestionIncidencias.URL_STATE, ConstantesGestionIncidencias.STATE_FINISHED_SYSTEM);
+		
+		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();
+		
+		String peticiones = RESTClient.doGet(parametros);
+		
+		peticionesPendientesVip = gson.fromJson(peticiones, listType);
+		respuestaTTS = peticionesPendientesVip.get(0);
 		if (respuestaTTS != null) {
 			hayRespuesta = true;
 		}

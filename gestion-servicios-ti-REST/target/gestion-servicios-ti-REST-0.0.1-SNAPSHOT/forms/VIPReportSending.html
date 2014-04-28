@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Envío de solicitud</title>
+</head>
+<body>
+
+<form name="userReportSendingForm" id="userReportSendingForm" class="form-horizontal" onsubmit="alerta()">
+
+	<div class="control-group">
+		<label class="control-label" for="ticketType">Tipo de solicitud</label>
+		<div class="controls">
+			<select form-field type="string" id="ticketType" name="ticketType" ng-required="true">
+				<option value="Incidencia">Incidencia</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="ticketIssue">Asunto</label>
+		<div class="controls">
+			<input form-field type="string" id="ticketIssue" name="ticketIssue" ng-required="true" ng-minlength="5" ng-maxlength="50"/>
+			<span class="help-inline">Asunto...</span>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="ticketDescription">Descripción</label>
+		<div class="controls">
+			<textarea form-field rows="4" cols="40" id="ticketDescription" name="ticketDescription"></textarea>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="ticketAuthor">Autor</label>
+		<div class="controls">
+			<input form-field type="string" id="ticketAuthor" name="ticketAuthor"/>
+		</div>
+	</div>
+	
+</form>
+
+<p ng-if="varialesForm.$invalid">
+	Errores de validación en el formulario
+</p>
+</body>
+</html>
