@@ -146,11 +146,22 @@ public class IncidencesManagementServlet extends HttpServlet {
 		// Obtiene el ID de la incidencia a actualizar.
 		String id = req.getPathInfo().substring(1); // Elimina el caracter '/'
 
+		String type = req.getParameter("type");
+		String issue = req.getParameter("issue");
+		String description = req.getParameter("description");
+		String author = req.getParameter("author");
+		String date = req.getParameter("date");
+		String solution = req.getParameter("solution");
 		String state = req.getParameter("state");
-
 		Incidence i = getIncidenceFromDS(id);
 		if (i != null) {
 			i.setState(state);
+			i.setSolution(solution);
+			i.setType(type);;
+			i.setIssue(issue);;
+			i.setDescription(description);;
+			i.setDate(date);;
+			i.setAuthor(author);
 			updateIncidenceInDataStore(i);
 			logMessage("Incidence " + i.toString() + " updated.");
 			resp.getWriter().println(getJson(i));
