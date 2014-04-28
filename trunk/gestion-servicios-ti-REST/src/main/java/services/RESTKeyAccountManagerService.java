@@ -5,24 +5,18 @@ import incidenceManagement.RESTClient;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.camunda.bpm.engine.RuntimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import pojos.Request;
 import utils.ConstantesGestionIncidencias;
-import utils.Fechas;
+import utils.Utilidades;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class RESTKeyAccountManagerService {
-	
-	@Autowired
-	private RuntimeService runtimeService; 
 	
 	private static List<Request> peticionesPendientesVip;
 	private static Request peticionVip;
@@ -45,7 +39,7 @@ public class RESTKeyAccountManagerService {
 	}
 	
 	public String enviarPeticion(String ticketId, String systemTicketIssue, String systemTicketDescription, String systemTicketAuthor) {
-		String systemTicketDate = Fechas.fechaActual();
+		String systemTicketDate = Utilidades.fechaActual();
 		
 		Request request = new Request();
 		

@@ -30,21 +30,21 @@ public class RESTVipCustomerService {
 		return resultado;
 	}
 	
-	public Boolean comprobarRespuestasDeKAW(String ticketId) {
-		
-		Boolean haySolucion = false;
-		//TODO
-		String peticion = RESTClient.doGet(ticketId);
-		Gson gson = new Gson();
-		
-		respuestaKAM = gson.fromJson(peticion, Request.class);
-		if (respuestaKAM != null) {
-			System.out.println(respuestaKAM.toString());
-			haySolucion = true;
-		}
-		
-		return haySolucion;
-	}
+//	public Boolean comprobarRespuestasDeKAW(String ticketId) {
+//		
+//		Boolean haySolucion = false;
+//		//TODO
+//		String peticion = RESTClient.doGet(ticketId);
+//		Gson gson = new Gson();
+//		
+//		respuestaKAM = gson.fromJson(peticion, Request.class);
+//		if (respuestaKAM != null) {
+//			System.out.println(respuestaKAM.toString());
+//			haySolucion = true;
+//		}
+//		
+//		return haySolucion;
+//	}
 
 	public static Request getRespuestaKAM() {
 		return respuestaKAM;

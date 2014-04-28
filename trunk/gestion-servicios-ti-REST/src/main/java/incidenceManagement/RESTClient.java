@@ -27,13 +27,14 @@ import org.apache.http.params.HttpConnectionParams;
 
 import pojos.Request;
 import utils.ConstantesGestionIncidencias;
+import utils.Utilidades;
 
 public class RESTClient {
 	
 	private static final Logger LOGGER = Logger.getLogger("IncidenceManagement");
 	
 	public static String doGet(Map<String, String> params) {
-		String url = ConstantesGestionIncidencias.URL_STATE + "=" + params.get(ConstantesGestionIncidencias.URL_STATE);
+		String url = ConstantesGestionIncidencias.URL_STATE + "=" + Utilidades.traducirStringAUrl(params.get(ConstantesGestionIncidencias.URL_STATE)) ;
 		
 		LOGGER.info("INICIANDO: Peticion GET - Parametros [URL -> " + ConstantesGestionIncidencias.URL_API + "]");
 
@@ -55,12 +56,12 @@ public class RESTClient {
 			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error de sintaxis en la URI");
 		} catch (HttpException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en el proceso de envío");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en el proceso de envï¿½o");
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en operación IO");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en operaciï¿½n IO");
 		}
-		LOGGER.info("EXITO: Peticion GET completada"  );
+		LOGGER.info("EXITO: Peticion GET completada");
 		return resultado;
 	}
 	
@@ -86,10 +87,10 @@ public class RESTClient {
 			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error de sintaxis en la URI");
 		} catch (HttpException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en el proceso de envío");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en el proceso de envï¿½o");
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en operación IO");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion GET. Motivo: Error en operaciï¿½n IO");
 		}
 		LOGGER.info("EXITO: Peticion GET completada"  );
 		return resultado;
@@ -107,7 +108,7 @@ public class RESTClient {
 		try {
 			LOGGER.info("EJECUTANDO: Peticion POST - Parametros [url -> " + url + "; request -> " + request.toString() + "]");
 			httpPost = new HttpPost(ConstantesGestionIncidencias.URL_API + url);
-			//Pasando parámetros para la petición
+			//Pasando parï¿½metros para la peticiï¿½n
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_ID,request.getId()));
 			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_TYPE,request.getType()));
@@ -127,13 +128,13 @@ public class RESTClient {
 			LOGGER.info("ERROR AL EJECUTAR: Peticion POST. Motivo: Error de sintaxis en la URI");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion POST. Motivo: El encoding no está soportado");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion POST. Motivo: El encoding no estï¿½ soportado");
 		} catch (HttpException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion POST. Motivo: Error en el proceso de envío");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion POST. Motivo: Error en el proceso de envï¿½o");
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion POST. Motivo: Error en operación IO");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion POST. Motivo: Error en operaciï¿½n IO");
 		}
 		LOGGER.info("EXITO: Peticion POST completada"  );
 		return resultado;
@@ -150,7 +151,7 @@ public class RESTClient {
 		try {
 			LOGGER.info("EJECUTANDO: Peticion PUT - Parametros [url -> " + url + "; request -> " + request.toString() + "]");
 			httpPut = new HttpPut(ConstantesGestionIncidencias.URL_API + url);
-			//Pasando parámetros para la petición
+			//Pasando parï¿½metros para la peticiï¿½n
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
 			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_ID,request.getId()));
 			nameValuePairs.add(new BasicNameValuePair(ConstantesGestionIncidencias.URL_TYPE,request.getType()));
@@ -170,13 +171,13 @@ public class RESTClient {
 			LOGGER.info("ERROR AL EJECUTAR: Peticion PUT. Motivo: Error de sintaxis en la URI");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion PUT. Motivo: El encoding no está soportado");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion PUT. Motivo: El encoding no estï¿½ soportado");
 		} catch (HttpException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion PUT. Motivo: Error en el proceso de envío");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion PUT. Motivo: Error en el proceso de envï¿½o");
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion PUT. Motivo: Error en operación IO");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion PUT. Motivo: Error en operaciï¿½n IO");
 		}
 		LOGGER.info("EXITO: Peticion PUT completada");
 		return resultado;
@@ -203,10 +204,10 @@ public class RESTClient {
 			LOGGER.info("ERROR AL EJECUTAR: Peticion DELETE. Motivo: Error de sintaxis en la URI");
 		} catch (HttpException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion DELETE. Motivo: Error en el proceso de envío");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion DELETE. Motivo: Error en el proceso de envï¿½o");
 		} catch (IOException e) {
 			e.printStackTrace();
-			LOGGER.info("ERROR AL EJECUTAR: Peticion DELETE. Motivo: Error en operación IO");
+			LOGGER.info("ERROR AL EJECUTAR: Peticion DELETE. Motivo: Error en operaciï¿½n IO");
 		}
 		LOGGER.info("EXITO: Peticion DELETE completada");
 		return resultado;

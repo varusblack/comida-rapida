@@ -28,8 +28,10 @@ public class ConstantesGestionIncidencias {
 	public static final String PROCESS_TROUBLE_TICKET_SYSTEM = "Process_3";
 	
 	// URL API RESTful
-//	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/"; AppEngine de Google
-	public static final String URL_API = "http://localhost:8888/incidences/";
+	// AppEngine de Google
+	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/";
+	// Local
+//	public static final String URL_API = "http://localhost:8888/incidences/"; 
 	
 	// Parametros de la URL
 	public static final String URL_ID = "id";
