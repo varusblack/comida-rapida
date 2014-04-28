@@ -96,7 +96,7 @@
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_39" name="" sourceRef="UserTask_3" targetRef="SendTask_11"/>
     <bpmn2:sequenceFlow id="SequenceFlow_40" name="" sourceRef="ServiceTask_1" targetRef="UserTask_20"/>
-    <bpmn2:sendTask id="SendTask_2" camunda:expression="#{RESTKeyAccountManagerService.enviarPeticion(ticketId,systemTicketIssue,systemTicketDescription,systemTicketAuthor)}" name="Send report to TTS">
+    <bpmn2:sendTask id="SendTask_2" camunda:expression="#{RESTKeyAccountManagerService.enviarPeticion(systemTicketId,systemTicketIssue,systemTicketDescription,systemTicketAuthor)}" name="Send report to TTS">
       <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:sendTask>
@@ -123,7 +123,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_64" name="no" sourceRef="ExclusiveGateway_5" targetRef="UserTask_3">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${not isIncidence}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:serviceTask id="ServiceTask_2" camunda:expression="#{RESTKeyAccountManagerService.comprobarPeticionesVip()}" camunda:resultVariable="hayPeticiones" camunda:async="true" name="Check reports from Vip Customer">
+    <bpmn2:serviceTask id="ServiceTask_2" camunda:expression="#{RESTKeyAccountManagerService.comprobarPeticionesVip()}" camunda:resultVariable="hayPeticiones" camunda:async="true" camunda:exclusive="false" name="Check reports from Vip Customer">
       <bpmn2:extensionElements>
         <fox:failedJobRetryTimeCycle>R2/PT1M</fox:failedJobRetryTimeCycle>
       </bpmn2:extensionElements>
@@ -147,7 +147,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_21" name="yes" sourceRef="ExclusiveGateway_7" targetRef="UserTask_2">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${hayPeticiones}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:serviceTask id="ServiceTask_3" camunda:resultVariable="hayRespuestas" camunda:expression="#{RESTKeyAccountManagerService.comprobarRespuestasTTS()}" camunda:async="true" name="Check reports form TTS">
+    <bpmn2:serviceTask id="ServiceTask_3" camunda:resultVariable="hayRespuestas" camunda:expression="#{RESTKeyAccountManagerService.comprobarRespuestasTTS()}" camunda:async="true" camunda:exclusive="false" name="Check reports form TTS">
       <bpmn2:extensionElements>
         <fox:failedJobRetryTimeCycle>R3/PT1M</fox:failedJobRetryTimeCycle>
       </bpmn2:extensionElements>
@@ -200,10 +200,9 @@
         <bpmn2:flowNodeRef>ManualTask_2</bpmn2:flowNodeRef>
       </bpmn2:lane>
     </bpmn2:laneSet>
-    <bpmn2:serviceTask id="ServiceTask_9" camunda:resultVariable="hayPeticionesKAM" camunda:expression="#{RESTTroubleTicketSystemService.comprobarPeticiones()}" camunda:async="true" name="Check reports form KAM">
+    <bpmn2:serviceTask id="ServiceTask_9" camunda:resultVariable="hayPeticionesKAM" camunda:expression="#{RESTTroubleTicketSystemService.comprobarPeticiones()}" camunda:async="true" camunda:exclusive="false" name="Check reports form KAM">
       <bpmn2:extensionElements>
-        <camunda:executionListener class="listeners.SystemTicketListener" event="end"/>
-        <fox:failedJobRetryTimeCycle>R3/PT1M</fox:failedJobRetryTimeCycle>
+        <fox:failedJobRetryTimeCycle>R2/PT1M</fox:failedJobRetryTimeCycle>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_51</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_41</bpmn2:incoming>
@@ -369,6 +368,9 @@
     </bpmn2:manualTask>
     <bpmn2:sequenceFlow id="SequenceFlow_53" name="" sourceRef="ManualTask_1" targetRef="UserTask_8"/>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_10" name="Reports?">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="listeners.SystemTicketListener" event="start"/>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_35</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_36</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_41</bpmn2:outgoing>

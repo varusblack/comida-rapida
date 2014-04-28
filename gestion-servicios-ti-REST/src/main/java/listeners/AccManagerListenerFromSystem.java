@@ -11,11 +11,10 @@ public class AccManagerListenerFromSystem implements ExecutionListener {
 
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
-Request request = RESTKeyAccountManagerService.getPeticionVip();
 		
-		if(execution.getVariable("hayRespuestas"))
-
-		if (request != null) {
+		if((Boolean) execution.getVariable("hayRespuestas")) {
+			
+			Request request = RESTKeyAccountManagerService.getPeticionVip();
 			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_ID, request.getId());
 			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_ISSUE, request.getIssue());
 			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_DESCRIPTION, request.getDescription());
@@ -24,6 +23,9 @@ Request request = RESTKeyAccountManagerService.getPeticionVip();
 			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_DATE, request.getDate());
 			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_RESULTS, request.getSolution());
 		}
+
+//		if (request != null) {
+//		}
 		
 	}
 

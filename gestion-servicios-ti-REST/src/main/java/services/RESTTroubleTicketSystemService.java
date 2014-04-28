@@ -21,10 +21,10 @@ public class RESTTroubleTicketSystemService {
 	
 	public Boolean comprobarPeticiones() {
 		Boolean hayPeticiones = false;
-		//Buscar por estado
 		Map<String, String> parametros = new HashMap<String, String>();
 		parametros.put(ConstantesGestionIncidencias.URL_STATE, ConstantesGestionIncidencias.STATE_NEW_SYSTEM);
 		String peticiones = RESTClient.doGet(parametros);
+		System.out.println(peticiones);
 		Gson gson = new Gson();
 		
 		Type listType = new TypeToken<ArrayList<Request>>() {}.getType();
