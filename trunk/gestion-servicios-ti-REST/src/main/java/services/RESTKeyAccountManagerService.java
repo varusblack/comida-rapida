@@ -68,8 +68,8 @@ public class RESTKeyAccountManagerService {
 		String peticiones = RESTClient.doGet(parametros);
 		
 		peticionesPendientesVip = gson.fromJson(peticiones, listType);
-		respuestaTTS = peticionesPendientesVip.get(0);
-		if (respuestaTTS != null) {
+		if (peticionesPendientesVip.size() > 0) {
+			respuestaTTS = peticionesPendientesVip.get(0);
 			hayRespuesta = true;
 		}
 		
