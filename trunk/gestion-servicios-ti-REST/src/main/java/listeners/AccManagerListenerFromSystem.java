@@ -14,14 +14,14 @@ public class AccManagerListenerFromSystem implements ExecutionListener {
 		
 		if((Boolean) execution.getVariable("hayRespuestas")) {
 			
-			Request request = RESTKeyAccountManagerService.getPeticionVip();
-			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_ID, request.getId());
-			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_ISSUE, request.getIssue());
-			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_DESCRIPTION, request.getDescription());
-			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_TYPE, request.getType());
-			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_AUTHOR, request.getAuthor());
-			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_DATE, request.getDate());
-			execution.setVariableLocal(ConstantesGestionIncidencias.TICKET_RESULTS, request.getSolution());
+			Request request = RESTKeyAccountManagerService.getRespuestaTTS();
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_ID, request.getId());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_ISSUE, request.getIssue());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_DESCRIPTION, request.getDescription());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_TYPE, request.getType());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_AUTHOR, request.getAuthor());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_DATE, request.getDate());
+			execution.setVariableLocal(ConstantesGestionIncidencias.SYSTEM_TICKET_RESULTS, request.getSolution());
 		}
 
 //		if (request != null) {

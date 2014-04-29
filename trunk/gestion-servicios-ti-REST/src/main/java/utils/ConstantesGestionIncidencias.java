@@ -29,9 +29,9 @@ public class ConstantesGestionIncidencias {
 	
 	// URL API RESTful
 	// AppEngine de Google
-	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/";
+//	public static final String URL_API = "http://1-dot-gestion-incidencias.appspot.com/incidences/";
 	// Local
-//	public static final String URL_API = "http://localhost:8888/incidences/"; 
+	public static final String URL_API = "http://localhost:8888/incidences/"; 
 	
 	// Parametros de la URL
 	public static final String URL_ID = "id";
